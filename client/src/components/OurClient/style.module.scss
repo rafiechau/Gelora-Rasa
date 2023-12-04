@@ -1,0 +1,39 @@
+.containerLogo{
+    margin-top: 2rem;
+    p{
+        text-align: center;
+        font-weight: 500;
+        font-size: 16px;
+        color: #A3A5AA;
+    }
+    .containerBigCompany{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        padding-top: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .containerLogo {
+        .titleContainerLogo, .containerBigCompany {
+            font-size: 14px;
+            gap: 1rem;
+        }
+    }
+}
+
+// Responsive Design untuk Ponsel
+@media (max-width: 480px) {
+    .containerLogo {
+        .titleContainerLogo {
+            font-size: 12px;
+        }
+
+        .containerBigCompany {
+            gap: 3rem;
+        }
+    }
+}
