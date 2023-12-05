@@ -1,0 +1,22 @@
+.registerForm{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    
+    
+    .registerBtn{
+        padding: 0.75rem;
+        border: none;
+        background-color: #00aaff;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        margin-top: 1rem;
+        transition: background-color 0.3s;
+        width: 100%;
+        &:hover{
+            background-color: #0088cc;
+        }
+    }
+}

@@ -1,0 +1,58 @@
+.registerForm{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    .timerComp{
+        font-size: small;
+        padding: 0.5rem 0 0.5rem 0;
+        @include directionX;
+        align-items: center;
+        gap: 0.5rem;
+        .buttonResend{
+            border: none;
+            background-color: var(--color-text);
+            border-radius: 10rem;
+            background-color: #00aaff;
+            cursor: pointer;
+            &:hover {
+              transform: scale(1.05, 1.05);
+            }
+        }
+    }
+    .btnWrap{
+        @include directionX;
+        gap: 2rem;
+        .otpBtn{
+            padding: 0.75rem;
+            border: none;
+            background-color: #00aaff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+            width: 100%;
+            &:hover{
+                background-color: #0088cc;
+            }
+        }
+        
+    }
+    
+    // .registerBtn{
+    //     padding: 0.75rem;
+    //     border: none;
+    //     background-color: #00aaff;
+    //     color: white;
+    //     border-radius: 5px;
+    //     cursor: pointer;
+    //     font-size: 1rem;
+    //     margin-top: 1rem;
+    //     transition: background-color 0.3s;
+    //     width: 100%;
+    //     &:hover{
+    //         background-color: #0088cc;
+    //     }
+    // }
+}

@@ -1,13 +1,27 @@
 import { produce } from 'immer';
 
-import { SET_LOGIN, SET_TOKEN } from '@containers/Client/constants';
+import {
+  IS_VERIFY,
+  RESET_REGISTER_STEP,
+  SET_EMAIL,
+  SET_EXPIRE_TIME,
+  SET_LOGIN,
+  SET_STEP,
+  SET_TOKEN,
+  SET_TOKEN_VERIFY,
+} from '@containers/Client/constants';
 
 export const initialState = {
   login: false,
   token: null,
+  step: 0,
+  email: null,
+  tokenVerify: null,
+  expire: null,
+  isVerify: false,
 };
 
-export const storedKey = ['token', 'login'];
+export const storedKey = ['token', 'login', 'step', 'email', 'tokenVerify', 'expire'];
 
 const clientReducer = (state = initialState, action) =>
   produce(state, (draft) => {
@@ -18,6 +32,23 @@ const clientReducer = (state = initialState, action) =>
       case SET_TOKEN:
         draft.token = action.token;
         break;
+      case SET_STEP:
+        draft.step = action.step;
+        break;
+      case SET_EMAIL:
+        draft.email = action.email;
+        break;
+      case IS_VERIFY:
+        draft.isVerify = action.isVerify;
+        break;
+      case SET_EXPIRE_TIME:
+        draft.expire = action.expire;
+        break;
+      case SET_TOKEN_VERIFY:
+        draft.tokenVerify = action.token;
+        break;
+      case RESET_REGISTER_STEP:
+        return initialState;
     }
   });
 

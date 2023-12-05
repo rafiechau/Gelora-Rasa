@@ -1,0 +1,32 @@
+.labelInput{
+    color: white; 
+    font-size: 1rem; 
+    margin-bottom: 0.5rem; 
+    .input{
+        width: 100%;
+        padding: 0.75rem;
+        margin-bottom: 1rem; 
+        border-radius: 5px;
+        border: 1px solid lighten($navy, 20%);
+        background-color: #333;
+        color: #ddd;
+        box-sizing: border-box;
+        &:focus {
+            outline: none;
+        }
+    }
+    .inputError {
+        border: 1px solid #ed0226;
+    }
+}
+.inputLabel {
+    @include directionX;
+    width: 100%;
+    padding: 0.5rem 0 0.5rem 0;
+    font-weight: 400;
+    font-size: small;
+}
+.inputLabelError {
+    color: #ed0226;
+    font-size: small;
+}

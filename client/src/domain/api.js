@@ -5,6 +5,7 @@ import request from '@utils/request';
 
 const urls = {
   ping: 'ping.json',
+  auth: 'auth',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -28,3 +29,7 @@ export const callAPI = async (endpoint, method, header = {}, params = {}, data =
 };
 
 export const ping = () => callAPI(urls.ping, 'get');
+
+export const apiHandleRegister = (data) => callAPI(`${urls.auth}/register`, 'POST', {}, {}, data);
+export const apiHandleSendVerifyEmail = (data) => callAPI(`${urls.auth}/verify-email`, 'POST', {}, {}, data);
+export const apiHandleCheckOtpVerifyEmail = (data) => callAPI(`${urls.auth}/check-otp`, 'POST', {}, {}, data);
