@@ -9,10 +9,12 @@ import {
   SET_STEP,
   SET_TOKEN,
   SET_TOKEN_VERIFY,
+  SET_USER,
 } from '@containers/Client/constants';
 
 export const initialState = {
   login: false,
+  user: null,
   token: null,
   step: 0,
   email: null,
@@ -21,7 +23,7 @@ export const initialState = {
   isVerify: false,
 };
 
-export const storedKey = ['token', 'login', 'step', 'email', 'tokenVerify', 'expire'];
+export const storedKey = ['login', 'user', 'token', 'step', 'email', 'tokenVerify', 'expire'];
 
 const clientReducer = (state = initialState, action) =>
   produce(state, (draft) => {
@@ -31,6 +33,9 @@ const clientReducer = (state = initialState, action) =>
         break;
       case SET_TOKEN:
         draft.token = action.token;
+        break;
+      case SET_USER:
+        draft.user = action.user;
         break;
       case SET_STEP:
         draft.step = action.step;

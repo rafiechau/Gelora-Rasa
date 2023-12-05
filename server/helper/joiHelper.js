@@ -2,8 +2,8 @@ const Joi = require("joi");
 const { handleResponse } = require("./handleResponseHelper");
 
 // Function to return error status and handle response
-exports.validateJoi = (res, data, schema, field = null) => {
-  const { error } = handleValidateJoi(data, schema, field);
+exports.validateJoi = (res, data, schema) => {
+  const { error } = schema.validate(data, { abortEarly: false });
   if (error) {
     return {
       error: true,
@@ -15,20 +15,17 @@ exports.validateJoi = (res, data, schema, field = null) => {
   }
   return { error: false, handleRes: null };
 };
-
 const handleValidateJoi = (data, schema, field) => {
   if (!field) {
-    return schema.validate(data, { abortEarly: false });
+    return Joi.object(schema).validate(data);
   } else {
-    const dynamicSchema = Joi.object(
-      Object.keys(schema.describe().keys)
-        .filter((key) => field.includes(key))
-        .reduce((obj, key) => {
-          obj[key] = schema[key];
-          return obj;
-        }, {})
-    );
-    return dynamicSchema.validate(data, { abortEarly: false });
+    const dynamicSchema = Object.keys(schema)
+      .filter((key) => field.includes(key))
+      .reduce((obj, key) => {
+        obj[key] = schema[key];
+        return obj;
+      }, {});
+    return Joi.object(dynamicSchema).validate(data);
   }
 };
 
@@ -52,3 +49,8 @@ exports.schemaUser = Joi.object({
   password: Joi.string().min(8).required(),
   role: Joi.number().valid(1, 2).required()
 });
+
+exports.schemaLogin = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().min(8).required(),
+})

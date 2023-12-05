@@ -1,10 +1,10 @@
 const CryptoJS = require("crypto-js");
 const { User } = require("../models");
-const { validateJoi, schemaUser } = require("../helper/joiHelper");
+const { validateJoi, schemaUser, schemaLogin } = require("../helper/joiHelper");
 const { handleServerError, handleResponse, handleSuccess } = require("../helper/handleResponseHelper");
-const { hashPassword } = require("../utils/bycrpt");
+const { hashPassword, comparePassword } = require("../utils/bycrpt");
 const { handleSendMailVerifyOTP } = require("../helper/sendMailHelper");
-const { createTokenVerifyEmail } = require("../utils/jwt");
+const { createTokenVerifyEmail, createToken } = require("../utils/jwt");
 exports.register = async(req, res) => {
     try{
         const newUser = req.body;
@@ -19,9 +19,6 @@ exports.register = async(req, res) => {
             newUser.confirmPassword,
             process.env.CRYPTOJS_SECRET
           ).toString(CryptoJS.enc.Utf8);
-
-          console.log(decrypteConfirmPassword)
-          console.log(decryptedPassword)
 
         if (decryptedPassword !== decrypteConfirmPassword) {
             return res.status(400).json({
@@ -109,3 +106,39 @@ exports.checkOtpVerifyEmail = async (req, res) => {
       return handleServerError(res);
     }
 };
+
+exports.login = async (req, res) => {
+    try{
+        const { email, password } = req.body
+
+        const plainPassword = CryptoJS.AES.decrypt(
+            password,
+            process.env.CRYPTOJS_SECRET
+          ).toString(CryptoJS.enc.Utf8);
+
+          const { error, handleRes } = validateJoi(res, { email, password: plainPassword }, schemaLogin);
+          if (error) {
+              return handleRes;
+          }
+
+        const dataUser = await User.findOne({
+            where: { email: email }
+        })
+
+        if (!dataUser || !comparePassword(plainPassword, dataUser?.password)) {
+            return handleResponse(res, 400, { message: "invalid email or password" });
+        }
+        console.log(dataUser)
+        const token = createToken(dataUser);
+        if (!token) {
+            throw new Error("Token Created failed");
+        }
+        return handleSuccess(res, {
+            token: token,
+            message: "Login success",
+        });
+    }catch(error){
+        console.log(error)
+        return handleServerError(res);
+    }
+}

@@ -1,5 +1,6 @@
 import {
   IS_VERIFY,
+  LOGIN_REQUEST,
   REGISTER_REQUEST,
   RESET_REGISTER_STEP,
   SEND_OTP,
@@ -10,6 +11,7 @@ import {
   SET_STEP,
   SET_TOKEN,
   SET_TOKEN_VERIFY,
+  SET_USER,
 } from '@containers/Client/constants';
 
 export const setLogin = (login) => ({
@@ -20,6 +22,17 @@ export const setLogin = (login) => ({
 export const setToken = (token) => ({
   type: SET_TOKEN,
   token,
+});
+
+export const setUser = (user) => ({
+  type: SET_USER,
+  user,
+});
+
+export const actionHandleLogin = (data, callback) => ({
+  type: LOGIN_REQUEST,
+  data,
+  callback,
 });
 
 export const actionHandleRegister = (data, callback) => ({

@@ -2,11 +2,21 @@ import CryptoJS from 'crypto-js';
 
 import { setLoading, showPopup } from '@containers/App/actions';
 import toast from 'react-hot-toast';
-import { apiHandleCheckOtpVerifyEmail, apiHandleRegister, apiHandleSendVerifyEmail } from '@domain/api';
+import { apiHandleCheckOtpVerifyEmail, apiHandleLogin, apiHandleRegister, apiHandleSendVerifyEmail } from '@domain/api';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import config from '@config/index';
-import { actionSetEmail, actionSetExpire, actionSetStep, actionSetTokenVerify, actionSetVerify } from './actions';
-import { REGISTER_REQUEST, SEND_OTP, SEND_VERIFY_EMAIL } from './constants';
+import { jwtDecode } from 'jwt-decode';
+import {
+  actionSetEmail,
+  actionSetExpire,
+  actionSetStep,
+  actionSetTokenVerify,
+  actionSetVerify,
+  setLogin,
+  setToken,
+  setUser,
+} from './actions';
+import { LOGIN_REQUEST, REGISTER_REQUEST, SEND_OTP, SEND_VERIFY_EMAIL } from './constants';
 
 function* sagaHandleSendVerifyEmail({ data }) {
   yield put(setLoading(true));
@@ -55,8 +65,28 @@ function* sagaHandleRegister({ data, callback }) {
     toast.success(response?.message);
     yield call(callback);
   } catch (error) {
-    console.log(error);
     if (error?.response?.status === 400 || error?.response?.status === 404) {
+      toast.error(error.response.data.message);
+    } else {
+      yield put(showPopup());
+    }
+  }
+  yield put(setLoading(false));
+}
+
+function* sagaHandleLogin({ data, callback }) {
+  yield put(setLoading(true));
+  try {
+    data.password = CryptoJS.AES.encrypt(data.password, config.api.cryto).toString();
+    const response = yield call(apiHandleLogin, data);
+    yield call(callback);
+    yield put(setLogin(true));
+    yield put(setToken(response.token));
+    const { role, id, fullName } = jwtDecode(response.token);
+    yield put(setUser({ role, id, fullName }));
+    toast.success(response.message);
+  } catch (error) {
+    if (error?.response?.status === 400) {
       toast.error(error.response.data.message);
     } else {
       yield put(showPopup());
@@ -69,4 +99,5 @@ export default function* AuthenticationSaga() {
   yield takeLatest(SEND_VERIFY_EMAIL, sagaHandleSendVerifyEmail);
   yield takeLatest(SEND_OTP, sagaHandleSendOTP);
   yield takeLatest(REGISTER_REQUEST, sagaHandleRegister);
+  yield takeLatest(LOGIN_REQUEST, sagaHandleLogin);
 }
