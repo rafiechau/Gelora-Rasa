@@ -15,19 +15,6 @@ exports.validateJoi = (res, data, schema) => {
   }
   return { error: false, handleRes: null };
 };
-const handleValidateJoi = (data, schema, field) => {
-  if (!field) {
-    return Joi.object(schema).validate(data);
-  } else {
-    const dynamicSchema = Object.keys(schema)
-      .filter((key) => field.includes(key))
-      .reduce((obj, key) => {
-        obj[key] = schema[key];
-        return obj;
-      }, {});
-    return Joi.object(dynamicSchema).validate(data);
-  }
-};
 
 
 // Schema User
@@ -53,4 +40,79 @@ exports.schemaUser = Joi.object({
 exports.schemaLogin = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().min(8).required(),
+})
+
+exports.schemaCategories = Joi.object({
+  categoryName: Joi.string().required().min(2).max(50).message({
+    'string.empty': `"name" cannot be an empty field`,
+    'string.min': `"name" should have a minimum length of {#limit}`,
+    'string.max': `"name" should have a maximum length of {#limit}`,
+    'any.required': `"name" is a required field`
+  })
+})
+
+exports.schemaEvent = Joi.object({
+  eventName: Joi.string().required().messages({
+    'string.base': `"eventName" must be a string`,
+    'string.empty': `"eventName" cannot be empty`,
+    'any.required': `"eventName" is a required field`
+  }),
+  date: Joi.date().required().messages({
+    'date.base': `"date" must be a valid date`,
+    'any.required': `"date" is a required field`
+  }),
+  registrationDealine: Joi.string().required().messages({
+    'string.base': `"registrationDealine" must be a string`,
+    'string.empty': `"registrationDealine" cannot be empty`,
+    'any.required': `"registrationDealine" is a required field`
+  }),
+  type: Joi.string().required().messages({
+    'string.base': `"type" must be a string`,
+    'string.empty': `"type" cannot be empty`,
+    'any.required': `"type" is a required field`
+  }),
+  address: Joi.string().required().messages({
+    'string.base': `"address" must be a string`,
+    'string.empty': `"address" cannot be empty`,
+    'any.required': `"address" is a required field`
+  }),
+  venueName: Joi.string().required().messages({
+    'string.base': `"venueName" must be a string`,
+    'string.empty': `"venueName" cannot be empty`,
+    'any.required': `"venueName" is a required field`
+  }),
+  status: Joi.string().required().messages({
+    'string.base': `"status" must be a string`,
+    'string.empty': `"status" cannot be empty`,
+    'any.required': `"status" is a required field`
+  }),
+  image: Joi.string().allow(null, '').messages({
+    'string.base': `"image" must be a string`,
+    'string.empty': `"image" cannot be empty`,
+  }),
+  price: Joi.string().required().messages({
+    'string.base': `"price" must be a string`,
+    'string.empty': `"price" cannot be empty`,
+    'any.required': `"price" is a required field`
+  }),
+  stok: Joi.number().integer().required().messages({
+    'number.base': `"stok" must be a number`,
+    'number.integer': `"stok" must be an integer`,
+    'any.required': `"stok" is a required field`
+  }),
+  locationId: Joi.number().integer().required().messages({
+    'number.base': `"locationId" must be a number`,
+    'number.integer': `"locationId" must be an integer`,
+    'any.required': `"locationId" is a required field`
+  }),
+  categoryId: Joi.number().integer().required().messages({
+    'number.base': `"categoryId" must be a number`,
+    'number.integer': `"categoryId" must be an integer`,
+    'any.required': `"categoryId" is a required field`
+  }),
+  userId: Joi.number().integer().required().messages({
+    'number.base': `"userId" must be a number`,
+    'number.integer': `"userId" must be an integer`,
+    'any.required': `"userId" is a required field`
+  }),
 })

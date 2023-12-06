@@ -15,6 +15,19 @@ exports.createToken = (user) => {
   return jwt.sign({ id, role, firstName }, process.env.SECRET_KEY);
 };
 
+exports.createTokenForForgetPassword = (email) => {
+  if (!email) {
+    return false;
+  }
+  return jwt.sign({ email }, process.env.SECRET_KEY_FOR_FORGET_PASSWORD, { expiresIn: "10m" });
+};
+
+exports.verifyTokenForForgetPassword = (token) => {
+  return jwt.verify(token, process.env.SECRET_KEY_FOR_FORGET_PASSWORD, {
+    expiresIn: 2 * 60 * 1000,
+  });
+};
+
 exports.verifyTokenVerifyEmail = (token) => {
   return jwt.verify(token, process.env.SECRET_KEY_VERIFY_EMAIL);
 };

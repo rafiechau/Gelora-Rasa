@@ -1,0 +1,125 @@
+.login{
+    background-color: $navy;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    .containerLogin{
+        width: 100%;
+        max-width: 400px;
+        background-color: #222;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        overflow-x: hidden;
+        .tabs{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            .tab {
+                flex-grow: 1;
+                text-align: center;
+                padding: 0.5rem 0;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                &:hover {
+                    background-color: lighten($navy, 10%); // Lightens tab on hover
+                    border-radius: 10px;
+                }
+            }
+            .active{
+                border-bottom: 2px solid #00aaff;
+            }
+        }
+        .loginForm{
+            display: flex;
+            flex-direction: column;
+            margin-top: 1rem;
+            .additionalOptions{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                .forgotPassword{
+                    color: #00aaff;
+                    text-decoration: none;
+                    font-size: 0.85rem;
+                    margin-bottom: 1rem;
+                    &:hover{
+                        text-decoration: underline;
+                    }
+                }
+            }
+            .loginBtn{
+                padding: 15px;
+                background-color: #00aaff;
+                border: none;
+                border-radius: 5px;
+                color: white;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                &:hover{
+                    background-color: #0088cc;
+                }
+            }
+            .showPassword {
+              @include directionX;
+              align-items: center;
+              padding-top: 0.25rem;
+              font-size: small;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .login {
+      padding: 10px;
+    }
+}
+  
+@media (max-width: 480px) {
+    .login {
+      padding: 1rem;
+    }
+  
+    .containerLogin {
+        width: 90%;
+        padding: 1.5rem;
+  
+      .tabs {
+        display: flex;
+        justify-content: space-around; 
+        margin-bottom: 20px;
+        .tab {
+            padding: 5px;
+            font-size: 14px; 
+          }
+      }
+  
+      .loginForm {
+        label {
+          input,
+          button {
+            padding: 0.5rem;
+          }
+        }
+  
+        .additionalOptions {
+          flex-direction: column;
+          align-items: flex-start;
+  
+          .forgotPassword {
+            margin-top: 0.5rem;
+          }
+        }
+        .loginBtn {
+            padding: 0.65rem; // Slightly less padding to make button slimmer on mobile
+          }
+      }
+    }
+}

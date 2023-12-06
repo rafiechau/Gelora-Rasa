@@ -4,15 +4,14 @@ import { connect, useDispatch } from 'react-redux';
 
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Box, TextField, Typography } from '@mui/material';
 import { OurClient } from '@components/OurClient';
 import InputTextField from '@components/InputTextField';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { actionHandleLogin } from '@containers/Client/actions';
-import classes from './style.module.scss';
 import { selectLogin } from '@containers/Client/selectors';
+import classes from './style.module.scss';
 
 const LoginPage = ({ login, intl: { formatMessage } }) => {
   const dispatch = useDispatch();

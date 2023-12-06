@@ -1,1 +1,49 @@
 @import '@styles/base';
+
+$navy: #151A26; // Define your color variable if not already defined
+$sidebar-bg: #2c2f33; // Sidebar background
+$sidebar-hover: #373b41; // Sidebar hover state
+$sidebar-active: #4caf50; // Sidebar active state
+$sidebar-radius: 8px; // Sidebar border radius
+
+.containerHome{
+    background-color: $navy;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+    .filterContainer{
+        flex: 0 0 250px;
+        padding: 15px;
+        max-width: 250px;
+        box-sizing: border-box;
+        background: linear-gradient(145deg, $sidebar-bg, $sidebar-hover);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: $sidebar-radius;
+        margin-right: 15px;
+        @media (max-width: 768px) {
+            flex: none;
+            max-width: 100%;
+            margin-right: 0;
+            margin-bottom: 20px;
+        }
+    }
+    .containerCard{
+        flex: 3;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        padding: 15px;
+        gap: 15px;
+        box-sizing: border-box;
+        @media (max-width: 768px) {
+          justify-content: center;
+        }
+    }
+}
+
+
+  

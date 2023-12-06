@@ -3,8 +3,8 @@ const { User } = require("../models");
 const { validateJoi, schemaUser, schemaLogin } = require("../helper/joiHelper");
 const { handleServerError, handleResponse, handleSuccess } = require("../helper/handleResponseHelper");
 const { hashPassword, comparePassword } = require("../utils/bycrpt");
-const { handleSendMailVerifyOTP } = require("../helper/sendMailHelper");
-const { createTokenVerifyEmail, createToken } = require("../utils/jwt");
+const { handleSendMailVerifyOTP, handleSendMailForgotPass } = require("../helper/sendMailHelper");
+const { createTokenVerifyEmail, createToken, createTokenForForgetPassword } = require("../utils/jwt");
 exports.register = async(req, res) => {
     try{
         const newUser = req.body;
@@ -142,3 +142,52 @@ exports.login = async (req, res) => {
         return handleServerError(res);
     }
 }
+
+exports.forgotPassword = async (req, res) => {
+    try {
+      const { email } = req.body;
+      const isUserExist = await User.findOne({ where: { email: email } });
+      if (!isUserExist) {
+        return handleNotFound(res);
+      }
+      const token = createTokenForForgetPassword(email);
+      const resp = await handleSendMailForgotPass(token, email);
+      if (resp.accepted.length > 0) {
+        return handleSuccess(res, {
+          message: "Check your email for forgot password",
+        });
+      } else {
+        return handleSuccess(res, {
+          message: "Email for forgot password failed to sent",
+        });
+      }
+    } catch (error) {
+      return handleServerError(res);
+    }
+};
+  
+exports.setResetPassword = async (req, res) => {
+    try {
+      const { email } = req;
+      const { new_password } = req.body;
+  
+      const plainPassword = CryptoJS.AES.decrypt(
+        new_password,
+        process.env.CRYPTOJS_SECRET
+      ).toString(CryptoJS.enc.Utf8);
+  
+      const isUserExist = await User.findOne({ where: { email: email } });
+      if (!isUserExist) {
+        return handleNotFound(res);
+      }
+      await User.update(
+        { password: hashPassword(plainPassword) },
+        { where: { email: email } }
+      );
+      return handleSuccess(res, {
+        message: "Success reset password",
+      });
+    } catch (error) {
+      return handleServerError(res);
+    }
+};
