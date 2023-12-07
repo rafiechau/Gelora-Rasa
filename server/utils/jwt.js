@@ -15,6 +15,13 @@ exports.createToken = (user) => {
   return jwt.sign({ id, role, firstName }, process.env.SECRET_KEY);
 };
 
+exports.verifyToken = (token) => {
+  return jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
+    if (decoded) return decoded;
+    if (err) return { error: true };
+  });
+};
+
 exports.createTokenForForgetPassword = (email) => {
   if (!email) {
     return false;

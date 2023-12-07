@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+import { connect, useDispatch } from 'react-redux';
+import { injectIntl } from 'react-intl';
 import Zoom from '@mui/material/Zoom';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -9,6 +10,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Checkbox,
+  CircularProgress,
   Drawer,
   FormControlLabel,
   FormGroup,
@@ -19,13 +21,36 @@ import {
 } from '@mui/material';
 import CardItem from '@components/CardItem';
 import { useTheme } from '@emotion/react';
+import { createStructuredSelector } from 'reselect';
+import { selectToken } from '@containers/Client/selectors';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import classes from './style.module.scss';
+import { selectAllEvent } from './selectors';
+import { getAllEvent } from './actions';
 
-const Home = () => {
+const Home = ({ allEvent, token }) => {
   const dispatch = useDispatch();
   const [filterOpen, setFilterOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(getAllEvent(token, page));
+    }
+  }, [dispatch, token, page]);
+
+  const fetchMoreData = () => {
+    setTimeout(() => {
+      if (allEvent.length === 0) {
+        setHasMore(false);
+      } else {
+        setPage((prevPage) => prevPage + 1);
+      }
+    }, 1500);
+  };
 
   const renderFilterOptions = () => (
     <>
@@ -95,27 +120,42 @@ const Home = () => {
       )}
 
       <div className={classes.containerCard}>
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
+        <InfiniteScroll
+          dataLength={allEvent.length}
+          next={fetchMoreData}
+          hasMore
+          loader={
+            hasMore ? (
+              <CircularProgress
+                sx={{ position: 'fixed', left: '50%', bottom: '50px', transform: 'translateX(-50%)', zIndex: 1000 }}
+                color="secondary"
+              />
+            ) : null
+          }
+          endMessage={
+            <p style={{ textAlign: 'center' }}>
+              <b>You have seen it all</b>
+            </p>
+          }
+          className={classes.containerCard}
+        >
+          {allEvent.map((event) => (
+            <CardItem key={event.id} event={event} />
+          ))}
+        </InfiniteScroll>
       </div>
     </div>
   );
 };
 
-export default Home;
+Home.propTypes = {
+  allEvent: PropTypes.array,
+  token: PropTypes.string,
+};
+
+const mapStateToProps = createStructuredSelector({
+  allEvent: selectAllEvent,
+  token: selectToken,
+});
+
+export default injectIntl(connect(mapStateToProps)(Home));

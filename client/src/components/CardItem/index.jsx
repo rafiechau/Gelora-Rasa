@@ -1,26 +1,37 @@
 import { selectToken } from '@containers/Client/selectors';
-import {
-  Box,
-  Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-  makeStyles,
-  useMediaQuery,
-} from '@mui/material';
+import { Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import ShareIcon from '@mui/icons-material/Share';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { useState } from 'react';
-import { useTheme } from '@emotion/react';
+import config from '@config/index';
+import { useNavigate } from 'react-router-dom';
 
-const CardItem = () => {
+const CardItem = ({ event, token }) => {
   const dispatch = useDispatch();
-  
+  const navigate = useNavigate();
+
+  const navigateToDetailEvent = () => {
+    navigate(`/detail/${event.id}`);
+  };
+
+  const formattedPrice = new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    minimumFractionDigits: 0,
+  }).format(event.price);
+
+  const formattedDate = new Intl.DateTimeFormat('id-ID', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(new Date(event.date));
+
+  const imageUrl =
+    event && event?.image
+      ? `${config.api.server}${event?.image.replace('\\', '/')}`
+      : 'https://source.unsplash.com/random';
+
   return (
     <Card
       sx={{
@@ -35,31 +46,26 @@ const CardItem = () => {
         overflow: 'hidden',
       }}
     >
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="200"
-          image="/static/images/cards/event-image.jpg" // Your image path here
-          alt="Event Image"
-        />
+      <CardActionArea onClick={() => navigateToDetailEvent(event.id)}>
+        <CardMedia component="img" height="200" image={imageUrl} alt={event.eventName} />
         <CardContent sx={{ bgcolor: 'rgba(29, 36, 51, 0.9)', color: 'white' }}>
           <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
-            Event Title
+            {event.eventName}
           </Typography>
-          <Box display="flex" justifyContent="space-between" alignItems="center" mt={1}>
+          <Box display="flex" justifyContent="space-between" alignItems="center" mt={1} gap={2}>
             <Box>
               <Typography variant="caption" display="block" color="text.secondary">
-                29 November 2023
+                {formattedDate}
               </Typography>
               <Typography variant="caption" display="block" color="text.secondary">
-                Jakarta
+                {event.Location.namaProvinsi}
               </Typography>
             </Box>
             <Typography
               variant="subtitle1"
               sx={{ display: 'flex', alignItems: 'center', color: '#4DD0E1', fontWeight: 'medium' }}
             >
-              100.000,-
+              {formattedPrice}
             </Typography>
           </Box>
         </CardContent>
@@ -80,12 +86,8 @@ const CardItem = () => {
 };
 
 CardItem.propTypes = {
-  post: PropTypes.object.isRequired,
+  event: PropTypes.object.isRequired,
   token: PropTypes.string,
-  userHasVoted: PropTypes.object,
-  onEdit: PropTypes.func,
-  isEditable: PropTypes.bool,
-  user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

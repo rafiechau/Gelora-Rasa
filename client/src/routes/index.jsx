@@ -1,4 +1,5 @@
 import MainLayout from '@layouts/MainLayout';
+import DetailEvent from '@pages/DetailEvent';
 import ForgotPassword from '@pages/ForgotPassword';
 
 import Home from '@pages/Home';
@@ -31,6 +32,13 @@ const routes = [
     name: 'Forgot Password',
     protected: false,
     component: ForgotPassword,
+  },
+  {
+    path: '/detail/:eventId',
+    name: 'Detail Event',
+    protected: false,
+    component: DetailEvent,
+    layout: MainLayout,
   },
   // {
   //   path: '/:token/reset-password',

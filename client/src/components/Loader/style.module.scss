@@ -1,14 +1,5 @@
 @import '@styles/base';
 
-@keyframes image-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .loaderComponent {
   position: fixed;
   top: 0;
@@ -20,17 +11,12 @@
   height: 100%;
   background: $color-white-fade;
   z-index: 9990;
-
-  @media (prefers-reduced-motion: no-preference) {
-    img {
-      width: 3.75rem;
-      height: 60px;
-      border-radius: 100%;
-      padding: 0.75rem;
-      animation: image-spin infinite 0.8s linear;
-    }
+  .progress {
+    top: 0;
+    position: absolute;
+    height: 0.2rem;
+    width: 100%;
   }
-
   &.showLoader {
     display: flex;
   }

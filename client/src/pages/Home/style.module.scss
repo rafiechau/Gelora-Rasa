@@ -1,10 +1,10 @@
 @import '@styles/base';
 
-$navy: #151A26; // Define your color variable if not already defined
-$sidebar-bg: #2c2f33; // Sidebar background
-$sidebar-hover: #373b41; // Sidebar hover state
-$sidebar-active: #4caf50; // Sidebar active state
-$sidebar-radius: 8px; // Sidebar border radius
+$navy: #151A26; 
+$sidebar-bg: #2c2f33; 
+$sidebar-hover: #373b41;
+$sidebar-active: #4caf50; 
+$sidebar-radius: 8px; 
 
 .containerHome{
     background-color: $navy;

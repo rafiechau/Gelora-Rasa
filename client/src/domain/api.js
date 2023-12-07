@@ -6,6 +6,7 @@ import request from '@utils/request';
 const urls = {
   ping: 'ping.json',
   auth: 'auth',
+  events: 'events',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -36,3 +37,15 @@ export const apiHandleCheckOtpVerifyEmail = (data) => callAPI(`${urls.auth}/chec
 export const apiHandleLogin = (data) => callAPI(`${urls.auth}/login`, 'POST', {}, {}, data);
 export const apiHandleSendForgotPassword = (data) => callAPI(`${urls.auth}/forgot-password`, 'POST', {}, {}, data);
 export const apiHandleResetForgotPassword = (data) => callAPI(`${urls.auth}/reset-password`, 'PUT', {}, {}, data);
+
+// Event
+export const getEventApi = (token, page) =>
+  callAPI(`${urls.events}/?page=${page}`, 'GET', { Authorization: `Bearer ${token}` });
+
+export const deleteEventByIdApi = (eventId, token) =>
+  callAPI(`${urls.events}/delete/${eventId}`, 'DELETE', { Authorization: `Bearer ${token}` });
+
+export const createEventApi = (data, token) =>
+  callAPI(`${urls.events}/create`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
+export const updateEventByIdApi = (eventId, data, token) =>
+  callAPI(`${urls.events}/update/${eventId}`, 'PUT', { Authorization: `Bearer ${token}` }, {}, data);
