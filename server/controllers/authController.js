@@ -1,7 +1,7 @@
 const CryptoJS = require("crypto-js");
 const { User } = require("../models");
 const { validateJoi, schemaUser, schemaLogin } = require("../helper/joiHelper");
-const { handleServerError, handleResponse, handleSuccess } = require("../helper/handleResponseHelper");
+const { handleServerError, handleResponse, handleSuccess, handleClientError, handleNotFound } = require("../helper/handleResponseHelper");
 const { hashPassword, comparePassword } = require("../utils/bycrpt");
 const { handleSendMailVerifyOTP, handleSendMailForgotPass } = require("../helper/sendMailHelper");
 const { createTokenVerifyEmail, createToken, createTokenForForgetPassword } = require("../utils/jwt");
@@ -191,3 +191,66 @@ exports.setResetPassword = async (req, res) => {
       return handleServerError(res);
     }
 };
+
+exports.editProfile = async (req, res) => {
+  try{
+
+  }catch(error){
+    return handleServerError(res);
+  }
+}
+
+exports.editPhotoProfile = async (req, res) => {
+  try{
+    const { id } = req;
+    const image = req?.file?.path
+    if(!image){
+      return handleClientError(res, 404, "Image Not Found")
+    }
+    const isExist = await User.findOne({ where: {id: id }})
+    if(!isExist){
+      return handleNotFound(res)
+    }
+    if (isExist.imagePath && isExist.imagePath !== "uploads/default.jpg") {
+      unlink(isExist.imagePath, (err) => {});
+    }
+    const response = await isExist.update({ imagePath: image });
+
+    return handleSuccess(res, {
+      data: response,
+      message: "success edit photo profile",
+    });
+  }catch(error){
+    return handleServerError(res);
+  }
+}
+
+exports.getProfile = async (req, res) => {
+  try{
+      const { id } = req;
+      const response = await User.findByPk(id)
+      if(!response){
+        return handleNotFound(res)
+      }
+      delete response.password
+      return handleSuccess(res, { data: response, message: "success" });
+  }catch(error){
+    return handleServerError(res)
+  }
+}
+
+// exports.deleteUser = async(req, res) => {
+//   try{
+
+//   }catch(error){
+//     return handleServerError(res)
+//   }
+// }
+
+// exports.logout = async (req, res) => {
+//   try{
+//     const { id } = req
+//   }catch(error){
+//     return handleServerError(res)
+//   }
+// }

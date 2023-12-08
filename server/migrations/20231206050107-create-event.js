@@ -17,9 +17,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       },
+      time: {
+        allowNull: false,
+        type: Sequelize.TIME
+      },
       registrationDealine: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       type: {
         allowNull: false,
@@ -48,6 +52,9 @@ module.exports = {
       stok: {
         allowNull: false,
         type: Sequelize.INTEGER
+      },
+      description:{
+        type: Sequelize.TEXT
       },
       locationId: {
         allowNull: false,

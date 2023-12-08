@@ -5,6 +5,7 @@ import clientReducer, { storedKey as storedClientState } from '@containers/Clien
 import languageReducer from '@containers/Language/reducer';
 
 import homeReducer from '@pages/Home/reducer';
+import detailEventReducer from '@pages/DetailEvent/reducer';
 import { mapWithPersistor } from './persistence';
 
 const storedReducers = {
@@ -15,6 +16,7 @@ const storedReducers = {
 const temporaryReducers = {
   language: languageReducer,
   home: homeReducer,
+  detailEvent: detailEventReducer,
 };
 
 const createReducer = () => {

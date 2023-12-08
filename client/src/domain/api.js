@@ -49,3 +49,6 @@ export const createEventApi = (data, token) =>
   callAPI(`${urls.events}/create`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
 export const updateEventByIdApi = (eventId, data, token) =>
   callAPI(`${urls.events}/update/${eventId}`, 'PUT', { Authorization: `Bearer ${token}` }, {}, data);
+
+export const getEventByIdApi = (eventId, token) =>
+  callAPI(`${urls.events}/detail/${eventId}`, 'GET', { Authorization: `Bearer ${token}` });

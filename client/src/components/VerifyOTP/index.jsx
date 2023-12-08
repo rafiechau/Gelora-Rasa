@@ -12,6 +12,8 @@ import classes from './style.module.scss';
 const VerifyOTP = ({ tokenVerify, isExpire, email, step, intl: { formatMessage } }) => {
   const dispatch = useDispatch();
 
+  console.log(isExpire);
+
   const {
     handleSubmit,
     register,

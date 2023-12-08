@@ -10,6 +10,7 @@ const config = {
     host: env.API_HOST,
     server: env.SERVER_HOST,
     cryto: env.CRYPTOJS_SECRET,
+    midtrans: env.MIDTRANS_CLIENT_SERVER_KEY,
   },
 };
 

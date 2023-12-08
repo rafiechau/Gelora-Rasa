@@ -41,6 +41,37 @@ exports.getAllEvent = async(req, res) => {
         return handleServerError(res, error)
     }
 }
+
+exports.getDetailEvent = async(req, res) => {
+    try{
+        const { eventId } = req.params;
+        const event = await Event.findByPk(eventId, {
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName', 'email'],
+                },
+                {
+                    model: Category,
+                    attributes: ['id', 'categoryName'],
+                },
+                {
+                    model: Location,
+                    attributes: ['id', 'namaProvinsi'],
+                }
+            ],
+            attributes: { exclude: ['userId', 'locationId', 'categoryId']}
+        })
+
+        if(!event){
+            return handleResponse(res, 404, { message: 'Event Not Found' })
+        }
+        return handleResponse(res, 200, event)
+    }catch(error){
+        console.log(error)
+        return handleServerError(res, error)
+    }
+}
 exports.createEvent = async(req, res) => {
     try{
         const image = req.file ? req.file.path : null;

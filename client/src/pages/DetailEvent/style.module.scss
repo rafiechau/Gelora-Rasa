@@ -51,8 +51,9 @@ $fixed-bar-height: 70px;
             flex-direction: column;
             justify-content: space-between;
             font-size: .8rem;
-            h1{
+            .title{
                 font-size: 2rem;
+                font-weight: bold;
                 color: $accent-color;
             }
             .organizer {

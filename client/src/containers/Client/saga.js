@@ -22,6 +22,7 @@ function* sagaHandleSendVerifyEmail({ data }) {
   yield put(setLoading(true));
   try {
     const response = yield call(apiHandleSendVerifyEmail, data);
+    console.log(response.data.expire)
     toast.success(response?.message);
     yield put(actionSetVerify(false));
     yield put(actionSetStep(1));
@@ -29,6 +30,7 @@ function* sagaHandleSendVerifyEmail({ data }) {
     yield put(actionSetExpire(response.data.expire));
     yield put(actionSetEmail(data.email));
   } catch (error) {
+    console.log(error)
     if (error?.response?.status === 400 || error?.response?.status === 404) {
       toast.error(error.response.data.message);
     } else {

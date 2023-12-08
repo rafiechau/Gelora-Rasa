@@ -1,14 +1,14 @@
 import { selectLogin } from '@containers/Client/selectors';
 import PropTypes from 'prop-types';
 import toast from 'react-hot-toast';
-import { injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import InputTextField from '@components/InputTextField';
 import { OurClient } from '@components/OurClient';
 
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import classes from './style.module.scss';
@@ -33,9 +33,9 @@ const ForgotPasswordPage = ({ login, intl: { formatMessage } }) => {
   }, [formatMessage, login, navigate]);
 
   const onSubmit = (data) => {
-    dispatch(
-      acti
-    )
+    // dispatch(
+    //   acti
+    // )
   }
 
   return (

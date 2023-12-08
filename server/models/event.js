@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
   Event.init({
     eventName: DataTypes.STRING,
     date: DataTypes.DATE,
-    registrationDealine: DataTypes.STRING,
+    time: DataTypes.TIME,
+    registrationDealine: DataTypes.DATE,
     type: DataTypes.STRING,
     address: DataTypes.TEXT,
     venueName: DataTypes.STRING,
@@ -27,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     image: DataTypes.STRING,
     price: DataTypes.STRING,
     stok: DataTypes.INTEGER,
+    description: DataTypes.TEXT,
     locationId: DataTypes.INTEGER,
     categoryId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER

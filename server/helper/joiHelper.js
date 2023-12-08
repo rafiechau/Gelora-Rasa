@@ -61,6 +61,11 @@ exports.schemaEvent = Joi.object({
     'date.base': `"date" must be a valid date`,
     'any.required': `"date" is a required field`
   }),
+  time: Joi.string().pattern(new RegExp('^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$')).required().messages({
+    'string.pattern.base': `"time" must be in HH:mm format`,
+    'string.empty': `"time" cannot be empty`,
+    'any.required': `"time" is a required field`
+  }),
   registrationDealine: Joi.string().required().messages({
     'string.base': `"registrationDealine" must be a string`,
     'string.empty': `"registrationDealine" cannot be empty`,
@@ -99,6 +104,10 @@ exports.schemaEvent = Joi.object({
     'number.base': `"stok" must be a number`,
     'number.integer': `"stok" must be an integer`,
     'any.required': `"stok" is a required field`
+  }),
+  description: Joi.string().allow(null, '').messages({
+    'string.base': `"description" must be a string`,
+    'string.empty': `"description" can be empty`
   }),
   locationId: Joi.number().integer().required().messages({
     'number.base': `"locationId" must be a number`,
