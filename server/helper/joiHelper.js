@@ -125,3 +125,8 @@ exports.schemaEvent = Joi.object({
     'any.required': `"userId" is a required field`
   }),
 })
+
+exports.schemaOrder = Joi.object({
+    totalTickets: Joi.number().integer().min(1).required(),
+    ticketsTypes: Joi.string().required()
+})

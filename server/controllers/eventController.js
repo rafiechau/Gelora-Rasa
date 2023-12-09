@@ -76,7 +76,7 @@ exports.createEvent = async(req, res) => {
     try{
         const image = req.file ? req.file.path : null;
         const newEvent   = { ...req.body, ...(image && { image }) };
-        console.log(newEvent)
+
         const { error, handleRes } = validateJoi(res, newEvent, schemaEvent);
         if (error) {
           return handleRes;

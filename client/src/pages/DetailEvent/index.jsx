@@ -18,6 +18,7 @@ const DetailEventPage = ({ event, loading }) => {
   const { eventId } = useParams();
   const [ticketQuantity, setTicketQuantity] = useState(1);
   const [countdown, setCountdown] = useState('');
+  const [selectedTicketType, setSelectedTicketType] = useState(event?.type === 'hybrid' ? 'offline' : event?.type);
 
   const handleQuantityChange = (event) => {
     setTicketQuantity(event.target.value);
@@ -50,6 +51,10 @@ const DetailEventPage = ({ event, loading }) => {
     return () => clearInterval(countdownInterval);
   }, [event.registrationDealine]);
 
+  const handleTicketTypeChange = (e) => {
+    setSelectedTicketType(e.target.value);
+  };
+
   const formattedPrice = new Intl.NumberFormat('id-ID', {
     style: 'currency',
     currency: 'IDR',
@@ -69,8 +74,6 @@ const DetailEventPage = ({ event, loading }) => {
     event && event?.image
       ? `${config.api.server}${event?.image.replace('\\', '/')}`
       : 'https://source.unsplash.com/random';
-
-  console.log(imageUrl);
 
   return (
     <div className={classes.containerDetail}>
@@ -117,6 +120,34 @@ const DetailEventPage = ({ event, loading }) => {
                   </button>
                 </span>
               </div>
+              {event?.type === 'hybrid' && (
+                <div className={classes.ticketTypeSelector}>
+                  <label htmlFor="offline" className={classes.radioLabel}>
+                    <input
+                      type="radio"
+                      name="ticketType"
+                      value="offline"
+                      id="offline"
+                      checked={selectedTicketType === 'offline'}
+                      onChange={handleTicketTypeChange}
+                      className={classes.radioInput}
+                    />
+                    Offline
+                  </label>
+                  <label htmlFor="online" className={classes.radioLabel}>
+                    <input
+                      type="radio"
+                      name="ticketType"
+                      value="online"
+                      id="online"
+                      checked={selectedTicketType === 'online'}
+                      onChange={handleTicketTypeChange}
+                      className={classes.radioInput}
+                    />
+                    Online
+                  </label>
+                </div>
+              )}
               <div className={classes.containerButton}>
                 <span>Pembelian tiket ditutup dalam {countdown} </span>
                 <button type="button" className={classes.buyNow}>
