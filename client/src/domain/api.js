@@ -7,6 +7,8 @@ const urls = {
   ping: 'ping.json',
   auth: 'auth',
   events: 'events',
+  orders: 'orders',
+  eventOrganizer: 'event-organizer',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -52,3 +54,15 @@ export const updateEventByIdApi = (eventId, data, token) =>
 
 export const getEventByIdApi = (eventId, token) =>
   callAPI(`${urls.events}/detail/${eventId}`, 'GET', { Authorization: `Bearer ${token}` });
+
+// Order
+
+export const createOrderApi = (eventId, data, token) =>
+  callAPI(`${urls.orders}/create/${eventId}`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
+
+export default (orderId, status, token) =>
+  callAPI(`${urls.orders}/update-status/${orderId}`, 'PUT', { Authorization: `Bearer ${token}` }, {}, { status });
+
+// event organizer
+export const createEventOrganizerApi = (data, token) =>
+  callAPI(`${urls.eventOrganizer}/create`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);

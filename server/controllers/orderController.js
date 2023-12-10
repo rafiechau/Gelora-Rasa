@@ -2,7 +2,7 @@ const { Event, Order, User } = require("../models");
 const { handleResponse, handleServerError, handleSuccess, handleCreated } = require("../helper/handleResponseHelper");
 const { validateJoi, schemaOrder } = require("../helper/joiHelper");
 const midtransClient = require('midtrans-client');
-const getCurrentTimestamp = require("../helper/TimeStamp");
+
 
 
 exports.createOrder = async (req, res) => {
@@ -10,6 +10,8 @@ exports.createOrder = async (req, res) => {
         const userId = req.id;
         const { eventId } = req.params;
         const  { totalTickets, ticketsTypes }= req.body;
+        console.log(totalTickets)
+        console.log(ticketsTypes)
 
         const { error, handleRes } = validateJoi(res, req.body, schemaOrder);
         if (error) {
@@ -19,15 +21,15 @@ exports.createOrder = async (req, res) => {
         const event = await Event.findByPk(eventId)
         const userOrder = await User.findByPk(userId);
 
-        const alreadyOrder =  await Order.findOne({where: { userId: userId, eventId: eventId }})
-        if(alreadyOrder){
-            return res.status(403).json({
-                message: "User already order "
-            });
-        }
+        // const alreadyOrder =  await Order.findOne({where: { userId: userId, eventId: eventId }})
+        // if(alreadyOrder){
+        //     return res.status(403).json({
+        //         message: "User already order "
+        //     });
+        // }
 
         if(!event || !userOrder){
-            return handleResponse(res, 404, { message: 'Event not found' })
+            return handleResponse(res, 404, { message: 'Event or User not found' })
         }
 
         const totalPay = totalTickets * event.price
@@ -50,7 +52,7 @@ exports.createOrder = async (req, res) => {
 
         let parameter = {
             "transaction_details": {
-                order_id: getCurrentTimestamp(),
+                order_id: `Order-${newOrder.id}`,
                 gross_amount: totalPay,
             },
             credit_card: {
@@ -62,18 +64,13 @@ exports.createOrder = async (req, res) => {
                 last_name: userOrder?.lastName
             },
         }
-        snap.createTransaction(parameter)
-            .then((transaction)=>{
-                res.status(201).json({
-                    message: 'Order created successfully',
-                    newOrder,
-                    paymentUrl: transaction.redirect_url
-                });
-            })
-            .catch((error) => {
-                console.error('Error creating transaction:', error);
-                return handleServerError(res, error);
-            });
+        const transaction = await snap.createTransaction(parameter);
+        res.status(201).json({
+            message: 'Order created successfully',
+            order: newOrder,
+            token: transaction.token,
+            paymentUrl: transaction.redirect_url
+        });
     }catch(error){
         console.log(error)
         return handleServerError(res, error)

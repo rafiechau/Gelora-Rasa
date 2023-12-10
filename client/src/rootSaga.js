@@ -6,7 +6,16 @@ import homeSaga from '@pages/Home/saga';
 import detailSaga from '@pages/DetailEvent/saga';
 import forgotPasswordSaga from '@pages/ForgotPassword/saga';
 import resetPasswordSaga from '@pages/ResetPassword/saga';
+import createEventOrganizerSaga from '@pages/BecomeEventOrganizer/saga';
 
 export default function* rootSaga() {
-  yield all([appSaga(), AuthenticationSaga(), homeSaga(), detailSaga(), forgotPasswordSaga(), resetPasswordSaga()]);
+  yield all([
+    appSaga(),
+    AuthenticationSaga(),
+    homeSaga(),
+    detailSaga(),
+    forgotPasswordSaga(),
+    resetPasswordSaga(),
+    createEventOrganizerSaga(),
+  ]);
 }

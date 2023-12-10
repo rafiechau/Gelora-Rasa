@@ -12,7 +12,6 @@ const detailEventReducer = (state = initialState, action) =>
     switch (action.type) {
       case SET_EVENT_BY_ID:
         draft.event = action.event;
-        console.log(draft.event)
         break;
     }
   });

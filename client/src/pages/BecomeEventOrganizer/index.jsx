@@ -7,9 +7,11 @@ import Tesseract from 'tesseract.js';
 
 import InputTextField from '@components/InputTextField';
 import { useForm } from 'react-hook-form';
+import { selectToken } from '@containers/Client/selectors';
 import classes from './style.module.scss';
+import { createEventOrganizer } from './actions';
 
-const BecomeEventOrganizerPage = ({ intl: { formatMessage } }) => {
+const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token }) => {
   const dispatch = useDispatch();
   const [image, setImage] = useState(null);
   const [ocrResult, setOcrResult] = useState({});
@@ -55,18 +57,18 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage } }) => {
 
     const result = {
       nik: nikMatch ? nikMatch[1] : '',
-      nameKtp: nameMatch ? nameMatch[1].replace(/\nTempat$/, '').trim() : '',
-      gender: genderMatch ? genderMatch[1].trim() : '',
+      namaLengkap: nameMatch ? nameMatch[1].replace(/\nTempat$/, '').trim() : '',
+      jenisKelamin: genderMatch ? genderMatch[1].trim() : '',
       golonganDarah: bloodTypeMatch ? bloodTypeMatch[1].trim() : '',
-      placeOfBirth: placeAndDateOfBirthMatch ? placeAndDateOfBirthMatch[1].trim() : ' ',
-      dateOfBirth: placeAndDateOfBirthMatch ? placeAndDateOfBirthMatch[2].trim() : ' ',
-      province: provinceMatch ? province : '',
-      KotaKabupaten: provinceMatch ? city : '',
-      address: addressMatch ? addressMatch[1].trim() : '',
+      tempatLahir: placeAndDateOfBirthMatch ? placeAndDateOfBirthMatch[1].trim() : ' ',
+      tanggalLahir: placeAndDateOfBirthMatch ? placeAndDateOfBirthMatch[2].trim() : ' ',
+      provinsi: provinceMatch ? province : '',
+      kotaKabupaten: provinceMatch ? city : '',
+      alamat: addressMatch ? addressMatch[1].trim() : '',
       rt: parts[0] ? parts[0] : '',
       rw: parts[1] ? parts[1] : '',
-      kelurahanDesa: kelurahanDesaMatch ? kelurahan : '',
-      kecamatan: kecamatanMatch ? kecamatan : '',
+      kelurahanDesa: kelurahanDesaMatch ? kelurahan[0] : '',
+      kecamatan: kecamatanMatch ? kecamatan[0] : '',
       agama: agamaMatch ? agamaMatch[1].replace('Status Perkawinan', '').trim() : '',
       statusPerkawinan: maritalStatusMatch ? maritalStatusMatch[1].replace('Pekerjaan', '').trim() : '',
       statusKerja: occupationMatch ? occupationMatch[1].replace('Kewarganegaraan', '').trim() : '',
@@ -96,7 +98,8 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage } }) => {
   };
 
   const onSubmit = (data) => {
-    console.log('Submitted Data:', data);
+    console.log(data)
+    dispatch(createEventOrganizer(data, token));
   };
 
   return (
@@ -127,7 +130,7 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage } }) => {
           />
           <InputTextField
             input={{
-              name: 'nameKtp',
+              name: 'namaLengkap',
               required: formatMessage({ id: 'app_ktp_name_require_message' }),
               type: 'text',
               label: formatMessage({ id: 'app_ktp_name' }),
@@ -137,7 +140,7 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage } }) => {
           />
           <InputTextField
             input={{
-              name: 'gender',
+              name: 'jenisKelamin',
               required: formatMessage({ id: 'app_ktp_jenisKelamin_require_message' }),
               type: 'text',
               label: formatMessage({ id: 'app_ktp_jenisKelamin' }),
@@ -157,7 +160,7 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage } }) => {
           />
           <InputTextField
             input={{
-              name: 'placeOfBirth',
+              name: 'tempatLahir',
               required: formatMessage({ id: 'app_ktp_place_of_birth_require_message' }),
               type: 'text',
               label: formatMessage({ id: 'app_ktp_place_of_birth' }),
@@ -167,9 +170,9 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage } }) => {
           />
           <InputTextField
             input={{
-              name: 'dateOfBirth',
+              name: 'tanggalLahir',
               required: formatMessage({ id: 'app_ktp_date_of_birth_require_message' }),
-              type: 'date',
+              type: 'text',
               label: formatMessage({ id: 'app_ktp_date_of_birth' }),
             }}
             register={register}
@@ -177,7 +180,7 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage } }) => {
           />
           <InputTextField
             input={{
-              name: 'province',
+              name: 'provinsi',
               required: formatMessage({ id: 'app_ktp_province_require_message' }),
               type: 'text',
               label: formatMessage({ id: 'app_ktp_province' }),
@@ -187,7 +190,7 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage } }) => {
           />
           <InputTextField
             input={{
-              name: 'KotaKabupaten',
+              name: 'kotaKabupaten',
               required: formatMessage({ id: 'app_ktp_KotaKabupaten_require_message' }),
               type: 'text',
               label: formatMessage({ id: 'app_ktp_KotaKabupaten' }),
@@ -198,7 +201,7 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage } }) => {
 
           <InputTextField
             input={{
-              name: 'address',
+              name: 'alamat',
               required: formatMessage({ id: 'app_ktp_address_require_message' }),
               type: 'text',
               label: formatMessage({ id: 'app_ktp_address' }),
@@ -286,6 +289,9 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage } }) => {
             register={register}
             errors={errors}
           />
+          <button type="submit" className={classes.buttonSubmit}>
+            Submit
+          </button>
         </form>
       </div>
     </div>
@@ -307,8 +313,11 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage } }) => {
 
 BecomeEventOrganizerPage.propTypes = {
   intl: PropTypes.object,
+  token: PropTypes.string,
 };
 
-const mapStateToProps = createStructuredSelector({});
+const mapStateToProps = createStructuredSelector({
+  token: selectToken,
+});
 
 export default injectIntl(connect(mapStateToProps)(BecomeEventOrganizerPage));

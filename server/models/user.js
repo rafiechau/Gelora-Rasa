@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasMany(models.Event, { foreignKey: 'userId' });
+      User.hasOne(models.DetailEventOrganizer, {
+        foreignKey: 'userId',
+        as: 'detailEventOrganizer'
+      });
     }
   }
   User.init({

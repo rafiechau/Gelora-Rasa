@@ -1,0 +1,1 @@
+export const CREATE_EVENT_ORGANIZER = 'BecomeEventOrganizer/CREATE_EVENT_ORGANIZER';

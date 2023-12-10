@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      DetailEventOrganizer.belongsTo(models.User, {
+        foreignKey: 'userId', 
+        as: 'user'
+      });
     }
   }
   DetailEventOrganizer.init({
@@ -18,14 +22,14 @@ module.exports = (sequelize, DataTypes) => {
     nik: DataTypes.STRING,
     namaLengkap: DataTypes.STRING,
     jenisKelamin: DataTypes.STRING,
-    golonganDarah: DataTypes.INTEGER,
+    golonganDarah: DataTypes.STRING,
     tempatLahir: DataTypes.STRING,
-    tanggalLahir: DataTypes.DATE,
+    tanggalLahir: DataTypes.STRING,
     provinsi: DataTypes.STRING,
     kotaKabupaten: DataTypes.STRING,
     alamat: DataTypes.TEXT,
-    rt: DataTypes.INTEGER,
-    rw: DataTypes.INTEGER,
+    rt: DataTypes.STRING,
+    rw: DataTypes.STRING,
     kelurahanDesa: DataTypes.STRING,
     kecamatan: DataTypes.STRING,
     agama: DataTypes.STRING,

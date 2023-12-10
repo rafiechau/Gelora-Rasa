@@ -130,3 +130,23 @@ exports.schemaOrder = Joi.object({
     totalTickets: Joi.number().integer().min(1).required(),
     ticketsTypes: Joi.string().required()
 })
+
+exports.schemaEventOrganizer = Joi.object({
+  nik: Joi.string().pattern(/^[0-9]{16}$/).required(),
+  namaLengkap: Joi.string().min(3).max(100).required(),
+  jenisKelamin: Joi.string().valid('Laki-Laki', 'LAKI-LAKI', 'laki-laki', 'Laki-laki', 'Perempuan', 'PEREMPUAN').required(),
+  golonganDarah: Joi.string().max(3).optional(),
+  tempatLahir: Joi.string().required(),
+  tanggalLahir: Joi.string().required(),
+  provinsi: Joi.string().required(),
+  kotaKabupaten: Joi.string().required(),
+  alamat: Joi.string().required(),
+  rt: Joi.number().integer().required(),
+  rw: Joi.number().integer().required(),
+  kelurahanDesa: Joi.string().required(),
+  kecamatan: Joi.string().required(),
+  agama: Joi.string().required(),
+  statusPerkawinan: Joi.string().required(),
+  statusKerja: Joi.string().required(),
+  kewarganegaraan: Joi.string().required()
+});

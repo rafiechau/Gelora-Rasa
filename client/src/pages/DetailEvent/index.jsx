@@ -6,14 +6,14 @@ import PlaceIcon from '@mui/icons-material/Place';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 
 import { useParams } from 'react-router-dom';
-import { selectLoading } from '@containers/App/selectors';
 import { useEffect, useState } from 'react';
 import config from '@config/index';
+import { selectToken } from '@containers/Client/selectors';
 import classes from './style.module.scss';
 import { selectEvent } from './selector';
-import { getEventById } from './actions';
+import { createOrder, getEventById, updateOrderStatus } from './actions';
 
-const DetailEventPage = ({ event, loading }) => {
+const DetailEventPage = ({ event, token }) => {
   const dispatch = useDispatch();
   const { eventId } = useParams();
   const [ticketQuantity, setTicketQuantity] = useState(1);
@@ -60,6 +60,23 @@ const DetailEventPage = ({ event, loading }) => {
     currency: 'IDR',
     minimumFractionDigits: 0,
   }).format(event.price);
+
+  const handleOrder = () => {
+    let ticketTypes = event?.type;
+    if (event?.type === 'hybrid') {
+      ticketTypes = selectedTicketType;
+    }
+    const orderData = {
+      eventId,
+      totalTickets: ticketQuantity,
+      ticketTypes,
+    };
+    dispatch(
+      createOrder(orderData, token, (orderId, status, newToken) => {
+        dispatch(updateOrderStatus(orderId, status, newToken));
+      })
+    );
+  };
 
   const isValidDate = Date.parse(event.date);
   const formattedDate = isValidDate
@@ -150,7 +167,7 @@ const DetailEventPage = ({ event, loading }) => {
               )}
               <div className={classes.containerButton}>
                 <span>Pembelian tiket ditutup dalam {countdown} </span>
-                <button type="button" className={classes.buyNow}>
+                <button type="button" onClick={handleOrder} className={classes.buyNow}>
                   Beli Sekarang
                 </button>
               </div>
@@ -184,12 +201,12 @@ const DetailEventPage = ({ event, loading }) => {
 
 DetailEventPage.propTypes = {
   event: PropTypes.object,
-  loading: PropTypes.bool,
+  token: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   event: selectEvent,
-  loading: selectLoading,
+  token: selectToken,
 });
 
 export default injectIntl(connect(mapStateToProps)(DetailEventPage));
