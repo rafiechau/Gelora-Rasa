@@ -1,3 +1,4 @@
+import { createStructuredSelector } from 'reselect';
 import {
   Box,
   Button,
@@ -15,15 +16,15 @@ import { useForm } from 'react-hook-form';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import ReactQuill from 'react-quill';
 import { connect, useDispatch } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+
 
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import InputTextField from '@components/InputTextField';
 import { useEffect, useState } from 'react';
-import { actionCreateEvent } from '@pages/CreateEvent/action';
 import { selectAllCategories, selectAllLocation } from '@pages/Home/selectors';
 import { actionGetAllCategories, actionGetAllLocation } from '@pages/Home/actions';
 import { selectToken, selectUser } from '@containers/Client/selectors';
+import { actionCreateEvent } from '@pages/Dashboard/MyEvents/actions';
 import classes from './style.module.scss';
 
 export const CreateEventDialog = ({ open, onClose, intl: { formatMessage }, locations, categories, token, user }) => {

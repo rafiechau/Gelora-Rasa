@@ -29,7 +29,7 @@ const Navbar = ({ title, locale, theme }) => {
   const handleCloseCreatePostDialog = () => {
     setIsCreatePostDialogOpen(false);
   };
-
+  
   const handleClick = (event) => {
     setMenuPosition(event.currentTarget);
   };

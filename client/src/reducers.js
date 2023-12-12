@@ -7,9 +7,9 @@ import languageReducer from '@containers/Language/reducer';
 import homeReducer from '@pages/Home/reducer';
 import detailEventReducer from '@pages/DetailEvent/reducer';
 import myEventReducer from '@pages/Dashboard/MyEvents/reducer';
-import myOrdersReducer from '@pages/Dashboard/Orders/reducer';
 import dashboardLocationReducer from '@pages/Dashboard/Locations/reducer';
 import dashboardCategoryReducer from '@pages/Dashboard/Categories/reducer';
+import dashboardMyOrdersReducer from '@pages/Dashboard/Orders/reducer';
 import { mapWithPersistor } from './persistence';
 
 const storedReducers = {
@@ -22,9 +22,9 @@ const temporaryReducers = {
   home: homeReducer,
   detailEvent: detailEventReducer,
   myEvents: myEventReducer,
-  myOrders: myOrdersReducer,
   dashboardLocation: dashboardLocationReducer,
   dashboardCategory: dashboardCategoryReducer,
+  dashboardOrder: dashboardMyOrdersReducer,
 };
 
 const createReducer = () => {

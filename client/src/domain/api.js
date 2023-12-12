@@ -70,6 +70,9 @@ export default (orderId, status, token) =>
 export const getMyOrdersApi = (token) =>
   callAPI(`${urls.orders}/getMyOrder`, 'GET', { Authorization: `Bearer ${token}` });
 
+export const deleteMyOrderApi = (orderId, token) =>
+  callAPI(`${urls.orders}/delete/${orderId}`, 'DELETE', { Authorization: `Bearer ${token}` });
+
 // event organizer
 export const createEventOrganizerApi = (data, token) =>
   callAPI(`${urls.eventOrganizer}/create`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);

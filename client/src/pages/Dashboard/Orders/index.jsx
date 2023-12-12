@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
-import { injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { useEffect, useRef, useState } from 'react';
 import { SideBar } from '@components/sidebar';
 import {
   Box,
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Fab,
   IconButton,
   Paper,
@@ -19,52 +21,41 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { BottomBar } from '@components/BottomNavigation';
 import AddIcon from '@mui/icons-material/Add';
-import { selectUser } from '@containers/Client/selectors';
+import { selectToken, selectUser } from '@containers/Client/selectors';
 import classes from '../style.module.scss';
+import { selectAllMyOrders } from './selectors';
+import { actionDeleteOrderById, actionGetAllMyOrders } from './actions';
 
-const DummyOrders = [
-  {
-    id: '1',
-    date: '2023-06-20',
-    userId: 'user123',
-    eventId: 'event456',
-    totalTickets: 2,
-    totalPay: '150,000 IDR',
-    status: 'Completed',
-    ticketTypes: 'VIP',
-  },
-  {
-    id: '2',
-    date: '2023-06-22',
-    userId: 'user124',
-    eventId: 'event457',
-    totalTickets: 1,
-    totalPay: '75,000 IDR',
-    status: 'Pending',
-    ticketTypes: 'General',
-  },
-  {
-    id: '3',
-    date: '2023-06-25',
-    userId: 'user125',
-    eventId: 'event458',
-    totalTickets: 3,
-    totalPay: '225,000 IDR',
-    status: 'Cancelled',
-    ticketTypes: 'General',
-  },
-  // ... tambahkan lebih banyak order sesuai kebutuhan
-];
-const OrdersPage = ({ user }) => {
+const OrdersPage = ({ user, allMyOrders, token }) => {
   const dispatch = useDispatch();
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [currentOrderId, setCurrentOrderId] = useState(null);
 
-  const handleDeleteOrder = (orderId) => {
-    // Logic untuk menghapus order
+  useEffect(() => {
+    dispatch(actionGetAllMyOrders());
+  }, [dispatch]);
+
+  const handleCloseConfirmDialog = () => {
+    setOpenConfirmDialog(false);
+    setCurrentOrderId(null);
+  };
+
+  const handleOpenConfirmDialog = () => {
+    setOpenConfirmDialog(true);
+  };
+
+  const handleDelete = (locationId) => {
+    setCurrentOrderId(locationId);
+    handleOpenConfirmDialog();
+  };
+
+  const handleConfirmDelete = () => {
+    dispatch(actionDeleteOrderById(currentOrderId, token));
+    handleCloseConfirmDialog();
   };
 
   return (
@@ -97,28 +88,26 @@ const OrdersPage = ({ user }) => {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Date</TableCell>
-                  <TableCell align="right">Event ID</TableCell>
+                  <TableCell>No</TableCell>
+                  <TableCell align="right">Nama Event</TableCell>
                   <TableCell align="right">Total Tickets</TableCell>
                   <TableCell align="right">Total Pay</TableCell>
-                  <TableCell align="right">Status</TableCell>
                   <TableCell align="right">Ticket Types</TableCell>
                   <TableCell align="right">Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {DummyOrders.map((order) => (
+                {allMyOrders.map((order) => (
                   <TableRow key={order.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                     <TableCell component="th" scope="row">
-                      {order.date}
+                      {order.tanggalPembelian}
                     </TableCell>
-                    <TableCell align="right">{order.eventId}</TableCell>
+                    <TableCell align="right">{order.event.eventName}</TableCell>
                     <TableCell align="right">{order.totalTickets}</TableCell>
                     <TableCell align="right">{order.totalPay}</TableCell>
-                    <TableCell align="right">{order.status}</TableCell>
-                    <TableCell align="right">{order.ticketTypes}</TableCell>
+                    <TableCell align="right">{order.ticketsTypes}</TableCell>
                     <TableCell align="right">
-                      <IconButton aria-label="delete" onClick={() => handleDeleteOrder(order.id)}>
+                      <IconButton aria-label="delete" onClick={() => handleDelete(order.id)}>
                         <DeleteIcon />
                       </IconButton>
                     </TableCell>
@@ -127,6 +116,29 @@ const OrdersPage = ({ user }) => {
               </TableBody>
             </Table>
           </TableContainer>
+          <Dialog
+            open={openConfirmDialog}
+            onClose={handleCloseConfirmDialog}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              <FormattedMessage id="app_confirmation_delete_dialog" />
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                <FormattedMessage id="app_delete_dialog_header" />
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseConfirmDialog}>
+                <FormattedMessage id="app_cancel_dialog" />
+              </Button>
+              <Button onClick={handleConfirmDelete} autoFocus>
+                <FormattedMessage id="app_delete_dialog" />
+              </Button>
+            </DialogActions>
+          </Dialog>
         </div>
       </div>
     </div>
@@ -135,10 +147,14 @@ const OrdersPage = ({ user }) => {
 
 OrdersPage.propTypes = {
   user: PropTypes.object,
+  allMyOrders: PropTypes.array,
+  token: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   user: selectUser,
+  allMyOrders: selectAllMyOrders,
+  token: selectToken,
 });
 
 export default injectIntl(connect(mapStateToProps)(OrdersPage));

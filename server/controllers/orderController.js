@@ -98,7 +98,7 @@ exports.updateOrderStatus = async(req, res) => {
 
 exports.getMyOrders = async(req, res) => {
     try{
-        const { userId } = req.id
+        const userId  = req.id
         const myOrders = await Order.findAll({
             where: { userId: userId },
             include: [
@@ -118,6 +118,24 @@ exports.getMyOrders = async(req, res) => {
             success: true,
             data: myOrders
         });
+    }catch(error){
+        console.log(error)
+        return handleServerError(res, error)
+    }
+}
+
+exports.deleteMyOrder = async(req, res) => {
+    try{
+        const { orderId } = req.params
+        const userId = req.id;
+
+        const orderToDelete = await Order.findOne({ where: { id: orderId, userId: userId } });
+        if (!orderToDelete)   {
+            return res.status(404).json({ message: "Order not found or you're not authorized to delete this event." });
+        }
+
+        await orderToDelete.destroy()
+        return res.status(200).json({ message: 'Order successfully deleted.' });
     }catch(error){
         console.log(error)
         return handleServerError(res, error)

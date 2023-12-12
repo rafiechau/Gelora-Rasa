@@ -2,15 +2,12 @@ import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { SideBar } from '@components/sidebar';
-import { Box, Card, CardContent, CardMedia, Fab, IconButton, Menu, MenuItem, Typography } from '@mui/material';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Box, Fab, Typography } from '@mui/material';
 import { BottomBar } from '@components/BottomNavigation';
 import AddIcon from '@mui/icons-material/Add';
 import { selectToken, selectUser } from '@containers/Client/selectors';
-import config from '@config/index';
-import { useNavigate } from 'react-router-dom';
 import CardMyEvent from '@components/CardMyEvent';
 import classes from '../style.module.scss';
 import { selectAllMyEvents } from './selectors';
@@ -18,16 +15,12 @@ import { actionGetAllMyEvent } from './actions';
 
 const MyEventsPage = ({ allMyEvents, token, user }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+
   useEffect(() => {
     if (token) {
       dispatch(actionGetAllMyEvent({ token }));
     }
   }, [dispatch, token]);
-
-  // console.log(user)
 
   return (
     <div className={classes.app}>

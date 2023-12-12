@@ -1,29 +1,86 @@
 import InputTextField from '@components/InputTextField';
+import { selectToken, selectUser } from '@containers/Client/selectors';
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
-import { Box, Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+  IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
+} from '@mui/material';
+import { actionUpdateEventById } from '@pages/Dashboard/MyEvents/actions';
 import { actionGetAllCategories } from '@pages/Home/actions';
+import { selectAllCategories, selectAllLocation } from '@pages/Home/selectors';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FormattedMessage } from 'react-intl';
-import { useDispatch } from 'react-redux';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import ReactQuill from 'react-quill';
+import { connect, useDispatch } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-export const CreateEventDialog = ({ open, onClose, intl: { formatMessage }, locations, categories, token, user }) => {
+import config from '@config/index';
+import classes from './style.module.scss';
+
+export const EditEventDialog = ({
+  open,
+  onClose,
+  intl: { formatMessage },
+  locations,
+  categories,
+  token,
+  user,
+  myEvent,
+}) => {
   const dispatch = useDispatch();
   const [image, setImage] = useState(null);
   const [eventType, setEventType] = useState('');
   const [eventStatus, setEventStatus] = useState('');
   const [description, setDescription] = useState('');
-  const [preview, setPreview] = useState('');
+  const [preview, setPreview] = useState(
+    myEvent.image ? `${config.api.server}${myEvent.image.replace('\\', '/')}` : ''
+  );
   const [selectedLocation, setSelectedLocation] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+
+
   const {
     handleSubmit,
     register,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    if (myEvent) {
+      setValue('eventName', myEvent.eventName);
+      setValue('date', myEvent.date.split('T')[0]);
+      setValue('time', myEvent.time);
+      setValue('registrationDealine', myEvent.registrationDealine.split('T')[0]); // Assuming the date is in ISO format
+      setValue('address', myEvent.address);
+      setValue('venueName', myEvent.venueName);
+      setValue('price', myEvent.price);
+      setValue('stok', myEvent.stok);
+      setValue('description', myEvent.description);
+      setValue('categoryId', myEvent.categoryId);
+      setValue('locationId', myEvent.locationId);
+      setValue('eventType', myEvent.type);
+      setValue('eventStatus', myEvent.status);
+      setEventType(myEvent.type);
+      setEventStatus(myEvent.status);
+      setSelectedLocation(myEvent.locationId);
+      setSelectedCategory(myEvent.categoryId);
+
+      setDescription(myEvent.description);
+      // Image handling
+      setPreview(myEvent.image ? `${config.api.server}${myEvent.image.replace('\\', '/')}` : '');
+    }
+  }, [myEvent, setValue]);
 
   useEffect(() => {
     dispatch(actionGetAllCategories());
@@ -73,10 +130,12 @@ export const CreateEventDialog = ({ open, onClose, intl: { formatMessage }, loca
   };
 
   const onSubmit = (data) => {
+    console.log(data)
     const formData = new FormData();
     formData.append('eventName', data.eventName);
     formData.append('date', data.date);
-    formData.append('time', data.time);
+    const formattedTime = data.time ? data.time.substring(0, 5) : '';
+    formData.append('time', formattedTime);
     formData.append('registrationDealine', data.registrationDealine);
     formData.append('address', data.address);
     formData.append('venueName', data.venueName);
@@ -89,10 +148,13 @@ export const CreateEventDialog = ({ open, onClose, intl: { formatMessage }, loca
     formData.append('categoryId', data.categoryId);
     formData.append('userId', user.id);
 
+
+    console.log(image)
     if (image) {
       formData.append('image', image);
     }
-    dispatch(actionCreateEvent(formData, token));
+
+    dispatch(actionUpdateEventById(myEvent.id, formData, token));
   };
 
   return (
@@ -279,7 +341,7 @@ export const CreateEventDialog = ({ open, onClose, intl: { formatMessage }, loca
   );
 };
 
-CreateEventDialog.propTypes = {
+EditEventDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   intl: PropTypes.object,
@@ -287,6 +349,7 @@ CreateEventDialog.propTypes = {
   categories: PropTypes.array.isRequired,
   token: PropTypes.string.isRequired,
   user: PropTypes.object.isRequired,
+  myEvent: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -296,4 +359,4 @@ const mapStateToProps = createStructuredSelector({
   user: selectUser,
 });
 
-export default injectIntl(connect(mapStateToProps)(CreateEventDialog));
+export default injectIntl(connect(mapStateToProps)(EditEventDialog));

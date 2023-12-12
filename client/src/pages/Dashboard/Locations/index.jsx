@@ -43,7 +43,6 @@ const LocationAdminPage = ({ locations, user, token }) => {
     dispatch(actionGetAllLocation());
   }, [dispatch]);
 
-  console.log(locations)
 
   const handleEdit = (location) => {
     setCurrentEditingLocation(location);

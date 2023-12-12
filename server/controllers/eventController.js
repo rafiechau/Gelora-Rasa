@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const { Event, User, Category, Location } = require("../models");
 const { handleResponse, handleServerError, handleSuccess, handleCreated } = require("../helper/handleResponseHelper");
 const { validateJoi, schemaEvent } = require("../helper/joiHelper");
@@ -134,6 +136,7 @@ exports.createEvent = async(req, res) => {
 
 exports.updateEvent = async (req, res) => {
     try{
+        const imagePath = req?.file?.path;
         const { eventId } = req.params
         const updateDataEvent = req.body
 
@@ -147,6 +150,20 @@ exports.updateEvent = async (req, res) => {
             return handleResponse(res, 404, { message: 'Event not found' })
         }
 
+        if (imagePath) {
+            updateDataEvent.image = imagePath.replace(/\//g, '\\'); 
+        
+            if (currentEvent.image) {
+                const fullOldImagePath = path.join(__dirname, '..', currentEvent.image); 
+    
+                fs.unlink(fullOldImagePath, (err) => {
+                    if (err) {
+                        console.error('Failed to delete old image:', err);
+                    }
+                });
+            }
+        }
+
         await Event.update(updateDataEvent, { where: {id: eventId} })
         return handleCreated(res, { message: "success update data event" });
 
@@ -156,13 +173,17 @@ exports.updateEvent = async (req, res) => {
     }
 }
 
-exports.deleteEvent = async(req, res) => {
+exports.deleteMyEvent = async(req, res) => {
     try{
         const { eventId } = req.params
+        const userId = req.id;
+        console.log(eventId)
+        console.log(userId)
 
-        const eventToDelete = await Event.findOne({ where: { id: eventId } });
+        const eventToDelete = await Event.findOne({ where: { id: eventId, userId: userId } });
+        console.log(eventToDelete)
         if (!eventToDelete) {
-            return res.status(404).json({ message: "Event not found" });
+            return res.status(404).json({ message: "Event not found or you're not authorized to delete this event" });
         }
 
         await eventToDelete.destroy()

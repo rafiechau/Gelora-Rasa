@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import config from '@config/index';
 import { selectToken, selectUser } from '@containers/Client/selectors';
 import {
   Box,
@@ -27,24 +26,17 @@ import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
+import { actionDeleteMyEventById } from '@pages/Dashboard/MyEvents/actions';
+import EditEventDialog from '@components/EditEventDialog';
 
 const CardMyEvent = ({ myEvent, token, user }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
 
   const navigateDetails = () => {
     navigate(`/detail/${myEvent?.id}`);
-  };
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   const handleCloseConfirmDialog = () => {
@@ -55,12 +47,16 @@ const CardMyEvent = ({ myEvent, token, user }) => {
     setOpenConfirmDialog(true);
   };
 
+  const handleEdit = () => {
+    setOpenEditDialog(true);
+  };
+
   const handleDelete = () => {
     handleOpenConfirmDialog();
   };
 
   const handleConfirmDelete = () => {
-    // dispatch(deletePostById(post?.id, token));
+    dispatch(actionDeleteMyEventById(myEvent?.id, token));
     handleCloseConfirmDialog();
   };
 
@@ -154,10 +150,18 @@ const CardMyEvent = ({ myEvent, token, user }) => {
           <IconButton aria-label="share" sx={{ color: 'yellow', opacity: 0.7, '&:hover': { opacity: 1 } }}>
             <ShareIcon />
           </IconButton>
-          <IconButton aria-label="edit" sx={{ color: 'blue', opacity: 0.7, '&:hover': { opacity: 1 } }}>
+          <IconButton
+            aria-label="edit"
+            sx={{ color: 'blue', opacity: 0.7, '&:hover': { opacity: 1 } }}
+            onClick={handleEdit}
+          >
             <EditIcon />
           </IconButton>
-          <IconButton aria-label="delete" sx={{ color: 'red', opacity: 0.7, '&:hover': { opacity: 1 } }}>
+          <IconButton
+            aria-label="delete"
+            sx={{ color: 'red', opacity: 0.7, '&:hover': { opacity: 1 } }}
+            onClick={handleDelete}
+          >
             <DeleteIcon />
           </IconButton>
         </Box>
@@ -168,6 +172,30 @@ const CardMyEvent = ({ myEvent, token, user }) => {
           Status: {myEvent?.status.toUpperCase()}
         </Typography>
       </CardActions>
+      <Dialog
+        open={openConfirmDialog}
+        onClose={handleCloseConfirmDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          <FormattedMessage id="app_confirmation_delete_dialog" />
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            <FormattedMessage id="app_delete_dialog_header" />
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseConfirmDialog}>
+            <FormattedMessage id="app_cancel_dialog" />
+          </Button>
+          <Button onClick={handleConfirmDelete} autoFocus>
+            <FormattedMessage id="app_delete_dialog" />
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <EditEventDialog open={openEditDialog} onClose={() => setOpenEditDialog(false)} myEvent={myEvent} />
     </Card>
   );
 };

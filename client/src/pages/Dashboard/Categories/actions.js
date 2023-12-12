@@ -1,4 +1,10 @@
-import { CREATE_CATEGORIES, DELETE_CATEGORY, DELETE_CATEGORY_SUCCESS, RESET_DELETE_SUCCESS, UPDATE_CATEGORY_BY_ID } from './constants';
+import {
+  CREATE_CATEGORIES,
+  DELETE_CATEGORY,
+  DELETE_CATEGORY_SUCCESS,
+  RESET_DELETE_SUCCESS,
+  UPDATE_CATEGORY_BY_ID,
+} from './constants';
 
 export const actionDeleteCategoryById = (categoryId, token) => ({
   type: DELETE_CATEGORY,
