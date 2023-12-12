@@ -95,3 +95,31 @@ exports.updateOrderStatus = async(req, res) => {
         return handleServerError(res, error)
     }
 }
+
+exports.getMyOrders = async(req, res) => {
+    try{
+        const { userId } = req.id
+        const myOrders = await Order.findAll({
+            where: { userId: userId },
+            include: [
+                {
+                    model: User,
+                    as: 'user',
+                    attributes: ['id', 'firstName', 'lastName', 'email'],
+                },
+                {
+                    model: Event,
+                    as: 'event', 
+                    attributes: ['id', 'eventName', 'date', 'price'], 
+                }
+            ]
+        })
+        res.status(200).json({
+            success: true,
+            data: myOrders
+        });
+    }catch(error){
+        console.log(error)
+        return handleServerError(res, error)
+    }
+}

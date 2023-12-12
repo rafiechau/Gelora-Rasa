@@ -51,6 +51,10 @@ exports.schemaCategories = Joi.object({
   })
 })
 
+exports.schemaLocation = Joi.object({
+  namaProvinsi: Joi.string().required()
+})
+
 exports.schemaEvent = Joi.object({
   eventName: Joi.string().required().messages({
     'string.base': `"eventName" must be a string`,

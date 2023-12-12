@@ -9,7 +9,9 @@ import { actionHandleRegister, actionHandleResetRegister, actionSetStep } from '
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { selectEmail, selectIsVerify, selectStep } from '@containers/Client/selectors';
-import classes from './style.module.scss';
+
+import 'react-quill/dist/quill.snow.css';
+
 
 const RegisterForm = ({ email, isVerify, step, intl: { formatMessage } }) => {
   const dispatch = useDispatch();
@@ -24,7 +26,6 @@ const RegisterForm = ({ email, isVerify, step, intl: { formatMessage } }) => {
 
   const onSubmit = (data) => {
     data.email = email;
-    console.log(data)
     dispatch(
       actionHandleRegister(data, () => {
         setTimeout(() => {

@@ -1,6 +1,6 @@
 const { Category } = require("../models");
 const { schemaCategories, validateJoi } = require("../helper/joiHelper");
-const { handleResponse, handleServerError, handleSuccess, handleCreated } = require("../helper/handleResponseHelper");
+const { handleResponse, handleServerError, handleSuccess, handleCreated, handleNotFound } = require("../helper/handleResponseHelper");
 
 exports.createCategory = async (req, res) => {
     try {

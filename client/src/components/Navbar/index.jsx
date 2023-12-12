@@ -12,6 +12,7 @@ import NightsStayIcon from '@mui/icons-material/NightsStay';
 
 import { setLocale, setTheme } from '@containers/App/actions';
 
+import CreateEventDialog from '@components/CreateEventDialog';
 import classes from './style.module.scss';
 
 const Navbar = ({ title, locale, theme }) => {
@@ -19,6 +20,15 @@ const Navbar = ({ title, locale, theme }) => {
   const navigate = useNavigate();
   const [menuPosition, setMenuPosition] = useState(null);
   const open = Boolean(menuPosition);
+  const [isCreatePostDialogOpen, setIsCreatePostDialogOpen] = useState(false);
+
+  const handleOpenCreatePostDialog = () => {
+    setIsCreatePostDialogOpen(true);
+  };
+
+  const handleCloseCreatePostDialog = () => {
+    setIsCreatePostDialogOpen(false);
+  };
 
   const handleClick = (event) => {
     setMenuPosition(event.currentTarget);
@@ -51,6 +61,10 @@ const Navbar = ({ title, locale, theme }) => {
           <div className={classes.title}>{title}</div>
         </div>
         <div className={classes.toolbar}>
+          <button type="button" onClick={handleOpenCreatePostDialog}>
+            Create Event
+          </button>
+          <CreateEventDialog open={isCreatePostDialogOpen} onClose={handleCloseCreatePostDialog} />
           <div className={classes.theme} onClick={handleTheme} data-testid="toggleTheme">
             {theme === 'light' ? <NightsStayIcon /> : <LightModeIcon />}
           </div>

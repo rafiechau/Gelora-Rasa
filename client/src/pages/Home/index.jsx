@@ -36,6 +36,7 @@ const Home = ({ allEvent, token }) => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
+
   useEffect(() => {
     if (token) {
       dispatch(getAllEvent(token, page));
@@ -88,6 +89,7 @@ const Home = ({ allEvent, token }) => {
   const handleFilterClose = () => {
     setFilterOpen(false);
   };
+
   return (
     <div className={classes.containerHome}>
       {isMobile ? (

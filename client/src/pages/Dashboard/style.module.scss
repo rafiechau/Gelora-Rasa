@@ -1,0 +1,17 @@
+.app{
+    background-color: $navy;
+    color: #e6e6e6;
+    display: flex;
+    height: 100vh;
+    flex-direction: row;
+    align-items: stretch;
+    .ProfilePage{
+        display: flex;
+        flex: 1;
+        .containerProfilePage{
+            flex-grow: 1;
+            padding: 1rem;
+            overflow: auto;
+        }
+    }
+}

@@ -42,6 +42,39 @@ exports.getAllEvent = async(req, res) => {
     }
 }
 
+exports.getMyEvent = async(req, res) => {
+    try{
+        const userId = req.id;
+        const events = await Event.findAll({
+            where: { userId: userId },
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName', 'email'],
+                },
+                {
+                    model: Category,
+                    attributes: ['id', 'categoryName'],
+                },
+                {
+                    model: Location,
+                    attributes: ['id', 'namaProvinsi'],
+                }
+            ],
+            order: [['createdAt', 'DESC']]
+        })
+
+        if(!events || events.length === 0){
+            return handleResponse(res, 404, { message: 'Your Event Not Found' })
+        }
+
+        return handleSuccess(res, { message: "success retrieved from database", data: events  });
+    }catch(error){
+        console.log(error)
+        return handleServerError(res, error)
+    }
+}
+
 exports.getDetailEvent = async(req, res) => {
     try{
         const { eventId } = req.params;

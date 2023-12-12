@@ -63,4 +63,51 @@ export default {
   app_ktp_golonganDarah: 'Golongan Darah',
   app_ktp_statusKerja_require_message: 'Status Kerja Dibutuhkan',
   app_ktp_statusKerja: 'Status Kerja',
+
+  // form event
+  app_header_add_event: 'Tambah Event',
+  app_event_name_require_message: 'Nama event dibutuhkan',
+  app_event_name: 'Nama Event',
+  app_event_date_require_message: 'Tanggal event dibutuhkan',
+  app_event_date: 'Tanggal Event',
+  app_event_time_require_message: 'Jam event dibutuhkan',
+  app_event_time_name: 'Jam Event',
+  app_event_registration_deadline_require_message: 'Penutupan event dibutuhkan',
+  app_event_registration_dealine_name: 'Penutupan Event',
+  app_event_type_name: 'Type Event',
+  app_event_address_require_message: 'Alamat event dibutuhkan',
+  app_event_address_name: 'Alamat Event',
+  app_event_venue_name_require_message: 'Tempat event dibutuhkan',
+  app_event_venue_name: 'Tempat Event',
+  app_event_status_name: 'Status Event',
+  app_form_image: 'Tarok photo disini',
+  app_event_price_require_message: 'Harga event dibutuhkan',
+  app_event_price_name: 'Harga Event',
+  app_event_stok_require_message: 'Stok event dibutuhkan',
+  app_event_stok_name: 'Stok Event',
+
+  // sidebar
+  app_navigation_profile: 'Profile',
+  app_navigation_my_events: 'Acara Saya',
+  app_navigation_history_orders: 'Riwayat Pemesanan',
+  app_navigation_create_event: 'Buat Acara',
+  app_navigation_categories: 'Categories',
+  app_navigation_location: 'Locations',
+  app_navigation_all_users: 'Users',
+
+  // delete dialog
+  app_delete_dialog_header: 'Kamu yakin mau hapus ini ? ',
+  app_delete_dialog_delete: 'Hapus',
+  app_cancel_dialog: 'Batal',
+  app_delete_dialog: 'Hapus',
+  app_confirmation_delete_dialog: 'Konfirmasi Hapus',
+
+  // Location Dialog
+  app_location_name_require_message: 'Nama Lokasi Dibutuhkan',
+  app_location_name: 'Lokasi',
+
+  // Category Dialog
+  app_category_name_require_message: 'Nama Category Dibutuhkan',
+  app_category_name: 'Category',
+  app_header_edit_category: 'Edit Category',
 };

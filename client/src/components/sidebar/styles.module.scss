@@ -1,0 +1,66 @@
+.sidebar{
+    // border-right: 1px solid gray;
+    flex: 0.2;
+    padding: 2rem;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.5);
+    background-color: #2c2c54;
+    color: #ffffff;
+    .sidebarEventIcon{
+        color: #4cd137;
+        font-size: 3rem;
+        margin: 0 2rem 2rem 2rem;
+        transition: transform 200ms ease-in-out;
+    }
+    .sidebarEventIcon:hover{
+        transform: scale(1.1); 
+    }
+    .sidebarOption{
+        @include directionX;
+        align-items: center;
+        cursor: pointer;
+        margin-bottom: 1rem;
+        padding: 0.5rem .8rem;
+        border-radius: 30px;
+        transition: background-color 200ms ease-in-out;
+        &:hover {
+            background-color: #40407a; 
+            cursor: pointer;
+            opacity: 0.8;
+          }
+      
+          &.active {
+            background-color: #33d9b2;
+            color: #2c2c54;
+          }
+        span{
+            padding-left: 1rem;
+        }
+    }
+    .sidebarOption:hover{
+        background-color: var(--color-blue);
+        color: white;
+    }
+    .sidebarCreateEvent{
+        background-color: #ff793f;
+        color: #2c2c54;
+        font-weight: 900;
+        text-transform: inherit;
+        border-radius: 30px;
+        height: 3rem;
+        margin-top: 2rem;
+        width: 100%;
+        border: none;
+        transition: background-color 200ms ease-in-out;
+        cursor: pointer;
+    }
+    .sidebarCreateEvent:hover{
+        background-color: #cd6133 !important;
+        cursor: pointer;
+    }
+}
+
+@media screen and (max-width: 576px){
+    .sidebar{
+        display: none;
+    }
+}
