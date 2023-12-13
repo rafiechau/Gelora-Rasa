@@ -12,6 +12,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import classes from './style.module.scss';
+import { actionSendForgotPassword } from './actions';
 
 const ForgotPasswordPage = ({ login, intl: { formatMessage } }) => {
   const dispatch = useDispatch();
@@ -33,18 +34,20 @@ const ForgotPasswordPage = ({ login, intl: { formatMessage } }) => {
   }, [formatMessage, login, navigate]);
 
   const onSubmit = (data) => {
-    // dispatch(
-    //   acti
-    // )
-  }
+    dispatch(
+      actionSendForgotPassword(data, () => {
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
+      })
+    );
+  };
 
   return (
     <section className={classes.forgotPassword}>
-      <div className={classes.forgotPassword}>
-        <div className={classes.tabs}>
-          <p>Lupa Password</p>
-        </div>
-        <form className={classes.loginForm} onSubmit={handleSubmit(onSubmit)}>
+      <div className={classes.forgotPasswordContainer}>
+        <div className={classes.forgotPwTxt}>Lupa Password</div>
+        <form className={classes.forgotPasswordForm} onSubmit={handleSubmit(onSubmit)}>
           <InputTextField
             input={{
               name: 'email',
@@ -57,7 +60,7 @@ const ForgotPasswordPage = ({ login, intl: { formatMessage } }) => {
             register={register}
             errors={errors}
           />
-          <button type="submit" className={classes.loginBtn}>
+          <button type="submit" className={classes.forgotPasswordBtn}>
             Login
           </button>
           <div className={classes.formNav}>

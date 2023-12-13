@@ -11,6 +11,7 @@ const urls = {
   eventOrganizer: 'event-organizer',
   location: 'location',
   categories: 'categories',
+  streaming: 'streaming',
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -94,3 +95,7 @@ export const updateCategoryByIdApi = (categoryId, data, token) =>
   callAPI(`${urls.categories}/update/${categoryId}`, 'PUT', { Authorization: `Bearer ${token}` }, {}, data);
 export const deleteCategoryByIdApi = (categoryId, token) =>
   callAPI(`${urls.categories}/delete/${categoryId}`, 'DELETE', { Authorization: `Bearer ${token}` });
+
+// streaming
+export const createMeetingIdAPI = (data, token) =>
+  callAPI(`${urls.streaming}/send-meeting`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);

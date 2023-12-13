@@ -11,6 +11,7 @@ const config = {
     server: env.SERVER_HOST,
     cryto: env.CRYPTOJS_SECRET,
     midtrans: env.MIDTRANS_CLIENT_SERVER_KEY,
+    vidioSdk: env.TOKEN_SDK,
   },
 };
 

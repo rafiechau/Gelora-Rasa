@@ -110,4 +110,8 @@ export default {
   app_category_name_require_message: 'Nama Category Dibutuhkan',
   app_category_name: 'Category',
   app_header_edit_category: 'Edit Category',
+
+  // forgot password
+  app_have_account: 'Sudah punya akun?',
+  app_header_login: 'Kembali login',
 };

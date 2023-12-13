@@ -9,18 +9,17 @@ import { useNavigate } from 'react-router-dom';
 import VerifyEmail from '@components/VerifyEmail';
 import VerifyOTP from '@components/VerifyOTP';
 import RegisterForm from '@components/RegisterForm';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import classes from './style.module.scss';
 
 const RegisterPage = ({ login, step, intl: { formatMessage } }) => {
   const navigate = useNavigate();
-
   useEffect(() => {
     if (login) {
       toast.error(formatMessage({ id: 'app_already_login' }));
       setTimeout(() => {
-        navigate('/');
+        navigate('/home');
       }, 1500);
     }
   }, [formatMessage, login, navigate]);
@@ -36,12 +35,20 @@ const RegisterPage = ({ login, step, intl: { formatMessage } }) => {
     }
   };
 
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
+
   return (
     <section className={classes.register}>
       <div className={classes.containerRegister}>
         <div className={classes.tabs}>
-          <div className={`${classes.tab} ${classes.active}`}>Register</div>
-          <div className={`${classes.tab}`}>Login</div>
+          <div className={`${classes.tab} ${classes.active}`} onClick={() => handleNavigate('/register')}>
+            Register
+          </div>
+          <div className={`${classes.tab}`} onClick={() => handleNavigate('/login')}>
+            Login
+          </div>
         </div>
         {renderStep()}
       </div>

@@ -25,17 +25,16 @@ import { createStructuredSelector } from 'reselect';
 import { selectToken } from '@containers/Client/selectors';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import classes from './style.module.scss';
-import { selectAllEvent } from './selectors';
+import { selectAllCategories, selectAllEvent, selectAllLocation } from './selectors';
 import { getAllEvent } from './actions';
 
-const Home = ({ allEvent, token }) => {
+const Home = ({ allEvent, token, allLocation, allCategories }) => {
   const dispatch = useDispatch();
   const [filterOpen, setFilterOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-
 
   useEffect(() => {
     if (token) {
@@ -63,7 +62,6 @@ const Home = ({ allEvent, token }) => {
           <FormGroup>
             <FormControlLabel control={<Checkbox name="checkedComedy" />} label="Comedy" />
             <FormControlLabel control={<Checkbox name="checkedMusic" />} label="Music & Entertainment" />
-            {/* Add more categories as needed */}
           </FormGroup>
         </AccordionDetails>
       </Accordion>
@@ -75,7 +73,6 @@ const Home = ({ allEvent, token }) => {
           <FormGroup>
             <FormControlLabel control={<Checkbox name="checkedGratis" />} label="Gratis" />
             <FormControlLabel control={<Checkbox name="checkedPremium" />} label="Premium" />
-            {/* Add more price options as needed */}
           </FormGroup>
         </AccordionDetails>
       </Accordion>
@@ -153,11 +150,15 @@ const Home = ({ allEvent, token }) => {
 Home.propTypes = {
   allEvent: PropTypes.array,
   token: PropTypes.string,
+  allLocation: PropTypes.array,
+  allCategories: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   allEvent: selectAllEvent,
   token: selectToken,
+  allLocation: selectAllLocation,
+  allCategories: selectAllCategories,
 });
 
 export default injectIntl(connect(mapStateToProps)(Home));

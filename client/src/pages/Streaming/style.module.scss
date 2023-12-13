@@ -1,0 +1,101 @@
+$background-color: #151422;
+$button-color: #2978b5; 
+$text-color: #ffffff; 
+$hover-color: darken($button-color, 10%);
+
+.streamingPage{
+    background-color: $navy;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .containerMeetingId{
+      width: 50%;
+      background-color: lighten($background-color, 5%);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      text-align: center;
+      .meetingId{
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: $text-color;
+      }
+      .btnJoin {
+        width: 100%;
+        padding: 15px 20px;
+        border: none;
+        border-radius: 8px;
+        background-color: $button-color;
+        color: $text-color;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    
+        &:hover {
+          background-color: $hover-color;
+        }
+      }
+      .form{
+        width: 100%;
+      }
+    }
+    .containerJoinStreaming{
+        width: 50%;
+        background-color: lighten($background-color, 5%);
+        border-radius: 12px;
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        .imageLiveStreaming {
+          width: 80%; 
+          border-radius: 8px; 
+          margin-bottom: 20px; 
+      }
+
+      .message {
+          font-size: 18px; 
+          margin-bottom: 20px; 
+          text-align: center; 
+          color: $text-color;
+      }
+        button{
+          width: 100%;
+          padding: 15px 20px;
+          border: none;
+          border-radius: 8px;
+          color: $text-color;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+  
+          &:hover {
+            background-color: $hover-color;
+          }
+        }
+        .buttonJoinStreaming, .buttonCreateMeeting{
+          background-color: $button-color;
+          flex-basis: 48%;
+        }
+        input[type="text"] {
+          width: 90%; 
+          padding: 15px;
+          margin-bottom: 20px;
+          border: 1px solid $button-color;
+          border-radius: 8px;
+          color: $text-color;
+          background-color: transparent;
+    
+          &::placeholder {
+            color: lighten($text-color, 20%);
+          }
+        }
+        
+        
+    }
+}

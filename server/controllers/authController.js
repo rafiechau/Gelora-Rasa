@@ -125,10 +125,11 @@ exports.login = async (req, res) => {
             where: { email: email }
         })
 
-        if (!dataUser || !comparePassword(plainPassword, dataUser?.password)) {
-            return handleResponse(res, 400, { message: "invalid email or password" });
-        }
         console.log(dataUser)
+
+        if (!dataUser || !(await comparePassword(plainPassword, dataUser.password))) {
+          return handleResponse(res, 400, { message: "invalid email or password" });
+        }
         const token = createToken(dataUser);
         if (!token) {
             throw new Error("Token Created failed");
@@ -170,6 +171,9 @@ exports.setResetPassword = async (req, res) => {
     try {
       const { email } = req;
       const { new_password } = req.body;
+
+      console.log(email, "email")
+      console.log(new_password, "newPassword")
   
       const plainPassword = CryptoJS.AES.decrypt(
         new_password,
@@ -180,14 +184,17 @@ exports.setResetPassword = async (req, res) => {
       if (!isUserExist) {
         return handleNotFound(res);
       }
+      const hashedPassword = await hashPassword(plainPassword);
+
       await User.update(
-        { password: hashPassword(plainPassword) },
+        { password: hashedPassword },
         { where: { email: email } }
       );
       return handleSuccess(res, {
         message: "Success reset password",
       });
     } catch (error) {
+      console.log(error)
       return handleServerError(res);
     }
 };

@@ -45,12 +45,20 @@ const LoginPage = ({ login, intl: { formatMessage } }) => {
     );
   };
 
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
+
   return (
     <section className={classes.login}>
       <div className={classes.containerLogin}>
         <div className={classes.tabs}>
-          <div className={`${classes.tab}`}>Register</div>
-          <div className={`${classes.tab} ${classes.active}`}>Login</div>
+          <div className={`${classes.tab}`} onClick={() => handleNavigate('/register')}>
+            Register
+          </div>
+          <div className={`${classes.tab} ${classes.active}`} onClick={() => handleNavigate('/login')}>
+            Login
+          </div>
         </div>
         <form className={classes.loginForm} onSubmit={handleSubmit(onSubmit)}>
           <InputTextField

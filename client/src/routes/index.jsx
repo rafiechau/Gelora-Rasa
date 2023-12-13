@@ -13,11 +13,12 @@ import Home from '@pages/Home';
 import Login from '@pages/Login';
 import NotFound from '@pages/NotFound';
 import Register from '@pages/Register';
+import ResetPassword from '@pages/ResetPassword';
 import Streaming from '@pages/Streaming';
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     protected: true,
     component: Home,
@@ -104,12 +105,12 @@ const routes = [
     component: Users,
     layout: MainLayout,
   },
-  // {
-  //   path: '/:token/reset-password',
-  //   name: 'Reset Password',
-  //   protected: false,
-  //   component: ResetPassword,
-  // },
+  {
+    path: '/:token/reset-password',
+    name: 'Reset Password',
+    protected: false,
+    component: ResetPassword,
+  },
   { path: '*', name: 'Not Found', component: NotFound, layout: MainLayout, protected: false },
 ];
 

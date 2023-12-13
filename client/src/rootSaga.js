@@ -11,6 +11,7 @@ import { myEventSaga } from '@pages/Dashboard/MyEvents/saga';
 import { dashboardOrdersSaga } from '@pages/Dashboard/Orders/saga';
 import dashboardLocationSaga from '@pages/Dashboard/Locations/saga';
 import dashboardCategorySaga from '@pages/Dashboard/Categories/saga';
+import { streamingSaga } from '@pages/Streaming/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -25,5 +26,6 @@ export default function* rootSaga() {
     dashboardOrdersSaga(),
     dashboardLocationSaga(),
     dashboardCategorySaga(),
+    streamingSaga(),
   ]);
 }

@@ -14,6 +14,7 @@ function* sendResetPassword({ data, callback }) {
     toast.success(response.message);
     yield call(callback);
   } catch (error) {
+    console.log(error)
     if (error?.response?.status === 404) {
       toast.error(error.response.data.message);
     } else {

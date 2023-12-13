@@ -11,7 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectEmail, selectIsVerify, selectStep } from '@containers/Client/selectors';
 
 import 'react-quill/dist/quill.snow.css';
-
+import classes from './style.module.scss';
 
 const RegisterForm = ({ email, isVerify, step, intl: { formatMessage } }) => {
   const dispatch = useDispatch();

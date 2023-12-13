@@ -58,7 +58,7 @@ const CardItem = ({ event, token }) => {
                 {formattedDate}
               </Typography>
               <Typography variant="caption" display="block" color="text.secondary">
-                {event.Location.namaProvinsi}
+                {event?.Location?.namaProvinsi}
               </Typography>
             </Box>
             <Typography
