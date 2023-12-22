@@ -1,34 +1,100 @@
 import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
-import { injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SideBar } from '@components/sidebar';
-import { Box, Fab, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { BottomBar } from '@components/BottomNavigation';
-import AddIcon from '@mui/icons-material/Add';
-import { selectUser } from '@containers/Client/selectors';
+import { Box } from '@mui/material';
+import BottomBar from '@components/BottomNavigation';
+import { selectToken, selectUser } from '@containers/Client/selectors';
+import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
+import UserDetailsDialog from '@components/UserDetailsDialog';
+import AdminTable from '@components/AdminTable';
+import { selectAllUsers } from './selectors';
+import { actionDeleteUserById, actionGetAllUsers } from './actions';
+
 import classes from '../style.module.scss';
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
-const UsersAdminPage = ({ user }) => {
+const UsersAdminPage = ({ user, allUsers, token }) => {
   const dispatch = useDispatch();
-  const fileInput = useRef(null);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {});
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [currentUserId, setCurrentUserId] = useState(null);
+  const [openEventOrganizerDialog, setOpenEventOrganizerDialog] = useState(false);
+  const [selectedEventOrganizer, setSelectedEventOrganizer] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [roleFilter, setRoleFilter] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
-  const handleImageChange = (e) => {};
+  console.log(allUsers);
+
+  const getRoleName = (role) => {
+    switch (role) {
+      case 1:
+        return 'Standard User';
+      case 2:
+        return 'Event Organizer';
+      case 3:
+        return 'Admin';
+      default:
+        return 'Unknown Role';
+    }
+  };
+
+  useEffect(() => {
+    dispatch(actionGetAllUsers(token, currentPage, itemsPerPage));
+  }, [dispatch, token, currentPage, itemsPerPage]);
+
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
+  const handleCloseConfirmDialog = () => {
+    setOpenConfirmDialog(false);
+    setCurrentUserId(null);
+  };
+
+  const handleOpenConfirmDialog = () => {
+    setOpenConfirmDialog(true);
+  };
+
+  const handleDelete = (userId) => {
+    setCurrentUserId(userId);
+    handleOpenConfirmDialog();
+  };
+
+  const handleConfirmDelete = () => {
+    dispatch(actionDeleteUserById(currentUserId, token));
+    handleCloseConfirmDialog();
+  };
+
+  const handleOpenEventOrganizerDialog = (eventOrganizer) => {
+    setSelectedEventOrganizer(eventOrganizer);
+    setOpenEventOrganizerDialog(true);
+  };
+
+  const handleCloseEventOrganizerDialog = () => {
+    setOpenEventOrganizerDialog(false);
+    setSelectedEventOrganizer(null);
+  };
+
+  const filteredUsers = allUsers?.filter((dataUser) => {
+    const fullName = `${dataUser?.firstName} ${dataUser?.lastName}`.toLowerCase();
+    const matchesSearchTerm = fullName.includes(searchTerm.toLowerCase());
+    const matchesRoleFilter = roleFilter === 'all' || dataUser.role.toString() === roleFilter;
+    return matchesSearchTerm && matchesRoleFilter;
+  });
+
+  const userColumns = [
+    { id: 'fullName', label: 'Name' },
+    { id: 'email', label: 'Email' },
+    { id: 'role', label: 'Role' },
+    { id: 'acions', label: 'Actions' },
+  ];
 
   return (
     <div className={classes.app}>
@@ -42,46 +108,70 @@ const UsersAdminPage = ({ user }) => {
         }}
       >
         <BottomBar />
-        <Fab
-          color="primary"
-          aria-label="add"
-          className={classes.fab}
-          // onClick={handleOpenCreatePostDialog}
-          sx={{ position: 'fixed', bottom: 60, right: 16 }}
-        >
-          <AddIcon />
-        </Fab>
       </Box>
       <div className={classes.ProfilePage}>
         <SideBar user={user} />
         <div className={classes.containerProfilePage}>
-          <div>Halaman All Users</div>
-          <TableContainer>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Dessert (100g serving)</TableCell>
-                  <TableCell align="right">Calories</TableCell>
-                  <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                  <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                  <TableCell align="right">Protein&nbsp;(g)</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <div>
+            <FormattedMessage id="app_dashboard_users_headers" />
+          </div>
+          <div className={classes.searchContainer}>
+            <input
+              type="text"
+              placeholder="Search by name..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <select value={roleFilter} onChange={(e) => setRoleFilter(e.target.value)}>
+              <option value="all">
+                <FormattedMessage id="app_dashboard_users_filter_all_role" />
+              </option>
+              <option value="1">
+                <FormattedMessage id="app_dashboard_users_filter_standard_role" />
+              </option>
+              <option value="2">
+                <FormattedMessage id="app_dashboard_users_filter_event_organizer" />
+              </option>
+              <option value="3">
+                <FormattedMessage id="app_dashboard_users_filter_admin_role" />
+              </option>
+            </select>
+          </div>
+          <AdminTable
+            columns={userColumns}
+            data={filteredUsers.map((dataUser) => ({
+              ...dataUser,
+              fullName: `${dataUser.firstName} ${dataUser.lastName}`,
+              email: dataUser.email,
+              role: getRoleName(dataUser.role),
+            }))}
+            onEdit={handleOpenEventOrganizerDialog}
+            onDelete={(userId) => handleDelete(userId)}
+          />
+          <div className={classes.paginationControls}>
+            <button type="button" onClick={handlePreviousPage} disabled={currentPage === 1}>
+              <FormattedMessage id="app_btn_previous_pagination" />
+            </button>
+            <button
+              type="button"
+              onClick={handleNextPage}
+              disabled={currentPage === Math.ceil(allUsers.length / itemsPerPage)}
+            >
+              <FormattedMessage id="app_btn_next_pagination" />
+            </button>
+          </div>
+          <UserDetailsDialog
+            open={openEventOrganizerDialog}
+            onClose={handleCloseEventOrganizerDialog}
+            user={selectedEventOrganizer}
+          />
+          <DeleteConfirmationDialog
+            open={openConfirmDialog}
+            onConfirm={handleConfirmDelete}
+            onCancel={handleCloseConfirmDialog}
+            dialogTitle={<FormattedMessage id="app_confirmation_delete_dialog" />}
+            dialogContent={<FormattedMessage id="app_delete_dialog_header" />}
+          />
         </div>
       </div>
     </div>
@@ -90,10 +180,14 @@ const UsersAdminPage = ({ user }) => {
 
 UsersAdminPage.propTypes = {
   user: PropTypes.object,
+  allUsers: PropTypes.array,
+  token: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   user: selectUser,
+  allUsers: selectAllUsers,
+  token: selectToken,
 });
 
 export default injectIntl(connect(mapStateToProps)(UsersAdminPage));

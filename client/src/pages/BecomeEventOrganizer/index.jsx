@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Tesseract from 'tesseract.js';
@@ -8,8 +9,10 @@ import Tesseract from 'tesseract.js';
 import InputTextField from '@components/InputTextField';
 import { useForm } from 'react-hook-form';
 import { selectToken } from '@containers/Client/selectors';
-import classes from './style.module.scss';
+import { Box, CircularProgress } from '@mui/material';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { createEventOrganizer } from './actions';
+import classes from './style.module.scss';
 
 const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token }) => {
   const dispatch = useDispatch();
@@ -26,7 +29,11 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token }) => {
 
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
-      setImage(URL.createObjectURL(e.target.files[0]));
+      const fileReader = new FileReader();
+      fileReader.onload = function (event) {
+        setImage(event.target.result);
+      };
+      fileReader.readAsDataURL(e.target.files[0]);
     }
   };
 
@@ -98,22 +105,39 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(data)
+    console.log(data);
     dispatch(createEventOrganizer(data, token));
   };
 
   return (
     <div className={classes.ktpForm}>
       <div className={classes.containerForm}>
-        <div className={classes.title}>Become a Event Organizer</div>
-        <img className={classes.imgPreview} src="/assets/images/defaultImg.png" alt="Preview" />
-        <input type="file" onChange={handleImageChange} />
+        <div className={classes.title}>
+          <FormattedMessage id="app_header_become_event_organizer" />
+        </div>
+        <div className={classes.imgPreviewContainer}>
+          <label htmlFor="image-input">
+            <img className={classes.imgPreview} src={image || '/assets/images/defaultImg.png'} alt="Preview" />
+            <Box className={classes.addIcon}>
+              <AddCircleOutlineIcon fontSize="large" />
+            </Box>
+          </label>
+        </div>
+        <input type="file" id="image-input" style={{ display: 'none' }} onChange={handleImageChange} />
         <button type="button" onClick={handleScan} disabled={!image || isLoading}>
-          Scan KTP
+          <FormattedMessage id="app_scan_ktp" />
         </button>
-        {isLoading && <p>Scanning...</p>}
-        <div className={classes.txtUploadKTP}>Upload KTP kamu atau lansung isi di form</div>
-        <div className={classes.descClearPhoto}>Pastikan Photo kamu jelas</div>
+        {isLoading && (
+          <div className={classes.loadingContainer}>
+            <CircularProgress />
+          </div>
+        )}
+        <div className={classes.txtUploadKTP}>
+          <FormattedMessage id="app_ktp_sub_title" />
+        </div>
+        <div className={classes.descClearPhoto}>
+          <FormattedMessage id="app_ktp_sub_title_2" />
+        </div>
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           {/* niknya dibikin readonly  */}
           <InputTextField
@@ -138,46 +162,51 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token }) => {
             register={register}
             errors={errors}
           />
-          <InputTextField
-            input={{
-              name: 'jenisKelamin',
-              required: formatMessage({ id: 'app_ktp_jenisKelamin_require_message' }),
-              type: 'text',
-              label: formatMessage({ id: 'app_ktp_jenisKelamin' }),
-            }}
-            register={register}
-            errors={errors}
-          />
-          <InputTextField
-            input={{
-              name: 'golonganDarah',
-              required: formatMessage({ id: 'app_ktp_golonganDarah_require_message' }),
-              type: 'text',
-              label: formatMessage({ id: 'app_ktp_golonganDarah' }),
-            }}
-            register={register}
-            errors={errors}
-          />
-          <InputTextField
-            input={{
-              name: 'tempatLahir',
-              required: formatMessage({ id: 'app_ktp_place_of_birth_require_message' }),
-              type: 'text',
-              label: formatMessage({ id: 'app_ktp_place_of_birth' }),
-            }}
-            register={register}
-            errors={errors}
-          />
-          <InputTextField
-            input={{
-              name: 'tanggalLahir',
-              required: formatMessage({ id: 'app_ktp_date_of_birth_require_message' }),
-              type: 'text',
-              label: formatMessage({ id: 'app_ktp_date_of_birth' }),
-            }}
-            register={register}
-            errors={errors}
-          />
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <InputTextField
+              input={{
+                name: 'jenisKelamin',
+                required: formatMessage({ id: 'app_ktp_jenisKelamin_require_message' }),
+                type: 'text',
+                label: formatMessage({ id: 'app_ktp_jenisKelamin' }),
+              }}
+              register={register}
+              errors={errors}
+            />
+            <InputTextField
+              input={{
+                name: 'golonganDarah',
+                required: formatMessage({ id: 'app_ktp_golonganDarah_require_message' }),
+                type: 'text',
+                label: formatMessage({ id: 'app_ktp_golonganDarah' }),
+              }}
+              register={register}
+              errors={errors}
+            />
+          </Box>
+          <Box sx={{ display: 'flex', gap: 2 }}>
+            <InputTextField
+              input={{
+                name: 'tempatLahir',
+                required: formatMessage({ id: 'app_ktp_place_of_birth_require_message' }),
+                type: 'text',
+                label: formatMessage({ id: 'app_ktp_place_of_birth' }),
+              }}
+              register={register}
+              errors={errors}
+            />
+            <InputTextField
+              input={{
+                name: 'tanggalLahir',
+                required: formatMessage({ id: 'app_ktp_date_of_birth_require_message' }),
+                type: 'text',
+                label: formatMessage({ id: 'app_ktp_date_of_birth' }),
+              }}
+              register={register}
+              errors={errors}
+            />
+          </Box>
+
           <InputTextField
             input={{
               name: 'provinsi',
@@ -209,26 +238,29 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token }) => {
             register={register}
             errors={errors}
           />
-          <InputTextField
-            input={{
-              name: 'rt',
-              required: formatMessage({ id: 'app_ktp_rt_require_message' }),
-              type: 'number',
-              label: formatMessage({ id: 'app_ktp_rt' }),
-            }}
-            register={register}
-            errors={errors}
-          />
-          <InputTextField
-            input={{
-              name: 'rw',
-              required: formatMessage({ id: 'app_ktp_rw_require_message' }),
-              type: 'number',
-              label: formatMessage({ id: 'app_ktp_rw' }),
-            }}
-            register={register}
-            errors={errors}
-          />
+          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'space-between' }}>
+            <InputTextField
+              input={{
+                name: 'rt',
+                required: formatMessage({ id: 'app_ktp_rt_require_message' }),
+                type: 'number',
+                label: formatMessage({ id: 'app_ktp_rt' }),
+              }}
+              register={register}
+              errors={errors}
+            />
+            <InputTextField
+              input={{
+                name: 'rw',
+                required: formatMessage({ id: 'app_ktp_rw_require_message' }),
+                type: 'number',
+                label: formatMessage({ id: 'app_ktp_rw' }),
+              }}
+              register={register}
+              errors={errors}
+            />
+          </Box>
+
           <InputTextField
             input={{
               name: 'kelurahanDesa',
@@ -290,24 +322,11 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token }) => {
             errors={errors}
           />
           <button type="submit" className={classes.buttonSubmit}>
-            Submit
+            <FormattedMessage id="app_btn_submit" />
           </button>
         </form>
       </div>
     </div>
-
-    // <div>
-    //   <input type="file" onChange={handleImageChange} />
-    //   <button type="button" onClick={handleScan} disabled={!image || isLoading}>
-    //     Scan
-    //   </button>
-
-    //   {isLoading && <p>Scanning...</p>}
-
-    //   <input type="text" value={ocrResult.nik || ''} placeholder="NIK" readOnly />
-    //   <input type="text" value={ocrResult.nama || ''} placeholder="Nama" readOnly />
-    //   {/* Komponen input lainnya */}
-    // </div>
   );
 };
 

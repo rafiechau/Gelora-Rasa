@@ -85,14 +85,16 @@ export default {
   app_event_price_name: 'Harga Event',
   app_event_stok_require_message: 'Stok event dibutuhkan',
   app_event_stok_name: 'Stok Event',
+  app_event_category: 'Kategori Event',
+  app_event_location: 'Lokasi Event',
 
   // sidebar
   app_navigation_profile: 'Profile',
   app_navigation_my_events: 'Acara Saya',
   app_navigation_history_orders: 'Riwayat Pemesanan',
   app_navigation_create_event: 'Buat Acara',
-  app_navigation_categories: 'Categories',
-  app_navigation_location: 'Locations',
+  app_navigation_categories: 'Kategori',
+  app_navigation_location: 'Lokasi',
   app_navigation_all_users: 'Users',
 
   // delete dialog
@@ -105,13 +107,63 @@ export default {
   // Location Dialog
   app_location_name_require_message: 'Nama Lokasi Dibutuhkan',
   app_location_name: 'Lokasi',
+  app_header_edit_location: 'Ubah Lokasi',
+  app_header_create_location: 'Tambah Lokasi',
+  app_header_dashboard_location: 'Halaman Lokasi',
 
   // Category Dialog
-  app_category_name_require_message: 'Nama Category Dibutuhkan',
-  app_category_name: 'Category',
-  app_header_edit_category: 'Edit Category',
+  app_category_name_require_message: 'Nama Kategori Dibutuhkan',
+  app_category_name: 'Kategori',
+  app_header_edit_category: 'Ubah Kategori',
+  app_header_create_category: 'Tambah Kategori',
+  app_header_dashboard_category: 'Halaman Kategori',
+
+  // button pagination
+  app_btn_previous_pagination: 'Sebelumnya',
+  app_btn_next_pagination: 'Selanjutnya',
 
   // forgot password
   app_have_account: 'Sudah punya akun?',
   app_header_login: 'Kembali login',
+
+  // becomen to evet organizer
+  app_header_become_event_organizer: 'Ayo menjadi event organizer',
+  app_scan_ktp: 'Scan Ktp',
+  app_ktp_sub_title: 'Upload KTP kamu atau lansung isi di form',
+  app_ktp_sub_title_2: 'Pastikan Photo kamu jelas',
+
+  // button
+  app_btn_submit: 'Kirim',
+  app_btn_edit: 'Ubah',
+  app_btn_delete: 'Hapus',
+  app_btn_create: 'Tambah Data',
+
+  // detail
+  app_detail_event_offline: 'Offline',
+  app_detail_event_online: 'Online',
+  app_detail_event_description_txt: 'Deskripsi',
+  app_detail_event_about_profile_txt: 'Tentang Kreator',
+  app_detail_event_button_see_profil: 'Lihat Profile',
+  app_detail_event_coutdown_description: 'Pembelian tiket ditutup dalam ',
+
+  // profile
+  app_btn_delete_profile: 'Hapus Akun',
+  app_btn_edit_profile: 'Update Profile',
+  app_profile_firstName: 'Nama Pertama',
+  app_profile_lastName: 'Nama Kedua',
+  app_profile_email: 'Email',
+  app_profile_role: 'Role',
+
+  // dashboar users
+  app_dashboard_users_headers: 'Halaman Seluruh Pengguna',
+  app_dashboard_users_filter_all_role: 'Seluruh Role',
+  app_dashboard_users_filter_standard_role: 'Pengguna Standart',
+  app_dashboard_users_filter_event_organizer: 'Pengguna Penyelenggara Acara',
+  app_dashboard_users_filter_admin_role: 'Pengguna Admin',
+
+  // search
+  app_input_search_event: 'Cari event',
+  app_input_search_location: 'Cari lokasi',
+  app_input_search_categories: 'Cari kategori',
+  app_input_search_user: 'Cari Pengguna',
 };

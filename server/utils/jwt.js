@@ -9,7 +9,7 @@ exports.createTokenVerifyEmail = (otp, email) => {
 
 exports.createToken = (user) => {
   const { role, id, firstName } = user;
-  if (!role || !id || !firstName) {
+  if (!role || !id || !firstName ) {
     return false;
   }
   return jwt.sign({ id, role, firstName }, process.env.SECRET_KEY);

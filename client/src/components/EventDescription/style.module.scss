@@ -1,0 +1,45 @@
+$dark-bg: rgba(29, 36, 51, 0.9);
+$accent-color: #d32f2f;
+$light-color: #fff;
+$grey-color: #999;
+$spacing-unit: 15px;
+$border-radius: 8px;
+$fixed-bar-height: 70px;
+
+.eventDescription{
+    width: 100%;
+    max-width: 1200px;
+    padding: $spacing-unit;
+    margin-top: $spacing-unit;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: $light-color;
+    .creatorInfo{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+        .containerCreator{
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 0;
+            button{
+                border-color: $accent-color;
+                border-radius: 20px;
+                padding: 0 20px;
+                background-color: $navy;
+                color: white;
+                cursor: pointer;
+            }
+        }
+        .containerProfil{
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            img{
+                border-radius: 100%;
+                width: 120px;
+                height: 120px;
+            }
+        }
+    }
+}

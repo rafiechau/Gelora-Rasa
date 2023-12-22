@@ -7,7 +7,7 @@ const { createToken } = require("../utils/jwt");
 exports.createEventOrganizer = async (req, res) => {
     try{
         const newEventOtganizer = req.body
-        console.log(newEventOtganizer)
+        // console.log("Mengecek keberadaan Event Organizer dengan NIK:", newEventOtganizer.nik);
         const userId = req.id;
         const { error, handleRes } = validateJoi(res, newEventOtganizer, schemaEventOrganizer);
         if (error) {

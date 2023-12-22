@@ -4,6 +4,7 @@ export const SET_ALL_MY_EVENT = 'MyEvents/SET_ALL_MY_EVENT';
 export const CREATE_EVENT = 'MyEvents/CREATE_EVENT';
 
 export const UPDATE_EVENT_BY_ID = 'MyEvents/UPDATE_EVENT_BY_ID';
+export const UPDATE_EVENT_EVENT_ORGANIZER = 'MyEvens/UPDATE_EVENT_EVENT_ORGANIZER';
 
 export const DELETE_EVENT = 'MyEvents/DELETE_EVENT';
 export const DELETE_EVENT_SUCCESS = 'MyEvents/DELETE_EVENT_SUCCESS';

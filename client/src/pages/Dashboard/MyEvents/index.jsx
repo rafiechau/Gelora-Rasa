@@ -2,19 +2,30 @@ import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { SideBar } from '@components/sidebar';
 import { Box, Fab, Typography } from '@mui/material';
-import { BottomBar } from '@components/BottomNavigation';
+import BottomBar from '@components/BottomNavigation';
 import AddIcon from '@mui/icons-material/Add';
 import { selectToken, selectUser } from '@containers/Client/selectors';
 import CardMyEvent from '@components/CardMyEvent';
+import EventDialog from '@components/EventDialog';
 import classes from '../style.module.scss';
 import { selectAllMyEvents } from './selectors';
 import { actionGetAllMyEvent } from './actions';
 
 const MyEventsPage = ({ allMyEvents, token, user }) => {
   const dispatch = useDispatch();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleOpenDialog = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
 
   useEffect(() => {
     if (token) {
@@ -48,6 +59,9 @@ const MyEventsPage = ({ allMyEvents, token, user }) => {
         <SideBar user={user} />
         <div className={classes.containerProfilePage}>
           <div>My Events</div>
+          <button type="button" onClick={handleOpenDialog}>
+            Tambah Category
+          </button>
           {allMyEvents.length > 0 ? (
             allMyEvents.map((myEvent) => <CardMyEvent key={myEvent.id} myEvent={myEvent} />)
           ) : (
@@ -57,6 +71,7 @@ const MyEventsPage = ({ allMyEvents, token, user }) => {
           )}
         </div>
       </div>
+      {isDialogOpen && <EventDialog open={isDialogOpen} onClose={handleCloseDialog} mode="create" />}
     </div>
   );
 };

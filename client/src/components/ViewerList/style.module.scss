@@ -1,0 +1,20 @@
+$background-color: #151422;
+$button-color: #2978b5; 
+$text-color: #ffffff; 
+$hover-color: darken($button-color, 10%);
+
+
+.viewerList{
+    margin-top: 2rem;
+    padding: 15px;
+    background-color: darken($background-color, 5%);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    p {
+      color: $text-color;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    
+  }

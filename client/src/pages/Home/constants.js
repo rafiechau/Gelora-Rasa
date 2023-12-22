@@ -1,6 +1,9 @@
 export const GET_ALL_EVENT = 'Home/GET_ALL_EVENT';
 export const SET_ALL_EVENT = 'Home/SET_ALL_EVENT';
 
+export const GET_PAGINATED_EVENT = 'GET_PAGINATED_EVENT';
+export const SET_PAGINATED_EVENT = 'SET_PAGINATED_EVENT';
+
 export const GET_ALL_CATEGORIES = 'Home/GET_ALL_CATEGORIES';
 export const SET_ALL_CATEGORIES = 'Home/SET_ALL_CATEGORIES';
 

@@ -12,38 +12,140 @@ $sidebar-radius: 8px;
     flex-direction: row;
     flex-wrap: wrap;
     min-height: 100vh;
+    box-sizing: border-box;
     @media (max-width: 768px) {
         flex-direction: column;
     }
-    .filterContainer{
-        flex: 0 0 250px;
-        padding: 15px;
-        max-width: 250px;
-        box-sizing: border-box;
-        background: linear-gradient(145deg, $sidebar-bg, $sidebar-hover);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: $sidebar-radius;
-        margin-right: 15px;
-        @media (max-width: 768px) {
-            flex: none;
-            max-width: 100%;
-            margin-right: 0;
-            margin-bottom: 20px;
-        }
-    }
-    .containerCard{
-        flex: 3;
+    .container{
         display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        padding: 15px;
-        gap: 15px;
-        box-sizing: border-box;
-        @media (max-width: 768px) {
-          justify-content: center;
+        align-items: stretch;
+        height: 100vh;
+        flex: 1;
+        .filterContainer{
+            flex: 0 0 250px;
+            padding: 1rem;
+            box-sizing: border-box;
+            background: linear-gradient(145deg, $sidebar-bg, $sidebar-hover);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: $sidebar-radius;
+            margin-right: 1.5rem;
+            overflow-y: auto;
+            height: 100%;
+            // max-height: calc(100vh - 2rem);
+            @media (max-width: 768px) {
+                flex: none;
+                max-width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+                max-height: unset;
+            }
+        }
+        .fab {
+          position: fixed;
+          bottom: 160px; // Adjust this value as needed
+          left: 160px; // Adjust this value as needed
+          z-index: 10; // Make sure it's above other elements
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.24);
+          background-color: pink;
+          transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        
+          &:hover, &:focus {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24);
+          }
+        
+          &.active {
+            background-color: $sidebar-active; // Use the active color from your theme
+            color: white;
+          }
+        }
+        
+        .mainContent{
+            flex-grow: 1;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+            .searchContainer {
+              margin: 1rem;
+              padding: 0.5rem;
+              background-color: $sidebar-bg;
+              box-sizing: border-box;
+              border-radius: $sidebar-radius;
+              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+              @media (max-width: 768px) {
+                background-color: pink;
+                padding: 0.3rem;
+                input[type="text"] {
+                  padding: 0.3rem !important;
+                  // other mobile-specific styles...
+                }
+              }
+            
+              input[type="text"] {
+                width: calc(100% - 1rem);
+                padding: 0.5rem;
+                border: none;
+                border-radius: $sidebar-radius;
+                background-color: lighten($sidebar-bg, 5%);
+                color: white;
+            
+                &:focus {
+                  outline: none;
+                  background-color: lighten($sidebar-bg, 10%);
+                  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+                }
+            
+                &::placeholder {
+                  color: lighten(white, 20%);
+                }
+            
+                &:hover {
+                  background-color: lighten($sidebar-bg, 10%);
+                }
+              }
+            }
+            
+            .containerCard{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+                margin: auto;
+                padding: 15px;
+                gap: 15px;
+                box-sizing: border-box;
+                @media (max-width: 768px) {
+                  justify-content: center;
+                }
+                
+            }
+            .pagination {
+                @include flex-center;
+                margin-top: auto;
+                margin-bottom: 1rem;
+                // background-color: pink;
+                ul {
+                  li {
+                    button {
+                      font-family: 'Quantico', 'sans-serif' !important;
+                      color: $color-text-primary;
+          
+                      &:hover {
+                        color: $color-primary;
+                        border-color: $color-primary;
+                      }
+                    }
+                  }
+                }
+              }
         }
     }
+    
+    
+    
 }
+
+
+
 
 
   

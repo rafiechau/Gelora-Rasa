@@ -43,9 +43,23 @@ export const apiHandleLogin = (data) => callAPI(`${urls.auth}/login`, 'POST', {}
 export const apiHandleSendForgotPassword = (data) => callAPI(`${urls.auth}/forgot-password`, 'POST', {}, {}, data);
 export const apiHandleResetForgotPassword = (data) => callAPI(`${urls.auth}/reset-password`, 'PUT', {}, {}, data);
 
+export const getAllUsersApi = (token, page, pageSize) =>
+  callAPI(`${urls.auth}/all-users?page=${page}&pageSize=${pageSize}`, 'GET', { Authorization: `Bearer ${token}` });
+
+export const deleteUserByAdminApi = (userId, token) =>
+  callAPI(`${urls.auth}/delete-user-by-admin/${userId}`, 'DELETE', { Authorization: `Bearer ${token}` });
+
+export const deleteAccountApi = (token) =>
+  callAPI(`${urls.auth}/delete-account`, 'DELETE', { Authorization: `Bearer ${token}` });
+
+export const apiHandleGetProfile = () => callAPI(`${urls.auth}/profile`, 'GET');
+export const apiHandleEditPhotoProfile = (data) =>
+  callAPI(`${urls.auth}/edit/photoProfile`, 'PUT', { 'Content-Type': 'multipart/form-data' }, {}, data);
+export const apiHandleEditProfile = (data) => callAPI(`${urls.auth}/edit/profile`, 'PUT', {}, {}, data);
+
 // Event
-export const getEventApi = (token, page) =>
-  callAPI(`${urls.events}/?page=${page}`, 'GET', { Authorization: `Bearer ${token}` });
+export const getEventApi = (page, pageSize) =>
+  callAPI(`${urls.events}/?page=${page}&pageSize=${pageSize}`, 'GET', {}, {});
 
 export const deleteEventByIdApi = (eventId, token) =>
   callAPI(`${urls.events}/delete/${eventId}`, 'DELETE', { Authorization: `Bearer ${token}` });
@@ -55,6 +69,9 @@ export const createEventApi = (data, token) =>
 export const updateEventByIdApi = (eventId, data, token) =>
   callAPI(`${urls.events}/update/${eventId}`, 'PUT', { Authorization: `Bearer ${token}` }, {}, data);
 
+export const updateStatusEventByIdApi = (eventId, data, token) =>
+  callAPI(`${urls.events}/update-status/${eventId}`, 'PUT', { Authorization: `Bearer ${token}` }, {}, data);
+
 export const getEventByIdApi = (eventId, token) =>
   callAPI(`${urls.events}/detail/${eventId}`, 'GET', { Authorization: `Bearer ${token}` });
 
@@ -62,11 +79,17 @@ export const getMyEventApi = (token) => callAPI(`${urls.events}/myEvent`, 'GET',
 
 // Order
 
-export const createOrderApi = (eventId, data, token) =>
-  callAPI(`${urls.orders}/create/${eventId}`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
+export const initialPayementApi = (eventId, token, data) =>
+  callAPI(`${urls.orders}/initialPayment/${eventId}`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
 
-export default (orderId, status, token) =>
-  callAPI(`${urls.orders}/update-status/${orderId}`, 'PUT', { Authorization: `Bearer ${token}` }, {}, { status });
+export const createOrderEvent = (token, data) =>
+  callAPI(`${urls.orders}/create`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
+
+// export const createOrderApi = (eventId, data, token) =>
+//   callAPI(`${urls.orders}/initialPayment/${eventId}`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
+
+// export const updateStatusOrderApi = (orderId, status, token) =>
+//   callAPI(`${urls.orders}/create/${orderId}`, 'PUT', { Authorization: `Bearer ${token}` }, {}, { status });
 
 export const getMyOrdersApi = (token) =>
   callAPI(`${urls.orders}/getMyOrder`, 'GET', { Authorization: `Bearer ${token}` });

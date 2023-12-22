@@ -1,0 +1,82 @@
+
+$dark-grey: #333;
+$border-radius: 5px;
+$transition-duration: 0.3s;
+$primary-color: #4CAF50;
+$white: #fff;
+
+.containerProfilePage{
+    background-color: $dark-grey;
+    padding: 40px;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    width: 90%;
+    max-width: 500px;
+    @media (max-width: 768px) {
+        padding: 10px;
+    }
+    .imgWrap{
+        position: relative;
+        cursor: pointer;
+        margin-bottom: 20px;
+        &:hover .buttonEdit {
+            visibility: visible;
+            opacity: 1;
+        }
+        img, .avatar {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            border: 2px solid $primary-color;
+        }
+        .buttonEdit {
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity $transition-duration;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: $primary-color;
+            background-color: $white;
+            border-radius: 50%;
+            padding: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          }
+    }
+    p {
+        margin: 10px 0;
+        color: white;
+    }
+    
+    .buttonSubmit, .buttonDeleteAccount {
+        display: block;
+        width: 100%;
+        text-align: center;
+        border: none;
+        padding: 15px;
+        margin-top: 15px;
+        cursor: pointer;
+        background-color: $primary-color;
+        color: $white;
+        border-radius: $border-radius;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: background-color $transition-duration;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+        }
+
+        &:first-of-type {
+          margin-bottom: 10px;
+        }
+      }
+
+      .buttonDeleteAccount {
+        background-color: red;
+        &:hover {
+          background-color: darken(red, 10%);
+        }
+      }
+}

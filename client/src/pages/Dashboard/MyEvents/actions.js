@@ -6,6 +6,7 @@ import {
   RESET_DELETE_SUCCESS,
   SET_ALL_MY_EVENT,
   UPDATE_EVENT_BY_ID,
+  UPDATE_EVENT_EVENT_ORGANIZER,
 } from './constants';
 
 export const actionGetAllMyEvent = (token) => ({
@@ -25,6 +26,11 @@ export const actionCreateEvent = (data, token) => ({
 
 export const actionUpdateEventById = (eventId, data, token) => ({
   type: UPDATE_EVENT_BY_ID,
+  payload: { eventId, data, token },
+});
+
+export const actionUpdateEventEventOrganizer = (eventId, data, token) => ({
+  type: UPDATE_EVENT_EVENT_ORGANIZER,
   payload: { eventId, data, token },
 });
 

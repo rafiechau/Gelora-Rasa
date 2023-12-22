@@ -1,0 +1,192 @@
+.responsiveTableContainer {
+    overflow-x: auto;
+    .responsiveTable{
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #f3f3f3;
+        color: #333;
+        font-size: 1rem;
+        thead{
+            background-color: #333;
+            color: #fff;
+            th{
+                padding: 10px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+               
+            }
+        }
+        tbody{
+            td{
+                padding: 10px;
+                text-align: left;
+                border-bottom: 2px solid #ddd;
+            }
+            .actions{
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2px;
+                .btn {
+                    padding: 10px 15px;
+                    margin-right: 5px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    flex: 1;
+                }
+                .btn-detail {
+                    background-color: #3498db;
+                    color: #fff;
+                }
+                  
+                .btn-delete {
+                    background-color: #e74c3c;
+                    color: #fff;
+                }
+            }
+            
+        }
+    }
+}
+
+@media screen and (max-width: 722px) {
+    .responsiveTable{
+        tbody{
+            td:before {
+                content: attr(data-label);
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+            td {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start; 
+            }
+            .actions {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                .btn {
+                    width: 100%;
+                    margin: 5px 0;
+                  }
+            }
+        } 
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .responsiveTable{
+        thead {
+            display: none;
+        }
+        tbody{
+            td:before {
+                content: attr(data-label);
+                font-weight: bold;
+                margin-right: 10px;
+            }
+            td{
+                display: flex;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 10px 5px;
+            }
+            .btn {
+                padding: 10px;
+                font-size: 0.8rem;
+              }
+        }
+    } 
+  
+    
+  }
+
+  @media screen and (max-width: 840px) {
+    .responsiveTable{
+        thead{
+            th{
+                padding: 8px;
+            }
+        }
+        
+        tbody{
+            td{
+                word-break: break-word;
+            }
+            .btn {
+                width: 100%;
+                padding: 8px 100px; 
+                font-size: 0.75rem; 
+                margin: 5px 0;
+                width: auto;
+                max-width: 100%;
+            } 
+        }
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .responsiveTable{
+        thead{
+            th{
+                font-size: 0.7rem;
+                padding: 8px;
+            }
+        }
+        
+        tbody{
+            td{
+                font-size: 0.7rem;
+                word-break: break-word;
+            }
+            .actions{
+                .btn {
+                    padding: 1px 3px; 
+                    font-size: 0.5rem; 
+                    margin: 5px 0;
+                    width: auto;
+                    max-width: 100%;
+                } 
+            }
+            
+        }
+    }
+}
+
+@media screen and (max-width: 840px) {
+    .responsiveTable thead th {
+        padding: 8px;
+    }
+    .responsiveTable tbody td {
+        word-break: break-word;
+    }
+    .responsiveTable tbody .actions .btn {
+        padding: 8px; 
+        font-size: 0.75rem;
+        margin: 5px 0;
+        width: auto;
+        max-width: 100%;
+    } 
+}
+
+@media screen and (max-width: 725px) {
+    thead{
+        display: none;
+    }
+    .responsiveTable tbody .actions {
+        justify-content: space-between; 
+        gap: 8px; 
+    }
+    .responsiveTable tbody .actions .btn {
+        padding: 5px; 
+        font-size: 0.65rem; 
+    }
+}
+
+@media screen and (max-width: 722px) {
+    .responsiveTable tbody .actions .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+}

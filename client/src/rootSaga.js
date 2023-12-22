@@ -12,6 +12,8 @@ import { dashboardOrdersSaga } from '@pages/Dashboard/Orders/saga';
 import dashboardLocationSaga from '@pages/Dashboard/Locations/saga';
 import dashboardCategorySaga from '@pages/Dashboard/Categories/saga';
 import { streamingSaga } from '@pages/Streaming/saga';
+import { dashboardUsersSaga } from '@pages/Dashboard/Users/saga';
+import profileSaga from '@pages/Dashboard/Profile/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -27,5 +29,7 @@ export default function* rootSaga() {
     dashboardLocationSaga(),
     dashboardCategorySaga(),
     streamingSaga(),
+    dashboardUsersSaga(),
+    profileSaga(),
   ]);
 }

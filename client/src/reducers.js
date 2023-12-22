@@ -10,6 +10,8 @@ import myEventReducer from '@pages/Dashboard/MyEvents/reducer';
 import dashboardLocationReducer from '@pages/Dashboard/Locations/reducer';
 import dashboardCategoryReducer from '@pages/Dashboard/Categories/reducer';
 import dashboardMyOrdersReducer from '@pages/Dashboard/Orders/reducer';
+import dashboardUsersReducer from '@pages/Dashboard/Users/reducer';
+import dashboardProfileReducer from '@pages/Dashboard/Profile/reducer';
 import { mapWithPersistor } from './persistence';
 
 const storedReducers = {
@@ -25,6 +27,8 @@ const temporaryReducers = {
   dashboardLocation: dashboardLocationReducer,
   dashboardCategory: dashboardCategoryReducer,
   dashboardOrder: dashboardMyOrdersReducer,
+  dashboardUser: dashboardUsersReducer,
+  dashboardProfile: dashboardProfileReducer,
 };
 
 const createReducer = () => {

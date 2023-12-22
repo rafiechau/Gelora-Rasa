@@ -1,6 +1,7 @@
 import {
   IS_VERIFY,
   LOGIN_REQUEST,
+  LOGOUT_USER,
   REGISTER_REQUEST,
   RESET_REGISTER_STEP,
   SEND_OTP,
@@ -70,4 +71,8 @@ export const actionHandleSendOTP = (data) => ({
 });
 export const actionHandleResetRegister = () => ({
   type: RESET_REGISTER_STEP,
+});
+
+export const logoutUser = () => ({
+  type: LOGOUT_USER,
 });

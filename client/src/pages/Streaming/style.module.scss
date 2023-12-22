@@ -5,26 +5,94 @@ $hover-color: darken($button-color, 10%);
 
 .streamingPage{
     background-color: $navy;
-    height: 100vh;
+    padding-bottom: 50px;
+    min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
+    justify-content: flex-start;
+    overflow-x: hidden;
     .containerMeetingId{
-      width: 50%;
+      width: 90%;
+      min-height: auto; 
       background-color: lighten($background-color, 5%);
       border-radius: 12px;
-      padding: 30px;
+      padding: 20px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       display: flex;
       flex-direction: column;
       gap: 2rem;
       align-items: center;
       text-align: center;
+      margin-top: 20px;
+      @media (max-width: 768px) {
+        width: 80%;
+        margin-top: 10px;
+        gap: 1.5rem;
+      }
+      @media (max-width: 480px) {
+        width: 90%;
+        margin-top: 10px;
+      }
+      .videoGrid{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        width: 100%;
+        @media (max-width: 768px) {
+          grid-template-columns: 1fr;
+        }
+        .videoWrapper {
+          position: relative;
+          width: 100%;
+          padding-top: 56.25%; // Aspect ratio for widescreen videos
+          .reactPlayer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
       .meetingId{
         font-size: 24px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         color: $text-color;
+        font-weight: bold;
       }
+      
+      .requestToJoin{
+        display: flex;
+        gap: 1rem;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 1rem;
+        background: darken($background-color, 10%);
+        padding: 10px;
+        border-radius: 8px;
+        .btn {
+          padding: 10px 15px;
+          border: none;
+          border-radius: 4px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          &:hover {
+            background-color: $hover-color;
+          }
+          // Accept button styles
+          &.accept {
+            background-color: #2ecc71;
+          }
+          // Reject button styles
+          &.reject {
+            background-color: #e74c3c;
+          }
+        }
+      }
+
       .btnJoin {
         width: 100%;
         padding: 15px 20px;
@@ -39,63 +107,8 @@ $hover-color: darken($button-color, 10%);
           background-color: $hover-color;
         }
       }
-      .form{
-        width: 100%;
-      }
+      
     }
-    .containerJoinStreaming{
-        width: 50%;
-        background-color: lighten($background-color, 5%);
-        border-radius: 12px;
-        padding: 30px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        .imageLiveStreaming {
-          width: 80%; 
-          border-radius: 8px; 
-          margin-bottom: 20px; 
-      }
-
-      .message {
-          font-size: 18px; 
-          margin-bottom: 20px; 
-          text-align: center; 
-          color: $text-color;
-      }
-        button{
-          width: 100%;
-          padding: 15px 20px;
-          border: none;
-          border-radius: 8px;
-          color: $text-color;
-          cursor: pointer;
-          transition: background-color 0.3s ease;
-  
-          &:hover {
-            background-color: $hover-color;
-          }
-        }
-        .buttonJoinStreaming, .buttonCreateMeeting{
-          background-color: $button-color;
-          flex-basis: 48%;
-        }
-        input[type="text"] {
-          width: 90%; 
-          padding: 15px;
-          margin-bottom: 20px;
-          border: 1px solid $button-color;
-          border-radius: 8px;
-          color: $text-color;
-          background-color: transparent;
-    
-          &::placeholder {
-            color: lighten($text-color, 20%);
-          }
-        }
-        
-        
-    }
+   
 }
+

@@ -1,0 +1,100 @@
+.containerSpeakerView{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px; 
+    gap: 20px;
+    
+    p {
+      color: white; 
+      font-size: 16px;
+    }
+    .participantView{
+      display: flex;
+      flex-direction: column;
+      align-items: center; 
+      text-align: center; 
+      margin: 1rem 0;
+      p{
+        margin-bottom: 0.5rem; 
+        color: #ecf0f1; 
+        font-weight: 500;
+      }
+      .vidioWrapper{
+        position: relative; 
+        width: 100%; 
+        max-width: 300px; 
+        margin: auto;
+        .reactPlayer {
+          position: absolute; 
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          margin: auto; 
+    
+          video {
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+          }
+        }
+      }
+    }
+    .containerControls{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background: #2c3e50; // Dark background for contrast
+      border-radius: 6px;
+      button {
+        padding: 8px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #ecf0f1; // Light text for readability
+        background-color: #3498db; // A blue that stands out
+        border: none;
+        border-radius: 4px; // Slightly rounded buttons
+        cursor: pointer;
+        transition: background-color 0.3s;
+    
+        &:hover {
+          background-color: darken(#3498db, 10%);
+        }
+    
+        &:active {
+          background-color: darken(#3498db, 20%);
+        }
+      }
+    
+      .divider {
+        height: 24px;
+        width: 1px;
+        background-color: #ecf0f1;
+      }
+      @media (max-width: 768px) {
+        gap: 8px;
+        padding: 8px;
+    
+        button {
+          padding: 6px 12px;
+          font-size: 13px; // Slightly smaller text on tablets
+        }
+      }
+      @media (max-width: 480px) {
+        flex-direction: column; // Stack buttons vertically on mobile
+    
+        button {
+          width: 80%; // Full width buttons on mobile
+          margin-bottom: 8px; // Add some space between the buttons
+        }
+    
+        .divider {
+          display: none; // Hide divider on small screens
+        }
+      }
+    }
+  }

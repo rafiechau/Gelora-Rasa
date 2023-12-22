@@ -2,30 +2,14 @@ import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SideBar } from '@components/sidebar';
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Fab,
-  IconButton,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { BottomBar } from '@components/BottomNavigation';
+import { Box, Fab } from '@mui/material';
+import BottomBar from '@components/BottomNavigation';
 import AddIcon from '@mui/icons-material/Add';
 import { selectToken, selectUser } from '@containers/Client/selectors';
+import AdminTable from '@components/AdminTable';
+import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
 import classes from '../style.module.scss';
 import { selectAllMyOrders } from './selectors';
 import { actionDeleteOrderById, actionGetAllMyOrders } from './actions';
@@ -48,15 +32,22 @@ const OrdersPage = ({ user, allMyOrders, token }) => {
     setOpenConfirmDialog(true);
   };
 
-  const handleDelete = (locationId) => {
-    setCurrentOrderId(locationId);
-    handleOpenConfirmDialog();
+  const handleDelete = (orderId) => {
+    setCurrentOrderId(orderId);
+    handleOpenConfirmDialog(true);
   };
 
   const handleConfirmDelete = () => {
     dispatch(actionDeleteOrderById(currentOrderId, token));
     handleCloseConfirmDialog();
   };
+
+  const orderColumns = [
+    { id: 'eventName', label: 'Nama Event' },
+    { id: 'totalTickets', label: 'Total Tickets' },
+    { id: 'totalPay', label: 'Total Pay' },
+    { id: 'ticketsTypes', label: 'Ticket Types' },
+  ];
 
   return (
     <div className={classes.app}>
@@ -84,7 +75,20 @@ const OrdersPage = ({ user, allMyOrders, token }) => {
         <SideBar user={user} />
         <div className={classes.containerProfilePage}>
           <div>My Orders</div>
-          <TableContainer component={Paper}>
+          <AdminTable
+            columns={orderColumns}
+            data={allMyOrders.map((order) => ({
+              id: order.id,
+              tanggalPembelian: order.tanggalPembelian,
+              eventName: order.event.eventName,
+              totalTickets: order.totalTickets,
+              totalPay: order.totalPay,
+              ticketsTypes: order.ticketsTypes,
+            }))}
+            onDelete={handleDelete}
+            showEditButton={false}
+          />
+          {/* <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
@@ -115,30 +119,14 @@ const OrdersPage = ({ user, allMyOrders, token }) => {
                 ))}
               </TableBody>
             </Table>
-          </TableContainer>
-          <Dialog
+          </TableContainer> */}
+          <DeleteConfirmationDialog
             open={openConfirmDialog}
-            onClose={handleCloseConfirmDialog}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <DialogTitle id="alert-dialog-title">
-              <FormattedMessage id="app_confirmation_delete_dialog" />
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                <FormattedMessage id="app_delete_dialog_header" />
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseConfirmDialog}>
-                <FormattedMessage id="app_cancel_dialog" />
-              </Button>
-              <Button onClick={handleConfirmDelete} autoFocus>
-                <FormattedMessage id="app_delete_dialog" />
-              </Button>
-            </DialogActions>
-          </Dialog>
+            onConfirm={handleConfirmDelete}
+            onCancel={handleCloseConfirmDialog}
+            dialogTitle={<FormattedMessage id="app_confirmation_delete_dialog" />}
+            dialogContent={<FormattedMessage id="app_delete_dialog_header" />}
+          />
         </div>
       </div>
     </div>

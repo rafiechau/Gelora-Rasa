@@ -1,18 +1,24 @@
 const { handleNotFound, handleSuccess, handleServerError, handleCreated, handleResponse } = require("../helper/handleResponseHelper");
 const { validateJoi, schemaLocation } = require("../helper/joiHelper");
 const { Location } = require("../models");
+const redisClient = require('../utils/redistClient');
 
 exports.getAllLocation = async (req, res) => {
     try{
-        const location = await Location.findAll({
-            order: [['namaProvinsi', 'ASC']]
-        })
+        const cachedLocation = await redisClient.get(process.env.REDIS_KEY_LOCATION);
 
-        if (location.length === 0) {
-            return handleNotFound(res)
+        if(cachedLocation){
+            return handleSuccess(res, { message: "Data from cache", data: JSON.parse(cachedLocation)  });
+        }else{
+            const location = await Location.findAll({
+                order: [['namaProvinsi', 'ASC']]
+            })
+            if (location.length === 0) {
+                return handleNotFound(res)
+            }
+            await redisClient.set(process.env.REDIS_KEY_LOCATION, JSON.stringify(location), 'EX', 1000);
+            return handleSuccess(res, { message: "success retrieved Location from database", data: location  });
         }
-
-        return handleSuccess(res, { message: "success retrieved Location from database", data: location  });
     }catch(error){
         console.log(error)
         return handleServerError(res, error)
@@ -37,6 +43,16 @@ exports.createLocation = async (req, res) => {
         }
       
         const location = await Location.create(newLocation);
+
+        try {
+            const cacheExists = await redisClient.exists(process.env.REDIS_KEY_LOCATION);
+            if (cacheExists) {
+                await redisClient.del(process.env.REDIS_KEY_LOCATION);
+                console.log('Cache cleared successfully');
+            }
+        } catch (cacheError) {
+            console.error('Error while clearing cache:', cacheError);
+        }
   
         return handleSuccess(res, {
             data: location,
@@ -64,6 +80,16 @@ exports.updateLocation = async(req, res) => {
         }
 
         await Location.update(updateDataLocation, { where: {id: locationId} })
+
+        try {
+            const cacheExists = await redisClient.exists(process.env.REDIS_KEY_LOCATION);
+            if (cacheExists) {
+                await redisClient.del(process.env.REDIS_KEY_LOCATION);
+                console.log('Cache cleared successfully');
+            }
+        } catch (cacheError) {
+            console.error('Error while clearing cache:', cacheError);
+        }
         return handleCreated(res, { message: "success update data location" });
     }catch(error){
         console.log(error)
@@ -82,6 +108,16 @@ exports.deleteLocation = async(req, res) => {
         }
 
         await locationDelete.destroy()
+
+        try {
+            const cacheExists = await redisClient.exists(process.env.REDIS_KEY_LOCATION);
+            if (cacheExists) {
+                await redisClient.del(process.env.REDIS_KEY_LOCATION);
+                console.log('Cache cleared successfully');
+            }
+        } catch (cacheError) {
+            console.error('Error while clearing cache:', cacheError);
+        }
         return res.status(200).json({ message: 'location successfully deleted.' });
     }catch(error){
         console.log(error)

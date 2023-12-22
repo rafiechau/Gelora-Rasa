@@ -11,7 +11,7 @@ exports.handleSendMailForgotPass = async (token, email) => {
   const message = {
     user: process.env.EMAIL_ADDRESS,
     to: email,
-    subject: "Reset Password CommuniCast",
+    subject: "Reset Password Gelorasa",
     html: `<body>
   <div
     style="
@@ -31,12 +31,12 @@ exports.handleSendMailForgotPass = async (token, email) => {
             font-weight: 600;
           "
         >
-          CommuniCast
+          Gelorasa
         </p>
       </div>
       <p style="font-size: 1.1em">Hi,</p>
       <p>
-        Thank you for choosing CommuniCast. Use the following
+        Thank you for choosing Gelorasa. Use the following
         reset password to login
       </p>
       <h2
@@ -50,7 +50,7 @@ exports.handleSendMailForgotPass = async (token, email) => {
         "
       >
         <p>
-          Click to Reset Password from CommuniCast
+          Click to Reset Password from Gelorasa
           <a
             href="${process.env.CLIENT_URL}${token}/reset-password/"
             id="sendPassword"
@@ -59,7 +59,7 @@ exports.handleSendMailForgotPass = async (token, email) => {
           >
         </p>
       </h2>
-      <p style="font-size: 0.9em">Regards,<br />CommuniCast Team</p>
+      <p style="font-size: 0.9em">Regards,<br />Gelorasa Team</p>
       <hr style="border: none; border-top: 1px solid #eee" />
     </div>
   </div>
@@ -85,7 +85,7 @@ exports.handleSendMailVerifyOTP = async (OTP, email) => {
     const message = {
       from: process.env.EMAIL_ADDRESS,
       to: email,
-      subject: "Verify Email CommuniCast",
+      subject: "Verify Email Gelorasa",
       html: `<body>
     <div
       style="
@@ -105,12 +105,12 @@ exports.handleSendMailVerifyOTP = async (OTP, email) => {
               font-weight: 600;
             "
           >
-            CommuniCast
+            Gelorasa
           </p>
         </div>
         <p style="font-size: 1.1em">Hi,</p>
         <p>
-          Thank you for choosing CommuniCast. Use the following
+          Thank you for choosing Gelorasa. Use the following
           verify Email
         </p>
         <h2
@@ -127,7 +127,7 @@ exports.handleSendMailVerifyOTP = async (OTP, email) => {
             This your OTP Number <b>${OTP}</b>
           </p>
         </h2>
-        <p style="font-size: 0.9em">Regards,<br />CommuniCast</p>
+        <p style="font-size: 0.9em">Regards,<br />Gelorasa</p>
         <hr style="border: none; border-top: 1px solid #eee" />
       </div>
     </div>
@@ -182,5 +182,47 @@ exports.handlesendMeetingIdEmail = async (meetingId, email, eventName) => {
   } catch (error) {
     console.log('Error in sending email:', error);
     throw error;
+  }
+};
+
+exports.handleSendOrderConfirmation = async (orderDetails, user) => {
+  var transport = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+          user: process.env.EMAIL_ADDRESS,
+          pass: process.env.PASSWORD,
+      },
+  });
+
+  const message = {
+      from: process.env.EMAIL_ADDRESS,
+      to: user.email,
+      subject: "Konfirmasi Order - Gelorasa",
+      html: `<body>
+      <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+          <div style="background-color: #f4f4f4; padding: 20px; text-align: center; border-bottom: 2px solid #00a2ff;">
+              <h1 style="margin: 0; color: #00a2ff;">CommuniCast</h1>
+          </div>
+          <div style="padding: 20px;">
+              <p style="font-size: 1.1em">Hi, ${user.firstName},</p>
+              <p>Terima kasih telah melakukan pemesanan di CommuniCast. Berikut adalah detail order Anda:</p>
+              <div style="background-color: #f9f9f9; padding: 15px; border-left: 4px solid #00a2ff; margin-bottom: 20px;">
+                  <p><strong>Nama Event:</strong> ${orderDetails.eventName}</p>
+                  <p><strong>Jenis Tiket:</strong> ${orderDetails.ticketsTypes}</p>
+                  <p><strong>Total Tiket:</strong> ${orderDetails.totalTickets}</p>
+                  <p><strong>Order ID:</strong> ${orderDetails.orderId}</p>
+                  <p><strong>Tanggal Pembelian:</strong> ${orderDetails.purchaseDate}</p>
+              </div>
+              <p style="font-size: 0.9em; text-align: center;">Regards,<br />Tim CommuniCast</p>
+          </div>
+      </div>
+  </body>`
+  };
+
+  try {
+      const info = await transport.sendMail(message);
+      return info;
+  } catch (error) {
+      console.log(error);
   }
 };

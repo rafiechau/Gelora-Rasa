@@ -2,6 +2,7 @@ import { produce } from 'immer';
 
 import {
   IS_VERIFY,
+  LOGOUT_USER,
   RESET_REGISTER_STEP,
   SET_EMAIL,
   SET_EXPIRE_TIME,
@@ -53,6 +54,8 @@ const clientReducer = (state = initialState, action) =>
         draft.tokenVerify = action.token;
         break;
       case RESET_REGISTER_STEP:
+        return initialState;
+      case LOGOUT_USER:
         return initialState;
     }
   });

@@ -34,7 +34,19 @@ exports.schemaUser = Joi.object({
     'any.required': 'email is required.',
   }),
   password: Joi.string().min(8).required(),
-  role: Joi.number().valid(1, 2).required()
+  role: Joi.number().valid(1, 2, 3).required()
+});
+
+exports.schemaProfile = Joi.object({
+  firstName: Joi.string().min(3).required().messages({
+    'string.base': 'firstName must be a string',
+    'string.min': 'firstName must be at least three characters long',
+    'any.required': 'firstName is required',
+  }),
+  lastName: Joi.string().allow('', null).messages({
+    'string.base': 'lastName should be a string or null'
+  }),
+  password: Joi.string().min(8),
 });
 
 exports.schemaLogin = Joi.object({

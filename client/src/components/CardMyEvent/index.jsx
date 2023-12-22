@@ -27,7 +27,8 @@ import { useNavigate } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 import { actionDeleteMyEventById } from '@pages/Dashboard/MyEvents/actions';
-import EditEventDialog from '@components/EditEventDialog';
+import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
+import EventDialog from '@components/EventDialog';
 
 const CardMyEvent = ({ myEvent, token, user }) => {
   const navigate = useNavigate();
@@ -47,8 +48,14 @@ const CardMyEvent = ({ myEvent, token, user }) => {
     setOpenConfirmDialog(true);
   };
 
-  const handleEdit = () => {
-    setOpenEditDialog(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleOpenDialog = () => {
+    setIsDialogOpen(true);
+  };
+
+  const handleCloseDialog = () => {
+    setIsDialogOpen(false);
   };
 
   const handleDelete = () => {
@@ -153,7 +160,7 @@ const CardMyEvent = ({ myEvent, token, user }) => {
           <IconButton
             aria-label="edit"
             sx={{ color: 'blue', opacity: 0.7, '&:hover': { opacity: 1 } }}
-            onClick={handleEdit}
+            onClick={handleOpenDialog}
           >
             <EditIcon />
           </IconButton>
@@ -172,30 +179,14 @@ const CardMyEvent = ({ myEvent, token, user }) => {
           Status: {myEvent?.status.toUpperCase()}
         </Typography>
       </CardActions>
-      <Dialog
+      <DeleteConfirmationDialog
         open={openConfirmDialog}
-        onClose={handleCloseConfirmDialog}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          <FormattedMessage id="app_confirmation_delete_dialog" />
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            <FormattedMessage id="app_delete_dialog_header" />
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseConfirmDialog}>
-            <FormattedMessage id="app_cancel_dialog" />
-          </Button>
-          <Button onClick={handleConfirmDelete} autoFocus>
-            <FormattedMessage id="app_delete_dialog" />
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <EditEventDialog open={openEditDialog} onClose={() => setOpenEditDialog(false)} myEvent={myEvent} />
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCloseConfirmDialog}
+        dialogTitle={<FormattedMessage id="app_confirmation_delete_dialog" />}
+        dialogContent={<FormattedMessage id="app_delete_dialog_header" />}
+      />
+      {isDialogOpen && <EventDialog open={isDialogOpen} onClose={handleCloseDialog} mode="edit" myEvent={myEvent} />}
     </Card>
   );
 };

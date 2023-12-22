@@ -15,3 +15,4 @@ export const IS_VERIFY = 'Client/IS_VERIFY';
 
 // Login
 export const LOGIN_REQUEST = 'Client/LOGIN_REQUEST';
+export const LOGOUT_USER = 'Client/LOGOUT_USER';

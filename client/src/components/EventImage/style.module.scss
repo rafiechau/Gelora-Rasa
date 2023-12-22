@@ -1,0 +1,26 @@
+$dark-bg: rgba(29, 36, 51, 0.9);
+$accent-color: #d32f2f;
+$light-color: #fff;
+$grey-color: #999;
+$spacing-unit: 15px;
+$border-radius: 8px;
+$fixed-bar-height: 70px;
+
+.eventImage{
+    width: 100%;
+    max-width: 400px;
+    padding: $spacing-unit;
+    img{
+        width: 100%;
+        height: auto;
+        border-radius: 30px;
+    }
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+}
+.dialogImage {
+    width: 100%;
+    height: auto;
+}
+  

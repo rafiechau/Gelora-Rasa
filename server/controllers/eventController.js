@@ -13,13 +13,16 @@ exports.getAllEvent = async(req, res) => {
         const offset = (page - 1) * pageSize;
 
         const events = await Event.findAndCountAll({
+            where:{
+                status: 'active'
+            },
             limit: pageSize,
             offset: offset,
             order: [['date', 'ASC']], 
             include: [
                 {
                     model: User,
-                    attributes: ['id', 'firstName', 'lastName', 'email'],
+                    attributes: ['id', 'firstName', 'lastName', 'email', 'imagePath'],
                 },
                 {
                     model: Category,
@@ -32,12 +35,36 @@ exports.getAllEvent = async(req, res) => {
             ],
         });
 
-        // Kirim response dengan events dan informasi pagination
         return res.json({
             events: events.rows,
+            count: events.count,
             totalPages: Math.ceil(events.count / pageSize),
             currentPage: page,
         });
+    }catch(error){
+        console.log(error)
+        return handleServerError(res, error)
+    }
+}
+
+exports.getUserProfileById = async(req, res) => {
+    try{
+        const { userId } = req.params;
+    
+        const userProfile = await User.findOne({
+            include: [
+              {
+                model: Event,
+                where: { userId }, // Filter berdasarkan 'userId'
+              },
+            ],
+        });
+        if (!userProfile) {
+            return res.status(404).json({ message: 'Profil pengguna tidak ditemukan' });
+        }
+
+
+    return handleSuccess(res, { message: "success retrieved from database", data: userProfile  });
     }catch(error){
         console.log(error)
         return handleServerError(res, error)
@@ -112,6 +139,7 @@ exports.createEvent = async(req, res) => {
         const image = req.file ? req.file.path : null;
         const newEvent   = { ...req.body, ...(image && { image }) };
 
+
         const { error, handleRes } = validateJoi(res, newEvent, schemaEvent);
         if (error) {
           return handleRes;
@@ -119,7 +147,15 @@ exports.createEvent = async(req, res) => {
 
         if (!newEvent.locationId) {
             return res.status(400).json({ message: "Location ID is required" });
-          }
+        }
+
+        if (!newEvent.categoryId) {
+            return res.status(400).json({ message: "Category id is required" });
+        }
+
+        if (!newEvent.userId) {
+            return res.status(400).json({ message: "User ID is required" });
+        }
   
         const event = await Event.create(newEvent);
   
@@ -139,6 +175,7 @@ exports.updateEvent = async (req, res) => {
         const imagePath = req?.file?.path;
         const { eventId } = req.params
         const updateDataEvent = req.body
+        console.log(updateDataEvent, "<<update event")
 
         const { error, handleRes } = validateJoi(res, updateDataEvent, schemaEvent)
         if(error){
@@ -173,12 +210,28 @@ exports.updateEvent = async (req, res) => {
     }
 }
 
+exports.updateEventStatus = async(req, res) => {
+    try{
+        const { eventId } = req.params;
+        const newStatus = { status: 'non-active' };
+
+        const event = await Event.findByPk(eventId);
+        if (!event) {
+            return handleResponse(res, 404, { message: 'Event not found' });
+        }
+
+        await Event.update(newStatus, { where: { id: eventId } });
+        return handleResponse(res, 200, { message: 'Event status updated successfully' });
+    }catch(error){
+        console.log(error);
+        return handleServerError(res, error);
+    }
+}
+
 exports.deleteMyEvent = async(req, res) => {
     try{
         const { eventId } = req.params
         const userId = req.id;
-        console.log(eventId)
-        console.log(userId)
 
         const eventToDelete = await Event.findOne({ where: { id: eventId, userId: userId } });
         console.log(eventToDelete)
