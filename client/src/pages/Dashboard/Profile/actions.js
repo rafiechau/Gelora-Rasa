@@ -1,13 +1,4 @@
-import {
-  DELETE_ACCOUNT,
-  DELETE_ACCOUNT_SUCCESS,
-  EDIT_PHOTO_PROFILE,
-  EDIT_PROFILE,
-  GET_PROFILE,
-  RESET_DELETE_ACCOUNT_SUCCESS,
-  RESET_PROFILE,
-  SET_PROFILE,
-} from './constants';
+import { DELETE_ACCOUNT, EDIT_PHOTO_PROFILE, EDIT_PROFILE, GET_PROFILE, RESET_PROFILE, SET_PROFILE } from './constants';
 
 export const actionGetProfile = () => ({
   type: GET_PROFILE,
@@ -31,15 +22,16 @@ export const actionEditProfile = (data, callback) => ({
   callback,
 });
 
-export default (token) => ({
+export const actionDeleteAccount = (token, callback) => ({
   type: DELETE_ACCOUNT,
-  payload: { token },
+  token,
+  callback,
 });
 
-export const actionDeleteAccountsSuccess = () => ({
-  type: DELETE_ACCOUNT_SUCCESS,
-});
+// export const actionDeleteAccountsSuccess = () => ({
+//   type: DELETE_ACCOUNT_SUCCESS,
+// });
 
-export const resetDeleteAccountSuccess = () => ({
-  type: RESET_DELETE_ACCOUNT_SUCCESS,
-});
+// export const resetDeleteAccountSuccess = () => ({
+//   type: RESET_DELETE_ACCOUNT_SUCCESS,
+// });

@@ -40,3 +40,24 @@ exports.sendMeetinIdToUser = async(req, res) => {
         return handleServerError(res, error)
     }
 }
+
+exports.verifyUserForMeeting = async(req, res) => {
+    try{
+        const userId = req.id;
+        const { eventId } = req.body;
+
+        const order = await Order.findOne({
+            where: {userId, eventId}
+        })
+        const isValid = order != null
+        res.status(200).json({
+            success: true,
+            isValid
+        });
+    }catch(error){
+        console.log(error)
+        return handleServerError(res, error)
+    }
+
+
+}

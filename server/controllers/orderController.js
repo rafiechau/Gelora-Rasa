@@ -98,11 +98,6 @@ exports.createOrder = async (req, res) => {
     }
 };
 
-
-
-
-
-
 exports.getMyOrders = async(req, res) => {
     try{
         const userId  = req.id
@@ -124,6 +119,38 @@ exports.getMyOrders = async(req, res) => {
         res.status(200).json({
             success: true,
             data: myOrders
+        });
+    }catch(error){
+        console.log(error)
+        return handleServerError(res, error)
+    }
+}
+
+exports.hasUserOrderedEvent = async(req, res) => {
+    try{
+        const userId = req.id;
+        const { eventId } = req.params;
+        console.log(userId, "ini user id")
+        console.log(eventId, "ini event id")
+
+        const order = await Order.findOne({
+            where: { 
+                userId: userId,
+                eventId: eventId 
+            },
+            include: [
+                {
+                    model: Event,
+                    as: 'event',
+                    attributes: ['id', 'eventName', 'date', 'price'],
+                }
+            ]
+        });
+
+        const hasOrdered = order ? true : false;
+        res.status(200).json({
+            success: true,
+            hasOrdered: hasOrdered,
         });
     }catch(error){
         console.log(error)

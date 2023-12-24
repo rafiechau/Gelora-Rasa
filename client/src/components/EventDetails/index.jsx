@@ -9,7 +9,6 @@ import classes from './style.module.scss';
 const EventDetail = ({
   event,
   formattedDate,
-  formattedPrice,
   handleTicketQuantityChange,
   ticketQuantity,
   selectedTicketType,
@@ -17,14 +16,12 @@ const EventDetail = ({
   handleOrder,
   countdown,
   canOrder,
-  hasOrdered
+  hasOrdered,
 }) => {
-  const [totalPrice, setTotalPrice] = useState(formattedPrice);
+  const [totalPrice, setTotalPrice] = useState('0');
 
-  // Fungsi untuk menghitung total harga
   const calculateTotalPrice = (quantity) => {
-    // Anggap event.price adalah harga per tiket
-    const newTotal = quantity * event.price;
+    const newTotal = quantity * (event ? event.price : 0);
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',
       currency: 'IDR',
@@ -33,8 +30,10 @@ const EventDetail = ({
   };
 
   useEffect(() => {
-    setTotalPrice(calculateTotalPrice(ticketQuantity));
-  }, [ticketQuantity]);
+    if (event && event.price && ticketQuantity) {
+      setTotalPrice(calculateTotalPrice(ticketQuantity));
+    }
+  }, [event, ticketQuantity]);
 
   return (
     <div className={classes.eventDetail}>
@@ -117,7 +116,6 @@ const EventDetail = ({
 EventDetail.propTypes = {
   event: PropTypes.object.isRequired,
   formattedDate: PropTypes.string.isRequired,
-  formattedPrice: PropTypes.string.isRequired,
   handleTicketQuantityChange: PropTypes.func.isRequired,
   ticketQuantity: PropTypes.number.isRequired,
   selectedTicketType: PropTypes.string,
@@ -125,6 +123,7 @@ EventDetail.propTypes = {
   handleOrder: PropTypes.func.isRequired,
   countdown: PropTypes.string.isRequired,
   canOrder: PropTypes.bool.isRequired,
+  hasOrdered: PropTypes.bool.isRequired,
 };
 
 export default EventDetail;

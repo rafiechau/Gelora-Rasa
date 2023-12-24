@@ -1,5 +1,5 @@
 import { produce } from 'immer';
-import { DELETE_ACCOUNT_SUCCESS, RESET_DELETE_ACCOUNT_SUCCESS, RESET_PROFILE, SET_PROFILE } from './constants';
+import { RESET_PROFILE, SET_PROFILE } from './constants';
 
 export const initialState = {
   profile: null,
@@ -12,12 +12,12 @@ const dashboardProfileReducer = (state = initialState, action) =>
       case SET_PROFILE:
         draft.profile = action.profile;
         break;
-      case DELETE_ACCOUNT_SUCCESS:
-        draft.deleteSuccess = true;
-        break;
-      case RESET_DELETE_ACCOUNT_SUCCESS:
-        draft.deleteSuccess = false;
-        break;
+      // case DELETE_ACCOUNT_SUCCESS:
+      //   draft.deleteSuccess = true;
+      //   break;
+      // case RESET_DELETE_ACCOUNT_SUCCESS:
+      //   draft.deleteSuccess = false;
+      //   break;
       case RESET_PROFILE:
         return initialState;
     }

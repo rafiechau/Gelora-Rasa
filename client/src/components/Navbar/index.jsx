@@ -12,7 +12,7 @@ import LocalActivityIcon from '@mui/icons-material/LocalActivity';
 
 import { AppBar, Box, Button, Container, IconButton, Toolbar, Tooltip, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { logoutUser } from '@containers/Client/actions';
+import { actionLogoutUser } from '@containers/Client/actions';
 import classes from './style.module.scss';
 
 const Navbar = ({ locale }) => {
@@ -58,8 +58,13 @@ const Navbar = ({ locale }) => {
   };
 
   const handleLogout = () => {
-    dispatch(logoutUser());
-    navigate('/login');
+    dispatch(
+      actionLogoutUser(() => {
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
+      })
+    );
   };
 
   return (

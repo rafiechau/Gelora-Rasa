@@ -34,7 +34,6 @@ const CardItem = ({ event }) => {
     const text = `Check out this event: ${event.eventName}`; // Teks yang ingin dibagikan
 
     try {
-      // Cek apakah Web Share API tersedia
       if (navigator.share) {
         await navigator.share({
           title: event.eventName,
@@ -43,7 +42,6 @@ const CardItem = ({ event }) => {
         });
         toast.success('Event shared successfully!');
       } else {
-        // Jika Web Share API tidak tersedia, gunakan clipboard
         await navigator.clipboard.writeText(url);
         toast.success('Link copied to clipboard!');
       }
@@ -59,6 +57,9 @@ const CardItem = ({ event }) => {
         maxWidth: 345,
         width: '100%',
         margin: 2,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
         boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)',
         transition: '0.3s',
         '&:hover': {
@@ -72,12 +73,22 @@ const CardItem = ({ event }) => {
         <CardMedia
           data-testid="card-media"
           component="img"
-          height="200"
+          height="300"
           image={imageUrl}
           alt={event.eventName}
           sx={{ objectFit: 'cover', width: '100%' }}
         />
-        <CardContent data-testid="card-content" sx={{ bgcolor: 'rgba(29, 36, 51, 0.9)', color: 'white' }}>
+        <CardContent
+          data-testid="card-content"
+          sx={{
+            bgcolor: 'rgba(29, 36, 51, 0.9)',
+            color: 'white',
+            flexGrow: 1,
+            height: "100%",
+            padding: '16px', // Jika Anda ingin padding di dalam card content
+            '&:last-child': { marginBottom: 0 },
+          }}
+        >
           <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
             {event.eventName}
           </Typography>
@@ -104,6 +115,10 @@ const CardItem = ({ event }) => {
           bgcolor: '#16202A',
           padding: '16px',
           justifyContent: 'space-between',
+          marginTop: 0, // Pastikan margin top adalah 0
+          '&:last-child': {
+            paddingBottom: '16px', // Memastikan padding bottom pada CardActions
+          },
         }}
       >
         <Button size="small" sx={{ color: 'white' }} startIcon={<ShareIcon />} onClick={handleShareClick}>

@@ -2,17 +2,14 @@ import { setLoading, showPopup } from '@containers/App/actions';
 import toast from 'react-hot-toast';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { getCategoriesApi, getEventApi, getLocationApi } from '@domain/api';
-import { actionSetAllCategories, actionSetAllLocation, setAllEvent, setPaginatedPosts } from './actions';
-import { GET_ALL_CATEGORIES, GET_ALL_EVENT, GET_ALL_LOCATION, GET_PAGINATED_EVENT } from './constants';
+import { actionSetAllCategories, actionSetAllLocation, setPaginatedPosts } from './actions';
+import { GET_ALL_CATEGORIES, GET_ALL_LOCATION, GET_PAGINATED_EVENT } from './constants';
 
 export function* doGetAllEvent(action) {
   yield put(setLoading(true));
   try {
     const { page, pageSize } = action.payload;
-
-    console.log(pageSize)
     const response = yield call(getEventApi, page, pageSize);
-    console.log(response)
     yield put(
       setPaginatedPosts({
         events: response.events,

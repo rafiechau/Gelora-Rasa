@@ -5,14 +5,13 @@ import { createStructuredSelector } from 'reselect';
 import { useEffect, useRef, useState } from 'react';
 import { Edit } from '@mui/icons-material';
 import { SideBar } from '@components/sidebar';
-import { Avatar, Box, Fab, Skeleton } from '@mui/material';
-import BottomBar from '@components/BottomNavigation';
-import AddIcon from '@mui/icons-material/Add';
+import { Avatar, Skeleton } from '@mui/material';
 import { selectToken, selectUser } from '@containers/Client/selectors';
 import config from '@config/index';
 import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
 import EditProfileDialog from '@components/EditDialogProfile';
-import actionDeleteAccount, { actionEditPhotoProfile, actionGetProfile, actionResetProfile } from './actions';
+import { useNavigate } from 'react-router-dom';
+import { actionDeleteAccount, actionEditPhotoProfile, actionGetProfile, actionResetProfile } from './actions';
 import { selectProfile } from './selectors';
 
 import styles from './style.module.scss';
@@ -20,6 +19,7 @@ import classes from '../style.module.scss';
 
 const ProfilePage = ({ user, profile, token }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const fileInput = useRef(null);
   const [loading, setLoading] = useState(true);
   const [currentEditingProfile, setCurrentEditingProfile] = useState(null);
@@ -57,7 +57,13 @@ const ProfilePage = ({ user, profile, token }) => {
   };
 
   const handleConfirmDelete = () => {
-    dispatch(actionDeleteAccount(token));
+    dispatch(
+      actionDeleteAccount(token, () => {
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
+      })
+    );
     handleCloseConfirmDialog();
   };
 
@@ -78,25 +84,6 @@ const ProfilePage = ({ user, profile, token }) => {
 
   return (
     <div className={classes.app}>
-      <Box
-        sx={{
-          width: '100%',
-          display: { xs: 'block', sm: 'none' },
-          position: 'fixed',
-          bottom: 0,
-          zIndex: 1000,
-        }}
-      >
-        <BottomBar />
-        <Fab
-          color="primary"
-          aria-label="add"
-          // onClick={handleOpenCreatePostDialog}
-          sx={{ position: 'fixed', bottom: 60, right: 16 }}
-        >
-          <AddIcon />
-        </Fab>
-      </Box>
       <div className={classes.ProfilePage}>
         <SideBar user={user} />
         <div className={styles.containerProfilePage}>

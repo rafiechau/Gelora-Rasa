@@ -1,9 +1,22 @@
+/* eslint-disable no-unused-vars */
 import toast from 'react-hot-toast';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { setLoading, showPopup } from '@containers/App/actions';
-import { createOrderEvent, getEventByIdApi, initialPayementApi, updateStatusEventByIdApi } from '@domain/api';
-import { CREATE_ORDER_EVENT, GET_EVENT_BY_ID, INITIAL_PAYMENT, UPDATE_EVENT_STATUS } from './constants';
-import { setEventById } from './actions';
+import {
+  createOrderEvent,
+  getEventByIdApi,
+  hasUserOrderedEventApi,
+  initialPayementApi,
+  updateStatusEventByIdApi,
+} from '@domain/api';
+import {
+  CHECK_USER_ORDER,
+  CREATE_ORDER_EVENT,
+  GET_EVENT_BY_ID,
+  INITIAL_PAYMENT,
+  UPDATE_EVENT_STATUS,
+} from './constants';
+import { setEventById, setUserOrderStatus } from './actions';
 
 export function* doGetEventById(action) {
   yield put(setLoading(true));
@@ -20,11 +33,8 @@ export function* doGetEventById(action) {
 function* doInitialPayment(action) {
   yield put(setLoading(true));
   try {
-    console.log(action, '<<<Action');
     const { cbSuccess } = action;
-    console.log(cbSuccess, 'ini callback');
     const response = yield call(initialPayementApi, action.eventId, action.token, action.data);
-    console.log(response);
     window.snap.pay(response?.token, {
       onSuccess: (result) => {
         if (cbSuccess)
@@ -58,21 +68,26 @@ function* doInitialPayment(action) {
 function* doCreateOrder({ token, data, cbSuccess }) {
   yield put(setLoading(true));
   try {
-    console.log(token, 'create token');
-    console.log(data, 'create order');
-    console.log(cbSuccess, 'create order');
+    console.log(cbSuccess);
     const response = yield call(createOrderEvent, token, data);
-    if (response?.data?.status === 'settlement') {
-      cbSuccess && cbSuccess();
-    }
-    // Handle success, e.g., update local state or dispatch another action
-    console.log(response, 'update order');
+    console.log(response?.data?.status);
     toast.success('Order status updated successfully!');
+    cbSuccess && cbSuccess();
   } catch (error) {
     console.log(error);
     yield put(showPopup('Sorry :(', error.response.data.status));
   }
   yield put(setLoading(false));
+}
+
+function* doCheckUserOrder(action) {
+  try {
+    const response = yield call(hasUserOrderedEventApi, action.eventId, action.token);
+    yield put(setUserOrderStatus(response.hasOrdered));
+  } catch (error) {
+    console.log(error);
+    toast.error('Error checking order status');
+  }
 }
 
 function* doUpdateEventStatusSaga({ eventId, status, token }) {
@@ -94,4 +109,5 @@ export default function* detailSaga() {
   yield takeLatest(INITIAL_PAYMENT, doInitialPayment);
   yield takeLatest(CREATE_ORDER_EVENT, doCreateOrder);
   yield takeLatest(UPDATE_EVENT_STATUS, doUpdateEventStatusSaga);
+  yield takeLatest(CHECK_USER_ORDER, doCheckUserOrder);
 }

@@ -14,6 +14,8 @@ import JoinScreen from '@components/JoinScreen';
 import EventSelectionForm from '@components/EventSelectionForm';
 import SpeakerView from '@components/SpeakerView';
 import ViewerView from '@components/ViewerView';
+import { selectAllMyOrders } from '@pages/Dashboard/Orders/selectors';
+import { actionGetAllMyOrders } from '@pages/Dashboard/Orders/actions';
 import { authToken, createMeeting } from './api';
 import { actionCreateMeeting } from './actions';
 
@@ -140,7 +142,7 @@ const Container = ({ meetingId, onMeetingLeave, user, allMyEvents, token }) => {
   );
 };
 
-const LiveStreamingPage = ({ user, allMyEvents, token }) => {
+const LiveStreamingPage = ({ user, allMyEvents, token, allMyOrders }) => {
   const dispatch = useDispatch();
   const [meetingId, setMeetingId] = useState(null);
   const [mode, setMode] = useState('CONFERENCE');
@@ -151,9 +153,14 @@ const LiveStreamingPage = ({ user, allMyEvents, token }) => {
 
   const userName = user?.firstName || 'Guest';
 
+  console.log(allMyOrders, "test")
+
   useEffect(() => {
     if (token && user?.role === 2) {
       dispatch(actionGetAllMyEvent({ token }));
+    }
+    if (token && user?.role === 1) {
+      dispatch(actionGetAllMyOrders({ token }));
     }
   }, [dispatch, token]);
 
@@ -188,7 +195,13 @@ const LiveStreamingPage = ({ user, allMyEvents, token }) => {
     </div>
   ) : (
     <div className={classes.streamingPage}>
-      <JoinScreen getMeetingAndToken={getMeetingAndToken} setMode={setMode} user={user} />
+      <JoinScreen
+        getMeetingAndToken={getMeetingAndToken}
+        setMode={setMode}
+        user={user}
+        token={token}
+        allMyOrders={allMyOrders}
+      />
     </div>
   );
 };
@@ -197,12 +210,14 @@ LiveStreamingPage.propTypes = {
   user: PropTypes.object.isRequired,
   allMyEvents: PropTypes.array,
   token: PropTypes.string,
+  allMyOrders: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   user: selectUser,
   allMyEvents: selectAllMyEvents,
   token: selectToken,
+  allMyOrders: selectAllMyOrders,
 });
 
 export default injectIntl(connect(mapStateToProps)(LiveStreamingPage));

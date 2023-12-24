@@ -5,6 +5,7 @@ $grey-color: #999;
 $spacing-unit: 15px;
 $border-radius: 8px;
 $fixed-bar-height: 70px;
+$disabled-color: #cccccc;
 
 .eventDetail{
     margin-top: $spacing-unit;
@@ -148,6 +149,15 @@ $fixed-bar-height: 70px;
                 &:hover {
                   box-shadow: 0 4px 8px rgba($accent-color, 0.5);
                 }
+                &:disabled {
+                    background-color: $disabled-color;
+                    color: darken($light-color, 10%); 
+                    cursor: not-allowed; 
+                    box-shadow: none; 
+                    &:hover {
+                      box-shadow: none; 
+                    }
+                  }
             }
             @media (max-width: 768px) {
                 padding: 0 30px;

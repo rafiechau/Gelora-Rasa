@@ -4,25 +4,28 @@ import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import toast from 'react-hot-toast';
 
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import config from '@config/index';
 import { selectToken } from '@containers/Client/selectors';
 import EventImage from '@components/EventImage';
 import EventDetail from '@components/EventDetails';
 import EventDescription from '@components/EventDescription';
+import Swal from 'sweetalert2';
 import classes from './style.module.scss';
-import { selectEvent } from './selector';
-import { actionUpdateEventStatus, createOrder, getEventById, initialPayment } from './actions';
+import { selectEvent, selectHasOrdered } from './selector';
+import { actionUpdateEventStatus, checkUserOrder, createOrder, getEventById, initialPayment } from './actions';
 
-const DetailEventPage = ({ event, token }) => {
+const DetailEventPage = ({ event, hasOrdered, token }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { eventId } = useParams();
   const [ticketQuantity, setTicketQuantity] = useState(1);
   const [countdown, setCountdown] = useState('');
   const [selectedTicketType, setSelectedTicketType] = useState(event?.type === 'hybrid' ? 'offline' : event?.type);
   const [canOrder, setCanOrder] = useState(true);
-  const [hasOrdered, setHasOrdered] = useState(false);
+
+  console.log(event?.stok, 'test');
 
   const handleTicketQuantityChange = (quantity) => {
     setTicketQuantity(quantity);
@@ -34,7 +37,14 @@ const DetailEventPage = ({ event, token }) => {
 
   useEffect(() => {
     dispatch(getEventById(eventId, token));
+    dispatch(checkUserOrder(eventId, token));
   }, [dispatch, eventId, token]);
+
+  useEffect(() => {
+    if (event?.type) {
+      setSelectedTicketType(event.type === 'hybrid' ? 'offline' : event.type);
+    }
+  }, [event]);
 
   useEffect(() => {
     if (!event) {
@@ -52,7 +62,7 @@ const DetailEventPage = ({ event, token }) => {
 
         setCountdown(`${days} hari ${hours} jam ${minutes} menit`);
       } else {
-        if (event.status === 'active') {
+        if (event?.stok === 0 && event.status === 'active') {
           dispatch(actionUpdateEventStatus(eventId, { status: 'non-active' }, token));
           setCanOrder(false);
         }
@@ -78,10 +88,19 @@ const DetailEventPage = ({ event, token }) => {
 
     dispatch(
       initialPayment({ totalTickets: ticketQuantity, ticketsTypes: ticketTypes }, eventId, token, (data) => {
-        dispatch(createOrder(data, token));
+        dispatch(
+          createOrder(data, token, async () => {
+            await Swal.fire({
+              title: 'Success!',
+              text: 'Your order has been placed successfully.',
+              icon: 'success',
+              confirmButtonText: 'OK',
+            });
+            navigate('/dashboard/my-orders');
+          })
+        );
       })
     );
-    setHasOrdered(true);
   };
 
   const isValidDate = event && Date.parse(event.date);
@@ -109,7 +128,6 @@ const DetailEventPage = ({ event, token }) => {
           <EventDetail
             event={event}
             formattedDate={formattedDate}
-            formattedPrice={event?.price}
             handleTicketQuantityChange={handleTicketQuantityChange}
             ticketQuantity={ticketQuantity}
             selectedTicketType={selectedTicketType}
@@ -117,7 +135,7 @@ const DetailEventPage = ({ event, token }) => {
             handleOrder={handleOrder}
             countdown={countdown}
             canOrder={canOrder}
-            hasOrdered
+            hasOrdered={hasOrdered}
           />
         </div>
       </div>
@@ -132,11 +150,13 @@ const DetailEventPage = ({ event, token }) => {
 
 DetailEventPage.propTypes = {
   event: PropTypes.object,
+  hasOrdered: PropTypes.bool,
   token: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   event: selectEvent,
+  hasOrdered: selectHasOrdered,
   token: selectToken,
 });
 

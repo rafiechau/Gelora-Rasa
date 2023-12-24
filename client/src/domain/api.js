@@ -85,11 +85,8 @@ export const initialPayementApi = (eventId, token, data) =>
 export const createOrderEvent = (token, data) =>
   callAPI(`${urls.orders}/create`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
 
-// export const createOrderApi = (eventId, data, token) =>
-//   callAPI(`${urls.orders}/initialPayment/${eventId}`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
-
-// export const updateStatusOrderApi = (orderId, status, token) =>
-//   callAPI(`${urls.orders}/create/${orderId}`, 'PUT', { Authorization: `Bearer ${token}` }, {}, { status });
+export const hasUserOrderedEventApi = (eventId, token) =>
+  callAPI(`${urls.orders}/check-order/${eventId}`, 'GET', { Authorization: `Bearer ${token}` });
 
 export const getMyOrdersApi = (token) =>
   callAPI(`${urls.orders}/getMyOrder`, 'GET', { Authorization: `Bearer ${token}` });
@@ -122,3 +119,6 @@ export const deleteCategoryByIdApi = (categoryId, token) =>
 // streaming
 export const createMeetingIdAPI = (data, token) =>
   callAPI(`${urls.streaming}/send-meeting`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
+
+export const verifyUserForMeetingApi = (eventId, token) =>
+  callAPI(`${urls.streaming}/verify-user-for-meeting`, 'POST', { Authorization: `Bearer ${token}` }, {}, { eventId });

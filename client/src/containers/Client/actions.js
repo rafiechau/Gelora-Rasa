@@ -73,6 +73,7 @@ export const actionHandleResetRegister = () => ({
   type: RESET_REGISTER_STEP,
 });
 
-export const logoutUser = () => ({
+export const actionLogoutUser = (callback) => ({
   type: LOGOUT_USER,
+  callback,
 });

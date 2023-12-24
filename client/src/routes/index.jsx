@@ -10,6 +10,7 @@ import DetailEvent from '@pages/DetailEvent';
 import ForgotPassword from '@pages/ForgotPassword';
 
 import Home from '@pages/Home';
+import HomeBeforeLogin from '@pages/HomeBeforeLogin';
 import Login from '@pages/Login';
 import NotFound from '@pages/NotFound';
 import Register from '@pages/Register';
@@ -17,6 +18,13 @@ import ResetPassword from '@pages/ResetPassword';
 import Streaming from '@pages/Streaming';
 
 const routes = [
+  {
+    path: '/',
+    name: 'Main',
+    protected: false,
+    component: HomeBeforeLogin,
+    layout: MainLayout,
+  },
   {
     path: '/home',
     name: 'Home',
