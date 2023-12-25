@@ -1,8 +1,20 @@
-import { createEventApi, deleteEventByIdApi, getMyEventApi, updateEventByIdApi, updateStatusEventByIdApi } from '@domain/api';
+import {
+  createEventApi,
+  deleteEventByIdApi,
+  getMyEventApi,
+  updateEventByIdApi,
+  updateStatusEventByIdApi,
+} from '@domain/api';
 import toast from 'react-hot-toast';
-import { setLoading } from '@containers/App/actions';
+import { setLoading, showPopup } from '@containers/App/actions';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { CREATE_EVENT, DELETE_EVENT, GET_ALL_MY_EVENT, UPDATE_EVENT_BY_ID, UPDATE_EVENT_EVENT_ORGANIZER } from './constants';
+import {
+  CREATE_EVENT,
+  DELETE_EVENT,
+  GET_ALL_MY_EVENT,
+  UPDATE_EVENT_BY_ID,
+  UPDATE_EVENT_EVENT_ORGANIZER,
+} from './constants';
 import { actionDeleteMyEventSuccess, actionGetAllMyEvent, actionSetAllMyEvent } from './actions';
 
 export function* doGetMyEvents(action) {
@@ -12,8 +24,11 @@ export function* doGetMyEvents(action) {
     const response = yield call(getMyEventApi, token);
     yield put(actionSetAllMyEvent(response.data));
   } catch (error) {
-    console.log(error)
-    toast.error('Error fetching my posts');
+    if (error?.response?.status === 400 || error?.response?.status === 404) {
+      // toast.error(error.response.data.message);
+    } else {
+      yield put(showPopup());
+    }
   } finally {
     yield put(setLoading(false));
   }

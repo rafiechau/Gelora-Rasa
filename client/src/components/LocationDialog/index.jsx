@@ -20,14 +20,17 @@ export const LocationDialog = ({ open, onClose, intl: { formatMessage }, current
     handleSubmit,
     register,
     setValue,
+    reset,
     formState: { errors },
   } = useForm();
 
   useEffect(() => {
     if (currentLocation) {
       setValue('namaProvinsi', currentLocation.name);
+    } else {
+      reset();
     }
-  }, [currentLocation, setValue]);
+  }, [currentLocation, setValue, reset]);
 
   const onSubmit = (data) => {
     if (isEditMode) {
@@ -41,7 +44,7 @@ export const LocationDialog = ({ open, onClose, intl: { formatMessage }, current
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm" fullScreen={fullScreen} data-testid="location-dialog">
       <DialogTitle>
-        {isEditMode ? 'app_header_edit_location' : 'app_header_create_location'}
+        <FormattedMessage id={isEditMode ? 'app_header_edit_location' : 'app_header_create_location'} />
         <IconButton onClick={onClose} style={{ position: 'absolute', right: 8, top: 8 }} data-testid="close-button">
           <CloseSharpIcon />
         </IconButton>
@@ -64,7 +67,11 @@ export const LocationDialog = ({ open, onClose, intl: { formatMessage }, current
             errors={errors}
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} data-testid="submit-button">
-            {isEditMode ? <FormattedMessage id="app_submit_edit" /> : <FormattedMessage id="app_submit_create" />}
+            {isEditMode ? (
+              <FormattedMessage id="app_header_edit_locationt" />
+            ) : (
+              <FormattedMessage id="app_header_create_location" />
+            )}
           </Button>
         </Box>
       </DialogContent>

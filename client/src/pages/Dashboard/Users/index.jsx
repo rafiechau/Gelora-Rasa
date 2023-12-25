@@ -15,7 +15,7 @@ import { actionDeleteUserById, actionGetAllUsers } from './actions';
 
 import classes from '../style.module.scss';
 
-const UsersAdminPage = ({ user, allUsers, token }) => {
+const UsersAdminPage = ({ user, allUsers, token, intl: { formatMessage } }) => {
   const dispatch = useDispatch();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -25,8 +25,6 @@ const UsersAdminPage = ({ user, allUsers, token }) => {
   const [roleFilter, setRoleFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-
-  console.log(allUsers);
 
   const getRoleName = (role) => {
     switch (role) {
@@ -83,17 +81,16 @@ const UsersAdminPage = ({ user, allUsers, token }) => {
   };
 
   const filteredUsers = allUsers?.filter((dataUser) => {
-    const fullName = `${dataUser?.firstName} ${dataUser?.lastName}`.toLowerCase();
+    const fullName = `${dataUser?.firstName} ${dataUser?.lastName || ''}`.toLowerCase();
     const matchesSearchTerm = fullName.includes(searchTerm.toLowerCase());
     const matchesRoleFilter = roleFilter === 'all' || dataUser.role.toString() === roleFilter;
     return matchesSearchTerm && matchesRoleFilter;
   });
 
   const userColumns = [
-    { id: 'fullName', label: 'Name' },
-    { id: 'email', label: 'Email' },
-    { id: 'role', label: 'Role' },
-    { id: 'acions', label: 'Actions' },
+    { id: 'fullName', messageId: 'app_column_name', label: 'Name' },
+    { id: 'email', messageId: 'app_column_email', label: 'Email' },
+    { id: 'role', messageId: 'app_column_role', label: 'Role' },
   ];
 
   return (
@@ -118,7 +115,7 @@ const UsersAdminPage = ({ user, allUsers, token }) => {
           <div className={classes.searchContainer}>
             <input
               type="text"
-              placeholder="Search by name..."
+              placeholder={formatMessage({ id: 'app_dashboard_search_user' })}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -141,12 +138,13 @@ const UsersAdminPage = ({ user, allUsers, token }) => {
             columns={userColumns}
             data={filteredUsers.map((dataUser) => ({
               ...dataUser,
-              fullName: `${dataUser.firstName} ${dataUser.lastName}`,
+              fullName: dataUser.firstName + (dataUser.lastName ? ` ${dataUser.lastName}` : ''),
               email: dataUser.email,
               role: getRoleName(dataUser.role),
             }))}
             onEdit={handleOpenEventOrganizerDialog}
             onDelete={(userId) => handleDelete(userId)}
+            editButtonMessageId="app_btn_view_details"
           />
           <div className={classes.paginationControls}>
             <button type="button" onClick={handlePreviousPage} disabled={currentPage === 1}>
@@ -182,6 +180,7 @@ UsersAdminPage.propTypes = {
   user: PropTypes.object,
   allUsers: PropTypes.array,
   token: PropTypes.string,
+  intl: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

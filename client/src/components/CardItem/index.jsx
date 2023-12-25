@@ -31,7 +31,7 @@ const CardItem = ({ event }) => {
 
   const handleShareClick = async () => {
     const url = `${window.location.origin}/detail/${event.id}`;
-    const text = `Check out this event: ${event.eventName}`; // Teks yang ingin dibagikan
+    const text = `Check out this event: ${event.eventName}`;
 
     try {
       if (navigator.share) {
@@ -67,6 +67,16 @@ const CardItem = ({ event }) => {
         },
         borderRadius: '8px',
         overflow: 'hidden',
+        '@media (max-width: 600px)': {
+          // Adjusting for smaller mobile devices
+          maxWidth: '300px', // Reducing the max width
+          margin: '8px', // Adjust margin as needed
+          fontSize: '0.9rem', // Optionally adjust font size for content
+        },
+        '@media (max-width: 1059px)': {
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
       }}
     >
       <CardActionArea data-testid="card-action-area" onClick={() => navigateToDetailEvent(event.id)}>
@@ -84,7 +94,7 @@ const CardItem = ({ event }) => {
             bgcolor: 'rgba(29, 36, 51, 0.9)',
             color: 'white',
             flexGrow: 1,
-            height: "100%",
+            height: '100%',
             padding: '16px', // Jika Anda ingin padding di dalam card content
             '&:last-child': { marginBottom: 0 },
           }}
@@ -112,6 +122,8 @@ const CardItem = ({ event }) => {
       </CardActionArea>
       <CardActions
         sx={{
+          width: '100%',
+          marginLeft: '15px',
           bgcolor: '#16202A',
           padding: '16px',
           justifyContent: 'space-between',

@@ -1,8 +1,11 @@
+import { FormattedMessage } from 'react-intl';
 import classes from './style.module.scss';
 
 export const OurClient = () => (
   <div className={classes.containerLogo}>
-    <p className={classes.titleContainerLogo}>Events held by top & biggest global companies</p>
+    <p className={classes.titleContainerLogo}>
+      <FormattedMessage id="app_events_description" />
+    </p>
     <div className={classes.containerBigCompany}>
       <img src="assets/images/apple-111.svg" alt="semina" />
       <img src="assets/images/Adobe.svg" alt="semina" />

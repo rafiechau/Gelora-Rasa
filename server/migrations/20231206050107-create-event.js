@@ -58,15 +58,35 @@ module.exports = {
       },
       locationId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Locations', 
+          key: 'id' 
+        },
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE' 
       },
       categoryId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Categories', 
+          key: 'id' 
+        },
+        onDelete: 'CASCADE', 
+        onUpdate: 'CASCADE'
       },
       userId: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users', 
+          key: 'id' 
+        },
+        onDelete: 'CASCADE', 
+        onUpdate: 'CASCADE' 
       },
       createdAt: {
         allowNull: false,

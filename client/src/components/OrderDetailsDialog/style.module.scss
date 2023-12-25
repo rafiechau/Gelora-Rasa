@@ -1,0 +1,22 @@
+$dark-grey: #333;
+$border-radius: 5px;
+.dialog-title {
+    text-align: center;
+    color: $color-white;
+}
+.dialog-content {
+    padding-top: 20px;
+}
+
+.dialogContent {
+    padding: 20px;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: $dark-grey;
+    line-height: 1.6;
+
+    .dialogText {
+        margin-bottom: 10px;
+        font-size: 1rem;
+    }
+}

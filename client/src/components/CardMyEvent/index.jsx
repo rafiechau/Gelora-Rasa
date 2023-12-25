@@ -1,19 +1,6 @@
 import PropTypes from 'prop-types';
 import { selectToken, selectUser } from '@containers/Client/selectors';
-import {
-  Box,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import { Box, Card, CardActions, CardContent, IconButton, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import MoneyIcon from '@mui/icons-material/Money';
@@ -26,6 +13,7 @@ import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
+import toast from 'react-hot-toast';
 import { actionDeleteMyEventById } from '@pages/Dashboard/MyEvents/actions';
 import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
 import EventDialog from '@components/EventDialog';
@@ -34,7 +22,6 @@ const CardMyEvent = ({ myEvent, token, user }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
-  const [openEditDialog, setOpenEditDialog] = useState(false);
 
   const navigateDetails = () => {
     navigate(`/detail/${myEvent?.id}`);
@@ -79,6 +66,27 @@ const CardMyEvent = ({ myEvent, token, user }) => {
     day: 'numeric',
   }).format(new Date(myEvent.date));
 
+  const handleShareClick = async () => {
+    const url = `${window.location.origin}/detail/${myEvent.id}`;
+    const text = `Check out this event: ${myEvent.eventName}`;
+
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: myEvent.eventName,
+          text,
+          url,
+        });
+        toast.success('Event shared successfully!');
+      } else {
+        await navigator.clipboard.writeText(url);
+        toast.success('Link copied to clipboard!');
+      }
+    } catch (err) {
+      toast.error('Failed to share event.');
+    }
+  };
+
   return (
     <Card
       sx={{
@@ -108,53 +116,34 @@ const CardMyEvent = ({ myEvent, token, user }) => {
             borderColor: myEvent?.status === 'active' ? 'limegreen' : 'orangered',
           }}
         >
-          <Typography variant="h5" sx={{ gridArea: '1 / 1 / 2 / 3', color: 'gold', fontWeight: 'bold' }}>
+          <Typography variant="h5" sx={{ gridArea: '1 / 1 / 2 / 3', color: 'teal', fontWeight: 'bold' }}>
             {myEvent?.eventName}
           </Typography>
           <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', color: 'lightgray', gap: 2 }}>
-            <CalendarMonthTwoToneIcon sx={{ color: 'gold' }} />
+            <CalendarMonthTwoToneIcon sx={{ color: 'teal' }} />
             {formattedDate}
           </Typography>
           <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', color: 'lightgray', gap: 2 }}>
-            <AccessTimeFilledTwoToneIcon sx={{ color: 'gold' }} />
+            <AccessTimeFilledTwoToneIcon sx={{ color: 'teal' }} />
             {myEvent?.time}
           </Typography>
           <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', color: 'lightgray', gap: 2 }}>
-            <LocationCityIcon sx={{ color: 'gold' }} />
+            <LocationCityIcon sx={{ color: 'teal' }} />
             {myEvent?.venueName}
           </Typography>
           <Typography variant="body2" sx={{ display: 'flex', alignItems: 'center', color: 'lightgray', gap: 2 }}>
-            <MoneyIcon sx={{ color: 'gold' }} />
+            <MoneyIcon sx={{ color: 'teal' }} />
             {formattedPrice}
           </Typography>
         </CardContent>
       </Box>
-      <Dialog
-        open={openConfirmDialog}
-        onClose={handleCloseConfirmDialog}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          <FormattedMessage id="app_confirmation_delete_dialog" />
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            <FormattedMessage id="app_delete_dialog_header" />
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseConfirmDialog}>
-            <FormattedMessage id="app_cancel_dialog" />
-          </Button>
-          <Button onClick={handleConfirmDelete} autoFocus>
-            <FormattedMessage id="app_delete_dialog" />
-          </Button>
-        </DialogActions>
-      </Dialog>
       <CardActions sx={{ display: 'flex', justifyContent: 'space-between', bgcolor: 'rgba(255, 255, 255, 0.08)' }}>
         <Box sx={{ paddingLeft: 3, display: 'flex', gap: 3 }}>
-          <IconButton aria-label="share" sx={{ color: 'yellow', opacity: 0.7, '&:hover': { opacity: 1 } }}>
+          <IconButton
+            aria-label="share"
+            sx={{ color: 'yellow', opacity: 0.7, '&:hover': { opacity: 1 } }}
+            onClick={handleShareClick}
+          >
             <ShareIcon />
           </IconButton>
           <IconButton
@@ -176,7 +165,7 @@ const CardMyEvent = ({ myEvent, token, user }) => {
           variant="body2"
           sx={{ color: myEvent?.status === 'active' ? 'limegreen' : 'orangered', fontWeight: 'bold', paddingRight: 3 }}
         >
-          Status: {myEvent?.status.toUpperCase()}
+          <FormattedMessage id="app_status_events" />: {myEvent?.status.toUpperCase()}
         </Typography>
       </CardActions>
       <DeleteConfirmationDialog

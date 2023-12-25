@@ -17,6 +17,7 @@ const EventDetail = ({
   countdown,
   canOrder,
   hasOrdered,
+  user,
 }) => {
   const [totalPrice, setTotalPrice] = useState('0');
 
@@ -34,6 +35,9 @@ const EventDetail = ({
       setTotalPrice(calculateTotalPrice(ticketQuantity));
     }
   }, [event, ticketQuantity]);
+
+  const isStandardUser = user?.role === 1;
+  const orderButtonDisabled = !canOrder || hasOrdered || !isStandardUser;
 
   return (
     <div className={classes.eventDetail}>
@@ -104,9 +108,14 @@ const EventDetail = ({
             <FormattedMessage id="app_detail_event_coutdown_description" />
             {countdown}{' '}
           </span>
-          <button type="button" onClick={handleOrder} className={classes.buyNow} disabled={!canOrder || hasOrdered}>
+          <button type="button" onClick={handleOrder} className={classes.buyNow} disabled={orderButtonDisabled}>
             {hasOrdered ? 'Anda sudah membeli event ini' : 'Beli Sekarang'}
           </button>
+          {!isStandardUser && (
+            <span className={classes.nonStandardUserMessage}>
+              Silakan buat akun dengan role standard untuk melakukan pemesanan.
+            </span>
+          )}
         </div>
       </div>
     </div>
@@ -124,6 +133,7 @@ EventDetail.propTypes = {
   countdown: PropTypes.string.isRequired,
   canOrder: PropTypes.bool.isRequired,
   hasOrdered: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default EventDetail;

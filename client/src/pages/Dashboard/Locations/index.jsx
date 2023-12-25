@@ -4,7 +4,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { useEffect, useState } from 'react';
 import { SideBar } from '@components/sidebar';
-import { Box, Fab } from '@mui/material';
+import { Box, Fab, useMediaQuery } from '@mui/material';
 import BottomBar from '@components/BottomNavigation';
 import AddIcon from '@mui/icons-material/Add';
 import { selectToken, selectUser } from '@containers/Client/selectors';
@@ -26,6 +26,8 @@ const LocationAdminPage = ({ locations, user, token, intl: { formatMessage } }) 
   const [currentPage, setCurrentPage] = useState(1);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const itemsPerPage = 10;
+
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     dispatch(actionGetAllLocation());
@@ -83,8 +85,11 @@ const LocationAdminPage = ({ locations, user, token, intl: { formatMessage } }) 
     setCurrentPage(1);
   };
 
-  const locationColumns = [{ id: 'name', label: 'Nama Lokasi' }];
+  const locationColumns = [{ id: 'name', messageId: 'app_column_name_location', label: 'Nama Lokasi' }];
 
+  // { id: 'fullName', messageId: 'app_column_name', label: 'Name' },
+  //   { id: 'email', messageId: 'app_column_email', label: 'Email' },
+  //   { id: 'role', messageId: 'app_column_role', label: 'Role' },
   return (
     <div className={classes.app}>
       <Box
@@ -97,15 +102,6 @@ const LocationAdminPage = ({ locations, user, token, intl: { formatMessage } }) 
         }}
       >
         <BottomBar />
-        <Fab
-          color="primary"
-          aria-label="add"
-          className={classes.fab}
-          onClick={() => handleCreate()}
-          sx={{ position: 'fixed', bottom: 60, right: 16 }}
-        >
-          <AddIcon />
-        </Fab>
       </Box>
       <div className={classes.ProfilePage}>
         <SideBar user={user} />
@@ -115,20 +111,37 @@ const LocationAdminPage = ({ locations, user, token, intl: { formatMessage } }) 
           </div>
           <div className={classes.searchContainer}>
             <input
+              className={classes.searchInput}
               type="text"
               placeholder={formatMessage({ id: 'app_input_search_location' })}
               value={searchTerm}
               onChange={handleSearchChange}
             />
+            {isMobile ? (
+              <Fab
+                color="primary"
+                aria-label="add"
+                className={classes.fab}
+                onClick={() => handleCreate()}
+                sx={{ position: 'fixed', bottom: 60, right: 16 }}
+              >
+                <AddIcon />
+              </Fab>
+            ) : (
+              <button className={classes.btnCreate} type="button" onClick={() => handleCreate()}>
+                <FormattedMessage id="app_header_create_location" />
+              </button>
+            )}
           </div>
-          <button className={classes.btnCreate} type="button" onClick={() => handleCreate()}>
-            <FormattedMessage id="app_header_create_location" />
-          </button>
+
           <AdminTable
             columns={locationColumns}
             data={currentLocations.map((location) => ({ id: location.id, name: location.namaProvinsi }))}
             onEdit={handleEdit}
             onDelete={handleDelete}
+            showEditButton
+            showDeleteButton
+            editButtonMessageId="app_btn_edit"
           />
           <button type="button" onClick={handlePrevious} disabled={currentPage === 1}>
             <FormattedMessage id="app_btn_previous_pagination" />

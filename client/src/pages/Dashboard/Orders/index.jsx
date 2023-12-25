@@ -4,49 +4,51 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { useEffect, useState } from 'react';
 import { SideBar } from '@components/sidebar';
-import { Box, Fab } from '@mui/material';
+import { Box } from '@mui/material';
 import BottomBar from '@components/BottomNavigation';
-import AddIcon from '@mui/icons-material/Add';
-import { selectToken, selectUser } from '@containers/Client/selectors';
+import toast from 'react-hot-toast';
+import { selectUser } from '@containers/Client/selectors';
 import AdminTable from '@components/AdminTable';
-import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
+import OrderDetailsDialog from '@components/OrderDetailsDialog';
+import { useNavigate } from 'react-router-dom';
 import classes from '../style.module.scss';
 import { selectAllMyOrders } from './selectors';
-import { actionDeleteOrderById, actionGetAllMyOrders } from './actions';
+import { actionGetAllMyOrders } from './actions';
 
-const OrdersPage = ({ user, allMyOrders, token }) => {
+const OrdersPage = ({ user, allMyOrders, intl: { formatMessage } }) => {
   const dispatch = useDispatch();
-  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
-  const [currentOrderId, setCurrentOrderId] = useState(null);
+  const navigate = useNavigate();
+  const [openOrderDetailsDialog, setOpenOrderDetailsDialog] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+
+  useEffect(() => {
+    if (user?.role !== 1) {
+      toast.error(formatMessage({ id: 'app_forbidden' }));
+      setTimeout(() => {
+        navigate('/home');
+      }, 1500);
+    }
+  }, [formatMessage, user, navigate]);
 
   useEffect(() => {
     dispatch(actionGetAllMyOrders());
   }, [dispatch]);
 
-  const handleCloseConfirmDialog = () => {
-    setOpenConfirmDialog(false);
-    setCurrentOrderId(null);
+  const handleViewDetails = (order) => {
+    setSelectedOrder(order);
+    setOpenOrderDetailsDialog(true);
   };
 
-  const handleOpenConfirmDialog = () => {
-    setOpenConfirmDialog(true);
-  };
-
-  const handleDelete = (orderId) => {
-    setCurrentOrderId(orderId);
-    handleOpenConfirmDialog(true);
-  };
-
-  const handleConfirmDelete = () => {
-    dispatch(actionDeleteOrderById(currentOrderId, token));
-    handleCloseConfirmDialog();
+  const handleCloseOrderDetailsDialog = () => {
+    setOpenOrderDetailsDialog(false);
+    setSelectedOrder(null);
   };
 
   const orderColumns = [
-    { id: 'eventName', label: 'Nama Event' },
-    { id: 'totalTickets', label: 'Total Tickets' },
-    { id: 'totalPay', label: 'Total Pay' },
-    { id: 'ticketsTypes', label: 'Ticket Types' },
+    { id: 'eventName', messageId: 'app_column_event_name', label: 'Nama Event' },
+    { id: 'totalTickets', messageId: 'app_column_total_tickets', label: 'Total Tickets' },
+    { id: 'totalPay', messageId: 'app_column_total_pay', label: 'Total Pay' },
+    { id: 'ticketsTypes', messageId: 'app_column_ticket_types', label: 'Ticket Types' },
   ];
 
   return (
@@ -61,20 +63,13 @@ const OrdersPage = ({ user, allMyOrders, token }) => {
         }}
       >
         <BottomBar />
-        <Fab
-          color="primary"
-          aria-label="add"
-          className={classes.fab}
-          // onClick={handleOpenCreatePostDialog}
-          sx={{ position: 'fixed', bottom: 60, right: 16 }}
-        >
-          <AddIcon />
-        </Fab>
       </Box>
       <div className={classes.ProfilePage}>
         <SideBar user={user} />
         <div className={classes.containerProfilePage}>
-          <div>My Orders</div>
+          <div className={classes.title}>
+            <FormattedMessage id="app_header_my_orders" />
+          </div>
           <AdminTable
             columns={orderColumns}
             data={allMyOrders.map((order) => ({
@@ -84,51 +79,15 @@ const OrdersPage = ({ user, allMyOrders, token }) => {
               totalTickets: order.totalTickets,
               totalPay: order.totalPay,
               ticketsTypes: order.ticketsTypes,
+              status: order?.status,
             }))}
-            onDelete={handleDelete}
-            showEditButton={false}
-          />
-          {/* <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>No</TableCell>
-                  <TableCell align="right">Nama Event</TableCell>
-                  <TableCell align="right">Total Tickets</TableCell>
-                  <TableCell align="right">Total Pay</TableCell>
-                  <TableCell align="right">Ticket Types</TableCell>
-                  <TableCell align="right">Actions</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {allMyOrders.map((order) => (
-                  <TableRow key={order.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                    <TableCell component="th" scope="row">
-                      {order.tanggalPembelian}
-                    </TableCell>
-                    <TableCell align="right">{order.event.eventName}</TableCell>
-                    <TableCell align="right">{order.totalTickets}</TableCell>
-                    <TableCell align="right">{order.totalPay}</TableCell>
-                    <TableCell align="right">{order.ticketsTypes}</TableCell>
-                    <TableCell align="right">
-                      <IconButton aria-label="delete" onClick={() => handleDelete(order.id)}>
-                        <DeleteIcon />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer> */}
-          <DeleteConfirmationDialog
-            open={openConfirmDialog}
-            onConfirm={handleConfirmDelete}
-            onCancel={handleCloseConfirmDialog}
-            dialogTitle={<FormattedMessage id="app_confirmation_delete_dialog" />}
-            dialogContent={<FormattedMessage id="app_delete_dialog_header" />}
+            onEdit={handleViewDetails}
+            showEditButton
+            showDeleteButton={false}
           />
         </div>
       </div>
+      <OrderDetailsDialog open={openOrderDetailsDialog} onClose={handleCloseOrderDetailsDialog} order={selectedOrder} />
     </div>
   );
 };
@@ -136,13 +95,12 @@ const OrdersPage = ({ user, allMyOrders, token }) => {
 OrdersPage.propTypes = {
   user: PropTypes.object,
   allMyOrders: PropTypes.array,
-  token: PropTypes.string,
+  intl: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   user: selectUser,
   allMyOrders: selectAllMyOrders,
-  token: selectToken,
 });
 
 export default injectIntl(connect(mapStateToProps)(OrdersPage));

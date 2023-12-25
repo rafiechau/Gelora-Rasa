@@ -5,17 +5,18 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Tesseract from 'tesseract.js';
-
 import InputTextField from '@components/InputTextField';
 import { useForm } from 'react-hook-form';
 import { selectToken } from '@containers/Client/selectors';
 import { Box, CircularProgress } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { useNavigate } from 'react-router-dom';
 import { createEventOrganizer } from './actions';
 import classes from './style.module.scss';
 
 const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [image, setImage] = useState(null);
   const [ocrResult, setOcrResult] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -105,8 +106,13 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
-    dispatch(createEventOrganizer(data, token));
+    dispatch(
+      createEventOrganizer(data, token, () => {
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
+      })
+    );
   };
 
   return (

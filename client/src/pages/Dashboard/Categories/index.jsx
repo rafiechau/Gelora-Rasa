@@ -4,7 +4,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { useEffect, useState } from 'react';
 import { SideBar } from '@components/sidebar';
-import { Box, Fab } from '@mui/material';
+import { Box, Fab, useMediaQuery } from '@mui/material';
 import BottomBar from '@components/BottomNavigation';
 import AddIcon from '@mui/icons-material/Add';
 import { selectToken, selectUser } from '@containers/Client/selectors';
@@ -28,6 +28,8 @@ const CategoriesAdminPage = ({ user, categories, token, intl: { formatMessage } 
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [currentCategory, setCurrentCategory] = useState(null);
+
+  const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     dispatch(actionGetAllCategories());
@@ -89,7 +91,7 @@ const CategoriesAdminPage = ({ user, categories, token, intl: { formatMessage } 
     setCurrentPage(1);
   };
 
-  const categoryColumns = [{ id: 'name', label: 'Nama Kategori' }];
+  const categoryColumns = [{ id: 'name', messageId: 'app_column_name_categories', label: 'Nama Kategori' }];
 
   return (
     <div className={classes.app}>
@@ -107,7 +109,7 @@ const CategoriesAdminPage = ({ user, categories, token, intl: { formatMessage } 
           color="primary"
           aria-label="add"
           className={classes.fab}
-          // onClick={handleOpenCreatePostDialog}
+          onClick={handleOpenCreateDialog}
           sx={{ position: 'fixed', bottom: 60, right: 16 }}
         >
           <AddIcon />
@@ -116,25 +118,42 @@ const CategoriesAdminPage = ({ user, categories, token, intl: { formatMessage } 
       <div className={classes.ProfilePage}>
         <SideBar user={user} />
         <div className={classes.containerProfilePage}>
-          <div>
+          <div className={classes.title}>
             <FormattedMessage id="app_header_dashboard_category" />
           </div>
           <div className={classes.searchContainer}>
             <input
+              className={classes.searchInput}
               type="text"
               placeholder={formatMessage({ id: 'app_input_search_categories' })}
               value={searchTerm}
               onChange={handleSearchChange}
             />
+            {isMobile ? (
+              <Fab
+                color="primary"
+                aria-label="add"
+                className={classes.fab}
+                onClick={handleOpenCreateDialog}
+                sx={{ position: 'fixed', bottom: 60, right: 16 }}
+              >
+                <AddIcon />
+              </Fab>
+            ) : (
+              <button type="button" onClick={handleOpenCreateDialog} className={classes.btnCreate}>
+                <FormattedMessage id="app_header_create_category" />
+              </button>
+            )}
           </div>
-          <button type="button" onClick={handleOpenCreateDialog}>
-            <FormattedMessage id="app_header_create_category" />
-          </button>
+
           <AdminTable
             columns={categoryColumns}
             data={currentCategoryPagination.map((category) => ({ id: category.id, name: category.categoryName }))}
             onEdit={handleOpenEditDialog}
             onDelete={handleDelete}
+            showEditButton
+            showDeleteButton
+            editButtonMessageId="app_btn_edit"
           />
           <button type="button" onClick={handlePrevious} disabled={currentPage === 1}>
             <FormattedMessage id="app_btn_previous_pagination" />

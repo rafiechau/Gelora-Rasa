@@ -5,8 +5,14 @@ $transition-duration: 0.3s;
 $primary-color: #4CAF50;
 $white: #fff;
 
+$dark-grey: #333; 
+
+@function mix-colors($color1, $color2, $percentage) {
+  @return mix($color1, $color2, $percentage);
+}
+
 .containerProfilePage{
-    background-color: $dark-grey;
+    background-color: mix-colors($dark-grey, $navy, 40%);
     padding: 40px;
     border-radius: $border-radius;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

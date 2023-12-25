@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import config from '@config/index';
-import { selectToken } from '@containers/Client/selectors';
+import { selectToken, selectUser } from '@containers/Client/selectors';
 import EventImage from '@components/EventImage';
 import EventDetail from '@components/EventDetails';
 import EventDescription from '@components/EventDescription';
@@ -16,7 +16,7 @@ import classes from './style.module.scss';
 import { selectEvent, selectHasOrdered } from './selector';
 import { actionUpdateEventStatus, checkUserOrder, createOrder, getEventById, initialPayment } from './actions';
 
-const DetailEventPage = ({ event, hasOrdered, token }) => {
+const DetailEventPage = ({ event, hasOrdered, token, user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { eventId } = useParams();
@@ -25,7 +25,7 @@ const DetailEventPage = ({ event, hasOrdered, token }) => {
   const [selectedTicketType, setSelectedTicketType] = useState(event?.type === 'hybrid' ? 'offline' : event?.type);
   const [canOrder, setCanOrder] = useState(true);
 
-  console.log(event?.stok, 'test');
+  console.log(user?.role, 'test');
 
   const handleTicketQuantityChange = (quantity) => {
     setTicketQuantity(quantity);
@@ -136,14 +136,11 @@ const DetailEventPage = ({ event, hasOrdered, token }) => {
             countdown={countdown}
             canOrder={canOrder}
             hasOrdered={hasOrdered}
+            user={user}
           />
         </div>
       </div>
-      <EventDescription
-        description={event?.description}
-        organizerFirstName={event?.User?.firstName}
-        organizerLastName={event?.User?.lastName}
-      />
+      <EventDescription description={event?.description} />
     </div>
   );
 };
@@ -152,12 +149,14 @@ DetailEventPage.propTypes = {
   event: PropTypes.object,
   hasOrdered: PropTypes.bool,
   token: PropTypes.string,
+  user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   event: selectEvent,
   hasOrdered: selectHasOrdered,
   token: selectToken,
+  user: selectUser,
 });
 
 export default injectIntl(connect(mapStateToProps)(DetailEventPage));

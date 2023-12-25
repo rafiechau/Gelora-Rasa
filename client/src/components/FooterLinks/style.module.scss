@@ -1,0 +1,21 @@
+.footerLinks {
+    margin: 1rem;
+    text-align: center;
+
+    .footerLinksTitle {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        color: #a8d8ff;
+    }
+
+    .footerLinkItem {
+        font-size: 0.9rem;
+        margin: 0.25rem 0;
+        cursor: pointer;
+        transition: color 0.3s ease;
+
+        &:hover {
+            color: #ffffff;
+        }
+    }
+}

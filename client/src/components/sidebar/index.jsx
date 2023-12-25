@@ -11,7 +11,9 @@ import GroupIcon from '@mui/icons-material/Group';
 import CategoryIcon from '@mui/icons-material/Category';
 import { selectUser } from '@containers/Client/selectors';
 import { createStructuredSelector } from 'reselect';
+import logo from '@static/images/gelorasa-logo.png';
 
+import { Avatar, Box } from '@mui/material';
 import classes from './styles.module.scss';
 
 export const SideBar = ({ user }) => {
@@ -25,7 +27,9 @@ export const SideBar = ({ user }) => {
 
   return (
     <div className={classes.sidebar}>
-      <LocalActivityIcon className={classes.sidebarEventIcon} />
+      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', marginBottom: 2 }}>
+        <Avatar src={logo} sx={{ width: 80, height: 80, marginRight: 1 }} />
+      </Box>
 
       <div
         className={`${classes.sidebarOption} ${isActive('/') ? classes.active : ''}`}

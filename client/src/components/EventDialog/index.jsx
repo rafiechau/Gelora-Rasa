@@ -18,7 +18,7 @@ import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import InputTextField from '@components/InputTextField';
 import ReactQuill from 'react-quill';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { actionCreateEvent, actionUpdateEventById, actionUpdateEventEventOrganizer } from '@pages/Dashboard/MyEvents/actions';
+import { actionCreateEvent, actionUpdateEventEventOrganizer } from '@pages/Dashboard/MyEvents/actions';
 import { actionGetAllCategories, actionGetAllLocation } from '@pages/Home/actions';
 import { selectAllCategories, selectAllLocation } from '@pages/Home/selectors';
 import { selectToken, selectUser } from '@containers/Client/selectors';
@@ -37,7 +37,7 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
   const [selectedCategory, setSelectedCategory] = useState('');
   const [isImageChanged, setIsImageChanged] = useState(false);
 
-  console.log(myEvent.image, "<<image")
+  console.log(myEvent?.image, '<<image');
 
   const {
     handleSubmit,
@@ -62,13 +62,15 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
     if (mode === 'edit' && myEvent) {
       setIsImageChanged(false);
       const imageURL = myEvent.image ? `${config.api.server}${myEvent.image.replace('\\', '/')}` : null;
-      setImage(imageURL); // Mengatur state image
+      setImage(imageURL);
       setPreview(imageURL);
       // Set initial values for editing
       Object.keys(myEvent).forEach((key) => {
         if (key !== 'image') setValue(key, myEvent[key]);
       });
-
+      if (myEvent.image) {
+        setValue('image', 'exists', { shouldValidate: true });
+      }
       setDescription(myEvent.description);
       setEventType(myEvent.type);
       setEventStatus(myEvent.status);
@@ -156,13 +158,10 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
     formData.append('categoryId', data.categoryId);
     formData.append('userId', user.id);
 
-    console.log(data)
-    console.log(formData)
-
     if (isImageChanged && image instanceof File) {
       formData.append('image', image);
     } else {
-      formData.append('image', myEvent?.image)
+      formData.append('image', myEvent?.image);
     }
     if (mode === 'create') {
       dispatch(actionCreateEvent(formData, token));
@@ -241,9 +240,15 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
               onChange={handleEventTypeChange}
               error={!!errors.type}
             >
-              <MenuItem value="hybrid">Hybrid</MenuItem>
-              <MenuItem value="offline">Offline</MenuItem>
-              <MenuItem value="online">Online</MenuItem>
+              <MenuItem value="hybrid">
+                <FormattedMessage id="app_hybrid" />
+              </MenuItem>
+              <MenuItem value="offline">
+                <FormattedMessage id="app_offline" />
+              </MenuItem>
+              <MenuItem value="online">
+                <FormattedMessage id="app_online" />
+              </MenuItem>
             </Select>
             {errors.type && <span className={classes.error}>{errors.type.message}</span>}
           </FormControl>
@@ -280,8 +285,12 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
               onChange={handleEventStatusChange}
               error={!!errors.status}
             >
-              <MenuItem value="active">Active</MenuItem>
-              <MenuItem value="non-active">Non-Active</MenuItem>
+              <MenuItem value="active">
+                <FormattedMessage id="app_active" />
+              </MenuItem>
+              <MenuItem value="non-active">
+                <FormattedMessage id="app_non_active" />
+              </MenuItem>
             </Select>
             {errors.status && <span className={classes.error}>{errors.status.message}</span>}
           </FormControl>
@@ -300,10 +309,14 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
               style={{ display: 'none' }}
               onChange={(event) => {
                 handleFiles(event.target.files);
-                setValue('image', event.target.files[0], { shouldValidate: true });
+                setValue('image', event.target.files[0] || 'exists', { shouldValidate: true });
               }}
             />
-            {errors.image && <span className={classes.error}>Gambar event wajib diunggah</span>}
+            {errors.image && image !== 'exists' && (
+              <span className={classes.error}>
+                <FormattedMessage id="app_image_required" />
+              </span>
+            )}
           </label>
           <InputTextField
             input={{
@@ -386,7 +399,11 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
             )}
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-            {mode === 'create' ? 'Create Event' : 'Update Event'}
+            {mode === 'create' ? (
+              <FormattedMessage id="app_create_event" defaultMessage="Create Event" />
+            ) : (
+              <FormattedMessage id="app_update_event" defaultMessage="Update Event" />
+            )}
           </Button>
         </Box>
       </DialogContent>

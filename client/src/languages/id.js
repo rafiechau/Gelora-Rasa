@@ -27,6 +27,7 @@ export default {
   app_user_password_min_length: 'Kata Sandi minimal 8 karakter',
   app_user_password_show: 'Tampilkan Kata Sandi',
   app_already_login: 'Kamu sudah Login',
+  app_forbidden: 'Kamu tidak memiliki akses halaman ini',
 
   // ktp
   app_ktp_nik_require_message: 'Nomor induk kependudukan dibutuhkan',
@@ -87,6 +88,15 @@ export default {
   app_event_stok_name: 'Stok Event',
   app_event_category: 'Kategori Event',
   app_event_location: 'Lokasi Event',
+  app_no_data_available: 'Tidak ada data yang tersedia',
+  app_login_again: 'Silahkan Masuk Kembali',
+
+  // navbar
+  app_menu_become_event_organizer: 'Menjadi Penyelenggara Acara',
+  app_menu_streaming: 'Siaran Lansung',
+  app_menu_login: 'Masuk',
+  app_menu_logout: 'Keluar',
+  app_menu_dashboard: 'Dashboard',
 
   // sidebar
   app_navigation_profile: 'Profile',
@@ -137,6 +147,7 @@ export default {
   app_btn_edit: 'Ubah',
   app_btn_delete: 'Hapus',
   app_btn_create: 'Tambah Data',
+  app_header_actions: 'Aksi',
 
   // detail
   app_detail_event_offline: 'Offline',
@@ -153,6 +164,12 @@ export default {
   app_profile_lastName: 'Nama Kedua',
   app_profile_email: 'Email',
   app_profile_role: 'Role',
+  app_header_my_profiles: 'Profile Saya',
+
+  app_btn_edit_categories: 'Tambah Kategori',
+  app_btn_create_categories: 'Ubah Kategori',
+  app_column_name_categories: 'Nama Kategori',
+  app_column_name_location: 'Nama Lokasi',
 
   // dashboar users
   app_dashboard_users_headers: 'Halaman Seluruh Pengguna',
@@ -160,10 +177,72 @@ export default {
   app_dashboard_users_filter_standard_role: 'Pengguna Standart',
   app_dashboard_users_filter_event_organizer: 'Pengguna Penyelenggara Acara',
   app_dashboard_users_filter_admin_role: 'Pengguna Admin',
+  app_dashboard_search_user: 'Cari Pengguna',
+  app_btn_view_details: 'Lihat Detail',
+  app_column_name: 'Nama',
+  app_column_email: 'Email',
+  app_column_role: 'Role',
 
   // search
   app_input_search_event: 'Cari event',
   app_input_search_location: 'Cari lokasi',
   app_input_search_categories: 'Cari kategori',
   app_input_search_user: 'Cari Pengguna',
+
+  // home before login
+  app_home_before_login_hero_headline:
+    'Merasakan <span>Gejolak Gairah</span>, Menikmati <spanPink>Sensasi yang Tak Terlupakan</spanPink>',
+  app_home_before_login_description:
+    'Destinasi pilihan untuk mengeksplorasi dan memperkaya wawasan Anda melalui hiburan dan pengetahuan.',
+  app_home_before_login_browse_button: 'Jelajahi Sekarang',
+  app_events_description: 'Acara yang diselenggarakan oleh perusahaan global terbesar dan terkemuka',
+  app_top_events_title: 'Acara Teratas',
+  app_stars: 'Bintang',
+  app_events_attended: 'Acara yang dihadiri',
+  app_events_tickets_sold: 'Tiket Terjual',
+
+  // footer
+  app_footer_description: 'Gelorasa adalah tempat di mana anda dapat mencari event sesuai dengan minat & terdekat.',
+  app_footer_rights: 'Semua Hak Cipta Dilindungi. Gelora Rasa 2023.',
+  app_footer_features: 'Fitur',
+  app_footer_features_virtual: 'Virtual',
+  app_footer_features_pricing: 'Harga',
+  app_footer_features_merchant: 'Penyelenggara Acara',
+  app_footer_features_tickets: 'Tiket',
+  app_footer_company: 'Perusahaan',
+  app_footer_company_jobs: 'Pekerjaan',
+  app_footer_company_api: 'API',
+  app_footer_company_press: 'Pers',
+  app_footer_company_sitemap: 'Peta Situs',
+  app_footer_learn: 'Belajar',
+  app_footer_learn_guidebook: 'Buku Panduan',
+  app_footer_learn_inspiration: 'Inspirasi',
+  app_footer_learn_community: 'Komunitas',
+  app_footer_learn_tools: 'Alat',
+
+  // my events
+  app_input_search_my_events: 'Cari acara kamu',
+  app_header_my_events: 'Acara Saya',
+  app_status_events: 'Status',
+  app_hybrid: 'Gabungan',
+  app_offline: 'Luring',
+  app_online: 'Daring',
+  app_active: 'Aktif',
+  app_non_active: 'Tidak Aktif',
+  app_image_required: 'Gambar event wajib diunggah',
+  app_create_event: 'Tambah Acara',
+  app_update_event: 'Ubah Acara',
+
+  app_column_event_name: 'Nama Acara',
+  app_column_total_tickets: 'Jumlah Tiket',
+  app_column_total_pay: 'Jumlah Pembayaran',
+  app_column_ticket_types: 'Jenis Tickets',
+
+  app_header_my_orders: 'Pesanan Saya',
+  app_title_order_details: 'Detail Pesanan',
+  app_order_name_events: 'Nama Acara',
+  app_order_total_tickets: 'Total Tiket',
+  app_order_total_pay: 'Total Pembayaran',
+  app_order_status_order: 'Status',
+  app_order_date_order: 'Tanggal Pembelian',
 };

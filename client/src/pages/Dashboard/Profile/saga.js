@@ -4,9 +4,9 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import { setLoading, showPopup } from '@containers/App/actions';
 import { apiHandleEditPhotoProfile, apiHandleEditProfile, apiHandleGetProfile, deleteAccountApi } from '@domain/api';
 import config from '@config/index';
+import { actionLogoutUser } from '@containers/Client/actions';
 import { DELETE_ACCOUNT, EDIT_PHOTO_PROFILE, EDIT_PROFILE, GET_PROFILE } from './constants';
 import { actionGetProfile, actionSetProfile } from './actions';
-import { actionLogoutUser } from '@containers/Client/actions';
 
 function* sagaHandleGetUser() {
   yield put(setLoading(true));

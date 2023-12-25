@@ -5,12 +5,13 @@ import { createStructuredSelector } from 'reselect';
 import { useEffect, useRef, useState } from 'react';
 import { Edit } from '@mui/icons-material';
 import { SideBar } from '@components/sidebar';
-import { Avatar, Skeleton } from '@mui/material';
+import { Avatar, Box, Skeleton } from '@mui/material';
 import { selectToken, selectUser } from '@containers/Client/selectors';
 import config from '@config/index';
 import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
 import EditProfileDialog from '@components/EditDialogProfile';
-import { useNavigate } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
+import BottomBar from '@components/BottomNavigation';
 import { actionDeleteAccount, actionEditPhotoProfile, actionGetProfile, actionResetProfile } from './actions';
 import { selectProfile } from './selectors';
 
@@ -84,10 +85,23 @@ const ProfilePage = ({ user, profile, token }) => {
 
   return (
     <div className={classes.app}>
+      <Box
+        sx={{
+          width: '100%',
+          display: { xs: 'block', sm: 'none' },
+          position: 'fixed',
+          bottom: 0,
+          zIndex: 1000,
+        }}
+      >
+        <BottomBar />
+      </Box>
       <div className={classes.ProfilePage}>
         <SideBar user={user} />
         <div className={styles.containerProfilePage}>
-          <div>My Profiles</div>
+          <div className={classes.title}>
+            <FormattedMessage id="app_header_my_profiles" />
+          </div>
           <input
             type="file"
             ref={fileInput}

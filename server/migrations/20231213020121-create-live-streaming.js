@@ -13,7 +13,13 @@ module.exports = {
         type: Sequelize.STRING
       },
       eventId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Events', 
+          key: 'id',
+        },
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE'
       },
       createdAt: {
         allowNull: false,

@@ -14,7 +14,7 @@ module.exports = {
         id: 1,
         firstName: "Muhammad Rafie",
         lastName: "Chautie",
-        email: "rafiqauti13@gmail.com",
+        email: "rafiqauti15@gmail.com",
         role: 1,
         password: hashedPasswords[0],
         createdAt: new Date(),

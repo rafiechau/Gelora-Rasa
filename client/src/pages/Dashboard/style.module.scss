@@ -15,26 +15,46 @@
             overflow: auto;
         }
         .title{
+            color: $color-white;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 1.25rem;
         }
         .btnCreate{
-            padding: 12px 20px;
+            padding: 10px 20px;
             margin-right: 5px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-transform: uppercase;
+            background-color: $button-primary;
+            color: $color-white;
             font-weight: bold;
             margin-bottom: 1rem;
+            &:hover {
+                background-color: darken($button-primary, 10%);
+            }
         }
         .searchContainer{
             display: flex;
+            flex-direction: row-reverse;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             padding: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             @media screen and (max-width: 370px) {
                 flex-direction: column;
+            }
+            .searchInput{
+                padding: 10px;
+                background-color: $responsiveTableBackground;
+                border: 1px solid darken($responsiveTableBackground, 10%);
+                border-radius: 4px;
+                outline: none;
+                width: 100%;
+                margin-bottom: 20px;
+                &::placeholder {
+                    color: darken($color-white, 20%);
+                }
             }
             input, select{
                 padding: 10px;

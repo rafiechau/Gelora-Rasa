@@ -27,4 +27,8 @@ export default {
   app_user_password_min_length: 'Password minimum 8 character',
   app_user_password_show: 'Show password',
   app_already_login: 'You already Login',
+
+  // home before login
+  app_home_before_login_hero_headline:
+    "Experiencing <span>Passion's Surge</span>, Savoring <spanPink>The Unforgettable Sensation</spanPink>",
 };

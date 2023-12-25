@@ -1,0 +1,80 @@
+.reviewSection{
+    background-color: lighten($navy, 5%);
+    padding: 20px;
+    margin-top: 2rem;
+    .reviewCard{
+        background-color: $navy;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column; 
+        align-items: center; 
+        padding: 20px;
+        margin: auto; 
+        max-width: 800px; 
+        @media (max-width: 768px) {
+            max-width: 600px;
+        }
+    
+        @media (max-width: 480px) {
+            max-width: 100%;
+            margin: 10px;
+        }
+        .cardContent{
+            width: 100%;
+            .userInfo {
+                display: flex;
+                align-items: center;
+                gap: 15px; 
+                @media (max-width: 768px) {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+                .peopleReview {
+                    width: 80px; 
+                    height: 80px; 
+                    border-radius: 50%;
+                    object-fit: cover;
+                    @media (max-width: 480px) {
+                        width: 60px;
+                        height: 60px;
+                    }
+                }
+                .userName, .userActivity {
+                    margin: 5px 0;
+                }
+                .userRating{
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                }
+            }
+            .reviewText{
+                .reviewTitle {
+                    font-size: 1.2rem; 
+                    @media (max-width: 768px) {
+                        font-size: 1rem;
+                    }
+    
+                    @media (max-width: 480px) {
+                        font-size: 0.9rem;
+                    }
+                }
+                  
+                .reviewDescription {
+                    color: $color-white-fade;
+                    font-size: 0.95rem; 
+                    margin-top: 10px;
+                    @media (max-width: 768px) {
+                        font-size: 1rem;
+                    }
+    
+                    @media (max-width: 480px) {
+                        font-size: 0.9rem;
+                    }
+                }
+            }
+            
+        }
+    }
+}

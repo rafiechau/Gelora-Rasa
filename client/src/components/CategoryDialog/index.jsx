@@ -20,14 +20,17 @@ export const CategoryDialog = ({ open, onClose, intl: { formatMessage }, current
     handleSubmit,
     register,
     setValue,
+    reset,
     formState: { errors },
   } = useForm();
 
   useEffect(() => {
     if (isEditMode && currentCategory) {
       setValue('categoryName', currentCategory.name);
+    } else {
+      reset();
     }
-  }, [currentCategory, setValue, isEditMode]);
+  }, [currentCategory, setValue, isEditMode, reset]);
 
   const onSubmit = (data) => {
     if (isEditMode) {
@@ -64,7 +67,7 @@ export const CategoryDialog = ({ open, onClose, intl: { formatMessage }, current
             errors={errors}
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} data-testid="submit-button">
-            {isEditMode ? 'app_btn_submit' : 'app_btn_edit'}
+            <FormattedMessage id={isEditMode ? 'app_btn_create_categories' : 'app_btn_edit_categories'} />
           </Button>
         </Box>
       </DialogContent>
