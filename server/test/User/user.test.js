@@ -438,7 +438,7 @@ describe('Edit Profile', () => {
 });
 
 describe('Edit Photo Profile', () => {
-  const imagePath = path.join(__dirname, '..', '..', 'uploads', '1702228214323.jpeg');
+  const imagePath = path.join(__dirname, '..', '..', 'uploads', 'default1.jpg');
 
   afterEach(() => {
     jest.clearAllMocks(); 

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FooterLinks should match snapshot 1`] = `
+<div
+  class="footerLinks"
+  data-testid="footer-links"
+>
+  <h4
+    class="footerLinksTitle"
+    data-testid="footer-links-title"
+  >
+    Test Title
+  </h4>
+  <div
+    class="footerLinkItem"
+    data-testid="footer-link-item-0"
+  >
+    Item 1
+  </div>
+  <div
+    class="footerLinkItem"
+    data-testid="footer-link-item-1"
+  >
+    Item 2
+  </div>
+  <div
+    class="footerLinkItem"
+    data-testid="footer-link-item-2"
+  >
+    Item 3
+  </div>
+</div>
+`;

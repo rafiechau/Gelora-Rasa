@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReviewSection matches snapshot 1`] = `
+<section
+  class="reviewSection"
+  data-testid="review-section"
+>
+  <div
+    class="reviewCard"
+  >
+    <div
+      class="cardContent"
+    >
+      <div
+        class="userInfo"
+      >
+        <img
+          alt="User"
+          class="peopleReview"
+          src="path_to_image.jpg"
+        />
+        <div
+          class="userDetails"
+        >
+          <h3
+            class="userName"
+          >
+            John Doe
+          </h3>
+          <p
+            class="userActivity"
+          >
+            Reviewed 2 days ago
+          </p>
+          <div
+            class="userRating"
+          >
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-he82x6-MuiSvgIcon-root"
+              data-testid="StarIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+              />
+            </svg>
+            <span>
+              4
+              /5 
+              stars
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="reviewText"
+      >
+        <h4
+          class="reviewTitle"
+        >
+          Great Experience
+        </h4>
+        <p
+          class="reviewDescription"
+        >
+          I had a fantastic time using this product!
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+`;

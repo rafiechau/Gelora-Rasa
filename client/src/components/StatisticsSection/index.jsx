@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import classes from './style.module.scss';
 
 const StatisticsSection = () => (
-  <div className={classes.statistics}>
+  <div className={classes.statistics} data-testid="statistics-section">
     <div className={classes.statistic}>
       <span className={classes.statNumber}>150+</span>
       <span className={classes.statLabel}>

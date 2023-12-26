@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterTooltip should match the snapshot 1`] = `
+<button
+  aria-label="Filter"
+  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-yyydyy-MuiButtonBase-root-MuiIconButton-root"
+  data-mui-internal-clone-element="true"
+  data-testid="filter-tooltip-button"
+  tabindex="0"
+  type="button"
+>
+  <svg
+    aria-hidden="true"
+    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+    data-testid="FilterListIcon"
+    focusable="false"
+    viewBox="0 0 24 24"
+  >
+    <path
+      d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"
+    />
+  </svg>
+  <span
+    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+  />
+</button>
+`;

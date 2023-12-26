@@ -14,11 +14,11 @@ const OrderDetailsDialog = ({ open, onClose, order }) => {
       }).format(new Date(order?.tanggalPembelian))
     : '';
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm">
-      <DialogTitle className={classes.dialogTitle}>
+    <Dialog open={open} onClose={onClose} maxWidth="sm" data-testid="order-details-dialog">
+      <DialogTitle className={classes.dialogTitle} data-testid="order-details-title">
         <FormattedMessage id="app_title_order_details" />
       </DialogTitle>
-      <DialogContent className={classes.dialogContent}>
+      <DialogContent className={classes.dialogContent} data-testid="order-details-content">
         <DialogContentText className={classes.dialogText}>
           <FormattedMessage id="app_order_name_events" />: {order?.eventName}
         </DialogContentText>
@@ -37,7 +37,9 @@ const OrderDetailsDialog = ({ open, onClose, order }) => {
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onClose}>Close</Button>
+        <Button onClick={onClose} data-testid="order-details-close-button">
+          Close
+        </Button>
       </DialogActions>
     </Dialog>
   );

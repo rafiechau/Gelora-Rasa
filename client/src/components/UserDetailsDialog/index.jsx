@@ -14,6 +14,7 @@ import {
 import config from '@config/index';
 import { useState } from 'react';
 
+import { FormattedMessage } from 'react-intl';
 import classes from './style.module.scss';
 
 const UserDetailsDialog = ({ open, onClose, user }) => {
@@ -23,8 +24,10 @@ const UserDetailsDialog = ({ open, onClose, user }) => {
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullScreen={fullScreen}>
-      <DialogTitle className={classes.dialogTitle}>User Details</DialogTitle>
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullScreen={fullScreen} data-testid="user-details-dialog">
+      <DialogTitle className={classes.dialogTitle} data-testid="dialog-title">
+        <FormattedMessage id="app_title_user_details" />
+      </DialogTitle>
       <div className={classes.imageContainer}>
         {loading && <Skeleton variant="circle" className={classes.skeleton} />}
         {user?.imagePath ? (
@@ -36,10 +39,11 @@ const UserDetailsDialog = ({ open, onClose, user }) => {
               loading="lazy"
               className={classes.avatar}
               onLoad={() => setLoading(false)}
+              data-testid="user-avatar"
             />
           </>
         ) : (
-          <Avatar className={classes.avatar}>
+          <Avatar className={classes.avatar} data-testid="user-avatar">
             {user?.firstName?.split(' ')[0][0]} {user?.firstName?.split(' ') > 1 && user?.firstName?.split(' ')[1][0]}
           </Avatar>
         )}
@@ -47,58 +51,60 @@ const UserDetailsDialog = ({ open, onClose, user }) => {
 
       <DialogContent className={classes.dialogContent}>
         <DialogContentText className={classes.dialogText}>
-          Name: {user?.firstName} {user?.lastName}
+          <FormattedMessage id="app_column_name" />: {user?.firstName} {user?.lastName}
         </DialogContentText>
         {user?.detailEventOrganizer && (
           <>
             <DialogContentText className={classes.dialogText}>
-              Name KTP: {user?.detailEventOrganizer.namaLengkap}
+              <FormattedMessage id="user_details_name_ktp" />: {user?.detailEventOrganizer.namaLengkap}
             </DialogContentText>
             <DialogContentText className={classes.dialogText}>NIK: {user?.detailEventOrganizer.nik}</DialogContentText>
             <DialogContentText className={classes.dialogText}>
-              Jenis Kelamin: {user?.detailEventOrganizer.jenisKelamin}
+              <FormattedMessage id="user_details_gender" />: {user?.detailEventOrganizer.jenisKelamin}
             </DialogContentText>
             <DialogContentText className={classes.dialogText}>
-              Tempat Lahir: {user?.detailEventOrganizer.tempatLahir}
+              <FormattedMessage id="user_details_birth_place" />: {user?.detailEventOrganizer.tempatLahir}
             </DialogContentText>
             <DialogContentText className={classes.dialogText}>
-              Tanggal Lahir: {user?.detailEventOrganizer.tanggalLahir}
+              <FormattedMessage id="user_details_birth_date" />: {user?.detailEventOrganizer.tanggalLahir}
             </DialogContentText>
             <DialogContentText className={classes.dialogText}>
-              Golongan Darah: {user?.detailEventOrganizer.golonganDarah}
+              <FormattedMessage id="user_details_blood_type" />: {user?.detailEventOrganizer.golonganDarah}
             </DialogContentText>
             <DialogContentText className={classes.dialogText}>
-              Alamat: {user?.detailEventOrganizer.alamat}
+              <FormattedMessage id="user_details_address" />: {user?.detailEventOrganizer.alamat}
             </DialogContentText>
             <DialogContentText className={classes.dialogText}>
-              Provinsi: {user?.detailEventOrganizer.provinsi}
+              <FormattedMessage id="user_details_province" />: {user?.detailEventOrganizer.provinsi}
             </DialogContentText>
             <DialogContentText className={classes.dialogText}>
-              Kota/Kabupaten: {user?.detailEventOrganizer.kotaKabupaten}
+              <FormattedMessage id="user_details_city" />: {user?.detailEventOrganizer.kotaKabupaten}
             </DialogContentText>
             <DialogContentText className={classes.dialogText}>
-              Kecamatan: {user?.detailEventOrganizer.kecamatan}
+              <FormattedMessage id="user_details_subdistrict" />: {user?.detailEventOrganizer.kecamatan}
             </DialogContentText>
             <DialogContentText className={classes.dialogText}>
-              Kelurahan: {user?.detailEventOrganizer.kelurahanDesa}
+              <FormattedMessage id="user_details_village" />: {user?.detailEventOrganizer.kelurahanDesa}
             </DialogContentText>
             <DialogContentText className={classes.dialogText}>
-              Agama: {user?.detailEventOrganizer.agama}
+              <FormattedMessage id="user_details_religion" />: {user?.detailEventOrganizer.agama}
             </DialogContentText>
             <DialogContentText className={classes.dialogText}>
-              Status Perkawinan: {user?.detailEventOrganizer.statusPerkawinan}
+              <FormattedMessage id="user_details_marital_status" />: {user?.detailEventOrganizer.statusPerkawinan}
             </DialogContentText>
             <DialogContentText className={classes.dialogText}>
-              Pekerjaan: {user?.detailEventOrganizer.statusKerja}
+              <FormattedMessage id="user_details_job" />: {user?.detailEventOrganizer.statusKerja}
             </DialogContentText>
             <DialogContentText className={classes.dialogText}>
-              Kewarganegaraan: {user?.detailEventOrganizer.kewarganegaraan}
+              <FormattedMessage id="user_details_nationality" />: {user?.detailEventOrganizer.kewarganegaraan}
             </DialogContentText>
           </>
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Close</Button>
+        <Button onClick={onClose} data-testid="close-button">
+          Close
+        </Button>
       </DialogActions>
     </Dialog>
   );

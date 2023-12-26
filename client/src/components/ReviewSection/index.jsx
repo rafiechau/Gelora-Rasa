@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import classes from './style.module.scss';
 
 const ReviewSection = ({ reviews }) => (
-  <section className={classes.reviewSection}>
+  <section className={classes.reviewSection} data-testid="review-section">
     {reviews.map((review, index) => (
       <div key={index} className={classes.reviewCard}>
         <div className={classes.cardContent}>

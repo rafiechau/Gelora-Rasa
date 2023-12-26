@@ -17,6 +17,7 @@ import {
 import CloseSharpIcon from '@mui/icons-material/CloseSharp';
 import InputTextField from '@components/InputTextField';
 import ReactQuill from 'react-quill';
+import toast from 'react-hot-toast';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { actionCreateEvent, actionUpdateEventEventOrganizer } from '@pages/Dashboard/MyEvents/actions';
 import { actionGetAllCategories, actionGetAllLocation } from '@pages/Home/actions';
@@ -50,9 +51,7 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
   } = useForm({
     mode: 'onChange',
     criteriaMode: 'all',
-    defaultValues: {
-      // Default values...
-    },
+    defaultValues: {},
   });
 
   useEffect(() => {
@@ -142,6 +141,22 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
 
   const onSubmit = (data) => {
     const formData = new FormData();
+
+    const eventDateString = data.date.trim();
+    const registrationDeadlineString = data.registrationDealine.trim();
+
+    // Parse the dates
+    const eventDate = new Date(eventDateString);
+    const deadlineDate = new Date(registrationDeadlineString);
+
+    // Compare the dates
+    if (deadlineDate >= eventDate) {
+      toast.error('Registration deadline cannot be on or after the event date.');
+      return; // Prevent the form from submitting
+    }
+    // Proceed with form submission
+    // ... rest of your submit logic
+
     formData.append('eventName', data.eventName);
     formData.append('date', data.date);
     const formattedTime = data.time ? data.time.substring(0, 5) : '';
@@ -173,10 +188,10 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
   };
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm" data-testid="event-dialog">
       <DialogTitle>
         {/* {formatMessage({ id: mode === 'create' ? 'Tambah Event' : 'Edit Event' })} */}
-        <IconButton onClick={onClose} style={{ position: 'absolute', right: 8, top: 8 }}>
+        <IconButton onClick={onClose} style={{ position: 'absolute', right: 8, top: 8 }} data-testid="close-button">
           <CloseSharpIcon />
         </IconButton>
       </DialogTitle>
@@ -398,7 +413,7 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
               </>
             )}
           />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} data-testid="submit-button">
             {mode === 'create' ? (
               <FormattedMessage id="app_create_event" defaultMessage="Create Event" />
             ) : (

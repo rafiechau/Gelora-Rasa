@@ -148,6 +148,7 @@ export default {
   app_btn_delete: 'Hapus',
   app_btn_create: 'Tambah Data',
   app_header_actions: 'Aksi',
+  app_btn_back: 'Kembali',
 
   // detail
   app_detail_event_offline: 'Offline',
@@ -182,6 +183,22 @@ export default {
   app_column_name: 'Nama',
   app_column_email: 'Email',
   app_column_role: 'Role',
+  app_title_user_details: 'Detail Pengguna',
+  user_details_name_ktp: 'Nama KTP',
+  user_details_nik: 'NIK',
+  user_details_gender: 'Jenis Kelamin',
+  user_details_birth_place: 'Tempat Lahir',
+  user_details_birth_date: 'Tanggal Lahir',
+  user_details_blood_type: 'Golongan Darah',
+  user_details_address: 'Alamat',
+  user_details_province: 'Provinsi',
+  user_details_city: 'Kota/Kabupaten',
+  user_details_subdistrict: 'Kecamatan',
+  user_details_village: 'Kelurahan/Desa',
+  user_details_religion: 'Agama',
+  user_details_marital_status: 'Status Perkawinan',
+  user_details_job: 'Status Kerja',
+  user_details_nationality: 'Kewarganegaraan',
 
   // search
   app_input_search_event: 'Cari event',
@@ -245,4 +262,8 @@ export default {
   app_order_total_pay: 'Total Pembayaran',
   app_order_status_order: 'Status',
   app_order_date_order: 'Tanggal Pembelian',
+
+  app_streaming_send_to_customer: 'Kirim ke pelanggan',
+  app_streaming_send_meeting_id_to_customer: 'Kirim Meeting id ke pelanggan',
+  app_your_event_placeholder: 'Event Kamu',
 };

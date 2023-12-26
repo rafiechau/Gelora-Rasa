@@ -11,7 +11,7 @@ const AdminTable = ({
   showDeleteButton = true,
   editButtonMessageId = 'app_btn_view_details',
 }) => (
-  <div className={classes.responsiveTableContainer}>
+  <div className={classes.responsiveTableContainer} data-testid="admin-table">
     <table className={classes.responsiveTable}>
       <thead>
         <tr>
@@ -26,14 +26,19 @@ const AdminTable = ({
         </tr>
       </thead>
       <tbody>
-        {data.map((item) => (
+        {data.map((item, index) => (
           <tr key={item.id}>
             {columns.map((column) => (
               <td key={`${item.id}-${column.id}`}>{item[column.id]}</td>
             ))}
-            <td className={classes.actions}>
+            <td className={classes.actions} data-testid={`row-actions-${index}`}>
               {showEditButton && (
-                <button type="button" onClick={() => onEdit(item)} className={`${classes.btn} ${classes.btnDetail}`}>
+                <button
+                  type="button"
+                  onClick={() => onEdit(item)}
+                  className={`${classes.btn} ${classes.btnDetail}`}
+                  data-testid={`edit-button-${item.id}`}
+                >
                   <FormattedMessage id={editButtonMessageId} />
                 </button>
               )}
@@ -42,6 +47,7 @@ const AdminTable = ({
                   type="button"
                   onClick={() => onDelete(item.id)}
                   className={`${classes.btn} ${classes.btnDelete}`}
+                  data-testid={`delete-button-${item.id}`}
                 >
                   <FormattedMessage id="app_btn_delete" />
                 </button>

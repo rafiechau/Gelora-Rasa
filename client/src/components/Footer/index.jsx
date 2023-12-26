@@ -5,14 +5,14 @@ import { FormattedMessage } from 'react-intl';
 import classes from './style.module.scss';
 
 const Footer = () => (
-  <footer className={classes.footer}>
-    <div className={classes.footerContainer}>
+  <footer className={classes.footer} data-testid="footer">
+    <div className={classes.footerContainer} data-testid="footer-logo-container">
       <div className={classes.container}>
         <div className={classes.footerLogoContainer}>
           <Link to="/" className={classes.footerLogo}>
             <img src={logo} alt="Gelora Rasa" />
           </Link>
-          <p className={classes.footerDescription}>
+          <p className={classes.footerDescription} data-testid="footer-description">
             <FormattedMessage id="app_footer_description" />
           </p>
         </div>

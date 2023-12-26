@@ -37,12 +37,17 @@ const BottomBar = ({ user }) => {
 
   const activeTab = getActiveTab(location.pathname);
   return (
-    <BottomNavigation showLabels value={activeTab} onChange={handleChange}>
+    <BottomNavigation showLabels value={activeTab} onChange={handleChange} data-testid="bottom-navigation">
       {navItems.map(
         (item, index) =>
           user &&
           item.roles.includes(user.role) && (
-            <BottomNavigationAction key={index} label={<FormattedMessage id={item.label} />} icon={item.icon} />
+            <BottomNavigationAction
+              key={index}
+              label={<FormattedMessage id={item.label} />}
+              icon={item.icon}
+              data-testid={`nav-item-${item.label}`}
+            />
           )
       )}
     </BottomNavigation>

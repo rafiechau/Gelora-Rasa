@@ -2,8 +2,16 @@ import { FormControl } from '@mui/material';
 import PropTypes from 'prop-types';
 import classes from './style.module.scss';
 
-const InputTextField = ({ children, input, disabled = false, register, errors, accept = undefined }) => (
-  <FormControl>
+const InputTextField = ({
+  children,
+  input,
+  disabled = false,
+  register,
+  errors,
+  accept = undefined,
+  'data-testid': testId,
+}) => (
+  <FormControl data-testid={testId}>
     <label htmlFor={input?.name} className={classes.labelInput}>
       {input?.label}
       <input
@@ -46,6 +54,7 @@ InputTextField.propTypes = {
   errors: PropTypes.object,
   accept: PropTypes.string,
   disabled: PropTypes.bool,
+  'data-testid': PropTypes.string,
 };
 
 export default InputTextField;

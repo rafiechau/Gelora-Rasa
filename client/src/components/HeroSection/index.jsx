@@ -52,8 +52,9 @@ const HeroSection = ({ onNavigate }) => {
         backgroundImage: `url(${backgroundImage})`,
         opacity: isFading ? 0 : 1,
       }}
+      data-testid="hero-section"
     >
-      <div className={classes.heroHeadline}>
+      <div className={classes.heroHeadline} data-testid="hero-headline">
         <div className={classes.titleHeadline}>
           <FormattedMessage
             id="app_home_before_login_hero_headline"
@@ -64,10 +65,15 @@ const HeroSection = ({ onNavigate }) => {
             }}
           />
         </div>
-        <div className={classes.textDescription}>
+        <div className={classes.textDescription} data-testid="hero-description">
           <FormattedMessage id="app_home_before_login_description" />
         </div>
-        <button type="button" className={`${classes.btn} ${classes.btnPrimary}`} onClick={() => onNavigate('/login')}>
+        <button
+          type="button"
+          className={`${classes.btn} ${classes.btnPrimary}`}
+          onClick={() => onNavigate('/login')}
+          data-testid="hero-browse-button"
+        >
           <FormattedMessage id="app_home_before_login_browse_button" />
         </button>
       </div>

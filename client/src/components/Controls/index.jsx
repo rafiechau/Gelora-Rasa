@@ -4,7 +4,7 @@ import classes from './style.module.scss';
 const Controls = () => {
   const { leave, toggleMic, toggleWebcam, startHls, stopHls } = useMeeting();
   return (
-    <div>
+    <div className={classes.controlsContainer}>
       <button type="button" onClick={() => leave()}>
         Leave
       </button>

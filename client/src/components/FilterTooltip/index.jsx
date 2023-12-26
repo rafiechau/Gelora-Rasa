@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { Tooltip, IconButton, Zoom } from '@mui/material';
 
@@ -6,6 +7,7 @@ const FilterTooltip = ({ onClick }) => (
   <Tooltip title="Filter" arrow TransitionComponent={Zoom}>
     <IconButton
       onClick={onClick}
+      data-testid="filter-tooltip-button"
       sx={{
         color: 'white',
         backgroundColor: '#333',
@@ -23,5 +25,9 @@ const FilterTooltip = ({ onClick }) => (
     </IconButton>
   </Tooltip>
 );
+
+FilterTooltip.propTypes = {
+  onClick: PropTypes.func.isRequired,
+};
 
 export default FilterTooltip;

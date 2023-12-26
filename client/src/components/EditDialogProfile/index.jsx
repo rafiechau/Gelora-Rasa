@@ -54,14 +54,14 @@ const EditProfileDialog = ({ open, onClose, intl: { formatMessage }, profileUser
   );
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
-      <DialogTitle>
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm" data-testid="edit-profile-dialog">
+      <DialogTitle data-testid="dialog-title">
         <FormattedMessage id="app_header_add_event" />
-        <IconButton onClick={onClose} style={{ position: 'absolute', right: 8, top: 8 }}>
+        <IconButton onClick={onClose} style={{ position: 'absolute', right: 8, top: 8 }} data-testid="close-button">
           <CloseSharpIcon />
         </IconButton>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent data-testid="dialog-content">
         <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 2 }}>
           <InputTextField
             input={{
@@ -99,7 +99,7 @@ const EditProfileDialog = ({ open, onClose, intl: { formatMessage }, profileUser
               <FormattedMessage id="app_user_password_show" />
             </label>
           </InputTextField>
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} data-testid="submit-button">
             Update Data
           </Button>
         </Box>

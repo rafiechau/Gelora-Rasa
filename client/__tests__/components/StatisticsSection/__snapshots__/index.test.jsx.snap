@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StatisticsSection matches snapshot 1`] = `
+<div
+  class="statistics"
+  data-testid="statistics-section"
+>
+  <div
+    class="statistic"
+  >
+    <span
+      class="statNumber"
+    >
+      150+
+    </span>
+    <span
+      class="statLabel"
+    >
+      Events Attended
+    </span>
+  </div>
+  <div
+    class="statistic"
+  >
+    <span
+      class="statNumber"
+    >
+      3000+
+    </span>
+    <span
+      class="statLabel"
+    >
+      Tickets Sold
+    </span>
+  </div>
+</div>
+`;

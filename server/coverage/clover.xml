@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1703125467891" clover="3.2.0">
-  <project timestamp="1703125467891" name="All files">
-    <metrics statements="835" coveredstatements="688" conditionals="199" coveredconditionals="140" methods="85" coveredmethods="79" elements="1119" coveredelements="907" complexity="0" loc="835" ncloc="835" packages="7" files="35" classes="35"/>
+<coverage generated="1703596268937" clover="3.2.0">
+  <project timestamp="1703596268937" name="All files">
+    <metrics statements="857" coveredstatements="691" conditionals="201" coveredconditionals="140" methods="87" coveredmethods="78" elements="1145" coveredelements="909" complexity="0" loc="857" ncloc="857" packages="7" files="35" classes="35"/>
     <package name="server">
       <metrics statements="17" coveredstatements="15" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="1"/>
       <file name="index.js" path="D:\pt-phincon\final-project\Gelora-Rasa\server\index.js">
@@ -26,7 +26,7 @@
       </file>
     </package>
     <package name="server.controllers">
-      <metrics statements="513" coveredstatements="386" conditionals="152" coveredconditionals="107" methods="36" coveredmethods="33"/>
+      <metrics statements="533" coveredstatements="388" conditionals="154" coveredconditionals="107" methods="38" coveredmethods="33"/>
       <file name="authController.js" path="D:\pt-phincon\final-project\Gelora-Rasa\server\controllers\authController.js">
         <metrics statements="167" coveredstatements="131" conditionals="54" coveredconditionals="40" methods="13" coveredmethods="12"/>
         <line num="1" count="6" type="stmt"/>
@@ -406,7 +406,7 @@
         <line num="48" count="0" type="stmt"/>
       </file>
       <file name="liveStreamingController.js" path="D:\pt-phincon\final-project\Gelora-Rasa\server\controllers\liveStreamingController.js">
-        <metrics statements="17" coveredstatements="4" conditionals="4" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <metrics statements="26" coveredstatements="5" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="1" count="6" type="stmt"/>
         <line num="2" count="6" type="stmt"/>
         <line num="3" count="6" type="stmt"/>
@@ -424,6 +424,15 @@
         <line num="36" count="0" type="stmt"/>
         <line num="39" count="0" type="stmt"/>
         <line num="40" count="0" type="stmt"/>
+        <line num="44" count="6" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
       </file>
       <file name="locationController.js" path="D:\pt-phincon\final-project\Gelora-Rasa\server\controllers\locationController.js">
         <metrics statements="72" coveredstatements="58" conditionals="20" coveredconditionals="17" methods="4" coveredmethods="4"/>
@@ -501,7 +510,7 @@
         <line num="124" count="0" type="stmt"/>
       </file>
       <file name="orderController.js" path="D:\pt-phincon\final-project\Gelora-Rasa\server\controllers\orderController.js">
-        <metrics statements="58" coveredstatements="39" conditionals="10" coveredconditionals="5" methods="4" coveredmethods="3"/>
+        <metrics statements="69" coveredstatements="40" conditionals="12" coveredconditionals="5" methods="5" coveredmethods="3"/>
         <line num="1" count="6" type="stmt"/>
         <line num="2" count="6" type="stmt"/>
         <line num="3" count="6" type="stmt"/>
@@ -542,24 +551,35 @@
         <line num="94" count="1" type="stmt"/>
         <line num="96" count="0" type="stmt"/>
         <line num="97" count="0" type="stmt"/>
-        <line num="106" count="6" type="stmt"/>
-        <line num="107" count="1" type="stmt"/>
-        <line num="108" count="1" type="stmt"/>
-        <line num="109" count="1" type="stmt"/>
-        <line num="124" count="1" type="stmt"/>
-        <line num="129" count="0" type="stmt"/>
+        <line num="101" count="6" type="stmt"/>
+        <line num="102" count="1" type="stmt"/>
+        <line num="103" count="1" type="stmt"/>
+        <line num="104" count="1" type="stmt"/>
+        <line num="119" count="1" type="stmt"/>
+        <line num="124" count="0" type="stmt"/>
+        <line num="125" count="0" type="stmt"/>
+        <line num="129" count="6" type="stmt"/>
         <line num="130" count="0" type="stmt"/>
-        <line num="134" count="6" type="stmt"/>
-        <line num="135" count="0" type="stmt"/>
+        <line num="131" count="0" type="stmt"/>
+        <line num="132" count="0" type="stmt"/>
+        <line num="133" count="0" type="stmt"/>
+        <line num="134" count="0" type="stmt"/>
         <line num="136" count="0" type="stmt"/>
-        <line num="137" count="0" type="stmt"/>
-        <line num="139" count="0" type="stmt"/>
-        <line num="140" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="141" count="0" type="stmt"/>
-        <line num="144" count="0" type="stmt"/>
-        <line num="145" count="0" type="stmt"/>
-        <line num="147" count="0" type="stmt"/>
-        <line num="148" count="0" type="stmt"/>
+        <line num="150" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="151" count="0" type="stmt"/>
+        <line num="156" count="0" type="stmt"/>
+        <line num="157" count="0" type="stmt"/>
+        <line num="161" count="6" type="stmt"/>
+        <line num="162" count="0" type="stmt"/>
+        <line num="163" count="0" type="stmt"/>
+        <line num="164" count="0" type="stmt"/>
+        <line num="166" count="0" type="stmt"/>
+        <line num="167" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="168" count="0" type="stmt"/>
+        <line num="171" count="0" type="stmt"/>
+        <line num="172" count="0" type="stmt"/>
+        <line num="174" count="0" type="stmt"/>
+        <line num="175" count="0" type="stmt"/>
       </file>
     </package>
     <package name="server.helper">
@@ -617,18 +637,18 @@
         <line num="145" count="6" type="stmt"/>
         <line num="146" count="0" type="stmt"/>
         <line num="154" count="0" type="stmt"/>
+        <line num="177" count="0" type="stmt"/>
+        <line num="178" count="0" type="stmt"/>
         <line num="179" count="0" type="stmt"/>
-        <line num="180" count="0" type="stmt"/>
         <line num="181" count="0" type="stmt"/>
-        <line num="183" count="0" type="stmt"/>
-        <line num="184" count="0" type="stmt"/>
-        <line num="188" count="6" type="stmt"/>
-        <line num="189" count="1" type="stmt"/>
-        <line num="197" count="1" type="stmt"/>
+        <line num="182" count="0" type="stmt"/>
+        <line num="186" count="6" type="stmt"/>
+        <line num="187" count="1" type="stmt"/>
+        <line num="195" count="1" type="stmt"/>
+        <line num="220" count="1" type="stmt"/>
+        <line num="221" count="1" type="stmt"/>
         <line num="222" count="1" type="stmt"/>
-        <line num="223" count="1" type="stmt"/>
-        <line num="224" count="1" type="stmt"/>
-        <line num="226" count="0" type="stmt"/>
+        <line num="224" count="0" type="stmt"/>
       </file>
     </package>
     <package name="server.middlewares">
@@ -783,7 +803,7 @@
       </file>
     </package>
     <package name="server.routes">
-      <metrics statements="96" coveredstatements="96" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="98" coveredstatements="98" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="authRoute.js" path="D:\pt-phincon\final-project\Gelora-Rasa\server\routes\authRoute.js">
         <metrics statements="21" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="6" type="stmt"/>
@@ -882,7 +902,7 @@
         <line num="13" count="6" type="stmt"/>
       </file>
       <file name="orderRoute.js" path="D:\pt-phincon\final-project\Gelora-Rasa\server\routes\orderRoute.js">
-        <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="6" type="stmt"/>
         <line num="3" count="6" type="stmt"/>
         <line num="4" count="6" type="stmt"/>
@@ -892,21 +912,23 @@
         <line num="10" count="6" type="stmt"/>
         <line num="11" count="6" type="stmt"/>
         <line num="12" count="6" type="stmt"/>
-        <line num="15" count="6" type="stmt"/>
+        <line num="13" count="6" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
       </file>
       <file name="streamingRoute.js" path="D:\pt-phincon\final-project\Gelora-Rasa\server\routes\streamingRoute.js">
-        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="6" type="stmt"/>
         <line num="3" count="6" type="stmt"/>
         <line num="4" count="6" type="stmt"/>
         <line num="5" count="6" type="stmt"/>
         <line num="7" count="6" type="stmt"/>
         <line num="9" count="6" type="stmt"/>
-        <line num="11" count="6" type="stmt"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
       </file>
     </package>
     <package name="server.utils">
-      <metrics statements="43" coveredstatements="39" conditionals="15" coveredconditionals="9" methods="13" coveredmethods="13"/>
+      <metrics statements="43" coveredstatements="38" conditionals="15" coveredconditionals="9" methods="13" coveredmethods="12"/>
       <file name="bycrpt.js" path="D:\pt-phincon\final-project\Gelora-Rasa\server\utils\bycrpt.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="6" type="stmt"/>
@@ -953,13 +975,13 @@
         <line num="15" count="6" type="stmt"/>
       </file>
       <file name="redistClient.js" path="D:\pt-phincon\final-project\Gelora-Rasa\server\utils\redistClient.js">
-        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <metrics statements="7" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="1" count="6" type="stmt"/>
         <line num="3" count="6" type="stmt"/>
         <line num="8" count="6" type="stmt"/>
-        <line num="9" count="2" type="stmt"/>
+        <line num="9" count="6" type="stmt"/>
         <line num="12" count="6" type="stmt"/>
-        <line num="13" count="24" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
         <line num="17" count="6" type="stmt"/>
       </file>
     </package>

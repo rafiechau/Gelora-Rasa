@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl';
 import classes from './style.module.scss';
 
 export const OurClient = () => (
-  <div className={classes.containerLogo}>
+  <div className={classes.containerLogo} data-testid="our-client">
     <p className={classes.titleContainerLogo}>
       <FormattedMessage id="app_events_description" />
     </p>

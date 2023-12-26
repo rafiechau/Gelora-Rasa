@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrderDetailsDialog renders correctly and matches snapshot 1`] = `
+<div
+  class="MuiDialog-root MuiModal-root css-zw3mfo-MuiModal-root-MuiDialog-root"
+  data-testid="order-details-dialog"
+  role="presentation"
+>
+  <div
+    aria-hidden="true"
+    class="MuiBackdrop-root MuiModal-backdrop css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+  />
+  <div
+    data-testid="sentinelStart"
+    tabindex="0"
+  />
+  <div
+    class="MuiDialog-container MuiDialog-scrollPaper css-hz1bth-MuiDialog-container"
+    role="presentation"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+    tabindex="-1"
+  >
+    <div
+      aria-labelledby=":r0:"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm css-1t1j96h-MuiPaper-root-MuiDialog-paper"
+      role="dialog"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root dialogTitle css-bdhsul-MuiTypography-root-MuiDialogTitle-root"
+        data-testid="order-details-title"
+        id=":r0:"
+      >
+        Detail Order
+      </h2>
+      <div
+        class="MuiDialogContent-root dialogContent css-ypiqx9-MuiDialogContent-root"
+        data-testid="order-details-content"
+      >
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          app_order_name_events
+          : 
+          Test Event
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          app_order_total_tickets
+          : 
+          2
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          app_order_total_pay
+          : 
+          100000
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          app_order_status_order
+          : 
+          Confirmed
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          app_order_date_order
+          : 
+          1 Januari 2023
+        </p>
+      </div>
+      <div
+        class="MuiDialogActions-root MuiDialogActions-spacing css-hlj6pa-MuiDialogActions-root"
+      >
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+          data-testid="order-details-close-button"
+          tabindex="0"
+          type="button"
+        >
+          Close
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    data-testid="sentinelEnd"
+    tabindex="0"
+  />
+</div>
+`;

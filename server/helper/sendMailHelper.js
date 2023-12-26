@@ -156,17 +156,15 @@ exports.handlesendMeetingIdEmail = async (meetingId, email, eventName) => {
     to: email,
     subject: `Your Meeting ID for ${eventName}`,
     html: `<body>
-      <div style="font-family: Helvetica, Arial, sans-serif; min-width: 1000px; overflow: auto; line-height: 2;">
-        <div style="margin: 50px auto; width: 70%; padding: 20px 0">
-          <div style="border-bottom: 1px solid #eee">
-            <a href="${process.env.CLIENT_URL}" style="text-decoration: none; color: #000;">
-              <h1 style="font-size: 1.4em; color: rgb(163, 230, 53);">YourEventPlatform</h1>
-            </a>
-          </div>
+      <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
+        <div style="background-color: #f4f4f4; padding: 20px; text-align: center; border-bottom: 2px solid #00a2ff;">
+          <h1 style="margin: 0; color: #00a2ff;">YourEventPlatform</h1>
+        </div>
+        <div style="padding: 20px;">
           <p style="font-size: 1.1em">Hello,</p>
           <p>You are invited to join the event: <strong>${eventName}</strong>.</p>
           <p>Please use the following Meeting ID to join:</p>
-          <h2 style="background: rgb(163, 230, 53); margin: 0 auto; width: max-content; padding: 0 10px; color: #fff; border-radius: 4px;">
+          <h2 style="background: #00a2ff; margin: 0 auto; width: max-content; padding: 0 10px; color: #fff; border-radius: 4px;">
             <span>${meetingId}</span>
           </h2>
           <p style="font-size: 0.9em">Regards,<br />YourEventPlatform Team</p>
@@ -201,11 +199,11 @@ exports.handleSendOrderConfirmation = async (orderDetails, user) => {
       html: `<body>
       <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
           <div style="background-color: #f4f4f4; padding: 20px; text-align: center; border-bottom: 2px solid #00a2ff;">
-              <h1 style="margin: 0; color: #00a2ff;">CommuniCast</h1>
+              <h1 style="margin: 0; color: #00a2ff;">Gelorasa</h1>
           </div>
           <div style="padding: 20px;">
               <p style="font-size: 1.1em">Hi, ${user.firstName},</p>
-              <p>Terima kasih telah melakukan pemesanan di CommuniCast. Berikut adalah detail order Anda:</p>
+              <p>Terima kasih telah melakukan pemesanan di Gelorasa. Berikut adalah detail order Anda:</p>
               <div style="background-color: #f9f9f9; padding: 15px; border-left: 4px solid #00a2ff; margin-bottom: 20px;">
                   <p><strong>Nama Event:</strong> ${orderDetails.eventName}</p>
                   <p><strong>Jenis Tiket:</strong> ${orderDetails.ticketsTypes}</p>
@@ -213,7 +211,7 @@ exports.handleSendOrderConfirmation = async (orderDetails, user) => {
                   <p><strong>Order ID:</strong> ${orderDetails.orderId}</p>
                   <p><strong>Tanggal Pembelian:</strong> ${orderDetails.purchaseDate}</p>
               </div>
-              <p style="font-size: 0.9em; text-align: center;">Regards,<br />Tim CommuniCast</p>
+              <p style="font-size: 0.9em; text-align: center;">Regards,<br />Tim Gelorasat</p>
           </div>
       </div>
   </body>`

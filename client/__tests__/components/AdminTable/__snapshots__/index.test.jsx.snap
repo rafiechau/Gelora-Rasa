@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdminTable Component should match the snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="responsiveTableContainer"
+    data-testid="admin-table"
+  >
+    <table
+      class="responsiveTable"
+    >
+      <thead>
+        <tr>
+          <th>
+            <span>
+              name
+            </span>
+          </th>
+          <th>
+            <span>
+              age
+            </span>
+          </th>
+          <th>
+            <span>
+              app_header_actions
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            John Doe
+          </td>
+          <td>
+            30
+          </td>
+          <td
+            class="actions"
+            data-testid="row-actions-0"
+          >
+            <button
+              class="btn btnDetail"
+              data-testid="edit-button-1"
+              type="button"
+            >
+              <span>
+                app_btn_view_details
+              </span>
+            </button>
+            <button
+              class="btn btnDelete"
+              data-testid="delete-button-1"
+              type="button"
+            >
+              <span>
+                app_btn_delete
+              </span>
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Jane Doe
+          </td>
+          <td>
+            25
+          </td>
+          <td
+            class="actions"
+            data-testid="row-actions-1"
+          >
+            <button
+              class="btn btnDetail"
+              data-testid="edit-button-2"
+              type="button"
+            >
+              <span>
+                app_btn_view_details
+              </span>
+            </button>
+            <button
+              class="btn btnDelete"
+              data-testid="delete-button-2"
+              type="button"
+            >
+              <span>
+                app_btn_delete
+              </span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</DocumentFragment>
+`;

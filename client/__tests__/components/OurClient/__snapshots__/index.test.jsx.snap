@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OurClient Component should match snapshot 1`] = `
+<div
+  class="containerLogo"
+  data-testid="our-client"
+>
+  <p
+    class="titleContainerLogo"
+  >
+    Deskripsi Acara
+  </p>
+  <div
+    class="containerBigCompany"
+  >
+    <img
+      alt="semina"
+      src="assets/images/apple-111.svg"
+    />
+    <img
+      alt="semina"
+      src="assets/images/Adobe.svg"
+    />
+    <img
+      alt="semina"
+      src="assets/images/slack-21.svg"
+    />
+    <img
+      alt="semina"
+      src="assets/images/spotify-11.svg"
+    />
+    <img
+      alt="semina"
+      src="assets/images/google-2015.svg"
+    />
+  </div>
+</div>
+`;

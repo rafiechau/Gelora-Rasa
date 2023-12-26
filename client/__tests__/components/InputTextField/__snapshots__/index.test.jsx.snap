@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputTextField renders correctly and matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="MuiFormControl-root css-1nrlq1o-MuiFormControl-root"
+    data-testid="input-text-field"
+  >
+    <label
+      class="labelInput"
+      for="testName"
+    >
+      Test Label
+      <input
+        class="input undefined"
+        id="testName"
+        placeholder="Enter text"
+        type="text"
+        value=""
+      />
+    </label>
+  </div>
+</DocumentFragment>
+`;

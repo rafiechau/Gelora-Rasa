@@ -1,0 +1,170 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventDetail Should match snapshot 1`] = `
+<div
+  class="eventDetail"
+  data-testid="event-detail"
+>
+  <div
+    class="containerLocation"
+    data-testid="location-container"
+  >
+    <div
+      class="containerPlace"
+    >
+      <svg
+        aria-hidden="true"
+        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+        data-testid="PlaceIcon"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+        />
+      </svg>
+      <span
+        class="location"
+      >
+        Jakarta
+      </span>
+    </div>
+    <div
+      class="containerVenueName"
+    >
+      <svg
+        aria-hidden="true"
+        class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+        data-testid="LocationCityIcon"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M15 11V5l-3-3-3 3v2H3v14h18V11h-6zm-8 8H5v-2h2v2zm0-4H5v-2h2v2zm0-4H5V9h2v2zm6 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V9h2v2zm0-4h-2V5h2v2zm6 12h-2v-2h2v2zm0-4h-2v-2h2v2z"
+        />
+      </svg>
+      <span
+        class="venueName"
+      >
+        Jalan Raya No.123, Jakarta
+      </span>
+    </div>
+  </div>
+  <div
+    class="dateTime"
+    data-testid="date-time-container"
+  >
+    <div
+      class="containerDateTime"
+    >
+      <span
+        class="date"
+      >
+        01 Jan 2024
+      </span>
+    </div>
+    <div
+      class="containerDateTime"
+    >
+      <span
+        class="time"
+      >
+        20:00
+      </span>
+    </div>
+    <div
+      class="containerDateTime"
+    >
+      <span
+        class="eventType"
+      >
+        hybrid
+      </span>
+    </div>
+  </div>
+  <div
+    class="ticketInfo"
+    data-testid="ticket-info-container"
+  >
+    <div
+      class="containerTicketInfo"
+    >
+      <span
+        class="ticketPrice"
+      >
+        Rp 50.000
+      </span>
+      <span
+        class="ticketQuantity"
+      >
+        <button
+          type="button"
+        >
+          -
+        </button>
+        <input
+          type="number"
+          value="1"
+        />
+        <button
+          type="button"
+        >
+          +
+        </button>
+      </span>
+    </div>
+    <div
+      class="ticketTypeSelector"
+    >
+      <label
+        class="radioLabel"
+        for="offline"
+      >
+        <input
+          checked=""
+          class="radioInput"
+          id="offline"
+          name="ticketType"
+          type="radio"
+          value="offline"
+        />
+        <span>
+          app_detail_event_offline
+        </span>
+      </label>
+      <label
+        class="radioLabel"
+        for="online"
+      >
+        <input
+          class="radioInput"
+          id="online"
+          name="ticketType"
+          type="radio"
+          value="online"
+        />
+        <span>
+          app_detail_event_online
+        </span>
+      </label>
+    </div>
+    <div
+      class="containerButton"
+    >
+      <span>
+        <span>
+          app_detail_event_coutdown_description
+        </span>
+        5 days
+         
+      </span>
+      <button
+        class="buyNow"
+        type="button"
+      >
+        Beli Sekarang
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -5,19 +5,24 @@ import { FormattedMessage } from 'react-intl';
 import classes from './style.module.scss';
 
 const TopEventsSection = ({ events, onNavigate }) => (
-  <div className={classes.topEventsSection}>
+  <div className={classes.topEventsSection} data-testid="top-events-section">
     <div className={classes.topEventsHeader}>
-      <div className={classes.topEventsTitle}>
+      <div className={classes.topEventsTitle} data-testid="top-events-title">
         <FormattedMessage id="app_top_events_title" />
       </div>
-      <button type="button" className={classes.browseAllButton} onClick={() => onNavigate('/login')}>
+      <button
+        type="button"
+        className={classes.browseAllButton}
+        onClick={() => onNavigate('/login')}
+        data-testid="browse-all-button"
+      >
         <FormattedMessage id="app_home_before_login_browse_button" />
       </button>
     </div>
 
-    <div className={classes.cardsContainer}>
+    <div className={classes.cardsContainer} data-testid="cards-container">
       {events.map((event, index) => (
-        <div key={index} className={classes.eventCard}>
+        <div key={index} className={classes.eventCard} data-testid={`event-card-${index}`}>
           <img src={event.image} alt={event.title} className={classes.cardImage} />
           <div className={classes.eventTitle}>{event.title}</div>
           <div className={classes.eventCategory}>{event.category}</div>

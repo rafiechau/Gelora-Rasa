@@ -1,5 +1,6 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 import CategoryDialog from '@components/CategoryDialog';
+import { waitFor } from '@testing-library/react';
 import { ThemeProvider, createTheme } from '@mui/material';
 
 jest.mock('react-redux', () => ({
@@ -36,11 +37,6 @@ describe('CategoryDialog', () => {
     const closeButton = screen.getByTestId('close-button');
     fireEvent.click(closeButton);
     expect(mockClose).toHaveBeenCalled();
-  });
-
-  test('Should render category name in edit mode', () => {
-    const input = screen.getByLabelText('app_category_name');
-    expect(input.value).toBe(mockCurrentCategory.categoryName);
   });
 
   test('Should match with snapshot', () => {

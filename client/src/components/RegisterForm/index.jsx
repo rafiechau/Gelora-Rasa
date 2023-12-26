@@ -37,7 +37,7 @@ const RegisterForm = ({ email, isVerify, step, intl: { formatMessage } }) => {
   };
 
   return (
-    <form className={classes.registerForm} onSubmit={handleSubmit(onSubmit)}>
+    <form className={classes.registerForm} onSubmit={handleSubmit(onSubmit)} data-testid="register-form">
       <InputTextField
         input={{
           name: 'firstName',
@@ -92,11 +92,12 @@ const RegisterForm = ({ email, isVerify, step, intl: { formatMessage } }) => {
           type="button"
           className={classes.registerBtn}
           onClick={() => (isVerify ? dispatch(actionSetStep(step - 2)) : dispatch(actionSetStep(step - 1)))}
+          data-testid="register-form-back-button"
         >
-          Kembali
+          <FormattedMessage id="app_btn_back" />
         </button>
-        <button type="submit" className={classes.registerBtn}>
-          Submit
+        <button type="submit" className={classes.registerBtn} data-testid="register-form-submit-button">
+          <FormattedMessage id="app_btn_submit" />
         </button>
       </div>
     </form>

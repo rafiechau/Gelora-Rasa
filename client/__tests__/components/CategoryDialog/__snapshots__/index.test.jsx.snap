@@ -22,13 +22,13 @@ exports[`CategoryDialog Should match with snapshot 1`] = `
     tabindex="-1"
   >
     <div
-      aria-labelledby=":r3:"
+      aria-labelledby=":r2:"
       class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm MuiDialog-paperFullWidth css-tlc64q-MuiPaper-root-MuiDialog-paper"
       role="dialog"
     >
       <h2
         class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root css-bdhsul-MuiTypography-root-MuiDialogTitle-root"
-        id=":r3:"
+        id=":r2:"
       >
         <span>
           app_header_edit_category
@@ -86,7 +86,9 @@ exports[`CategoryDialog Should match with snapshot 1`] = `
             tabindex="0"
             type="submit"
           >
-            app_btn_submit
+            <span>
+              app_btn_create_categories
+            </span>
             <span
               class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
             />

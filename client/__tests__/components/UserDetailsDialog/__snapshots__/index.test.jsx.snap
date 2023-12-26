@@ -1,0 +1,192 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserDetailsDialog should match snapshot 1`] = `
+<div
+  class="MuiDialog-root MuiModal-root css-zw3mfo-MuiModal-root-MuiDialog-root"
+  data-testid="user-details-dialog"
+  role="presentation"
+>
+  <div
+    aria-hidden="true"
+    class="MuiBackdrop-root MuiModal-backdrop css-yiavyu-MuiBackdrop-root-MuiDialog-backdrop"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+  />
+  <div
+    data-testid="sentinelStart"
+    tabindex="0"
+  />
+  <div
+    class="MuiDialog-container MuiDialog-scrollPaper css-hz1bth-MuiDialog-container"
+    role="presentation"
+    style="opacity: 1; webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;"
+    tabindex="-1"
+  >
+    <div
+      aria-labelledby=":r2:"
+      class="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation24 MuiDialog-paper MuiDialog-paperScrollPaper MuiDialog-paperWidthSm css-1t1j96h-MuiPaper-root-MuiDialog-paper"
+      role="dialog"
+    >
+      <h2
+        class="MuiTypography-root MuiTypography-h6 MuiDialogTitle-root dialogTitle css-bdhsul-MuiTypography-root-MuiDialogTitle-root"
+        data-testid="dialog-title"
+        id=":r2:"
+      >
+        app_title_user_details
+      </h2>
+      <div
+        class="imageContainer"
+      >
+        <span
+          class="MuiSkeleton-root MuiSkeleton-circle MuiSkeleton-pulse skeleton css-58ftfq-MuiSkeleton-root"
+        />
+        <span
+          class="MuiSkeleton-root MuiSkeleton-circle MuiSkeleton-pulse skeleton css-58ftfq-MuiSkeleton-root"
+        />
+        <img
+          alt="John"
+          class="avatar"
+          data-testid="user-avatar"
+          loading="lazy"
+          src="http://localhost:5000//path/to/image.jpg"
+        />
+      </div>
+      <div
+        class="MuiDialogContent-root dialogContent css-ypiqx9-MuiDialogContent-root"
+      >
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          app_column_name
+          : 
+          John
+           
+          Doe
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          user_details_name_ktp
+          : 
+          John Doe
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          NIK: 
+          1234567890
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          user_details_gender
+          : 
+          Male
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          user_details_birth_place
+          : 
+          City A
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          user_details_birth_date
+          : 
+          2000-01-01
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          user_details_blood_type
+          : 
+          O
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          user_details_address
+          : 
+          123 Main St
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          user_details_province
+          : 
+          Province A
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          user_details_city
+          : 
+          City B
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          user_details_subdistrict
+          : 
+          District A
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          user_details_village
+          : 
+          Village A
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          user_details_religion
+          : 
+          Religion A
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          user_details_marital_status
+          : 
+          Single
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          user_details_job
+          : 
+          Employed
+        </p>
+        <p
+          class="MuiTypography-root MuiDialogContentText-root MuiTypography-body1 dialogText css-qfso29-MuiTypography-root-MuiDialogContentText-root"
+        >
+          user_details_nationality
+          : 
+          Country A
+        </p>
+      </div>
+      <div
+        class="MuiDialogActions-root MuiDialogActions-spacing css-hlj6pa-MuiDialogActions-root"
+      >
+        <button
+          class="MuiButtonBase-root MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-root MuiButton-text MuiButton-textPrimary MuiButton-sizeMedium MuiButton-textSizeMedium css-1e6y48t-MuiButtonBase-root-MuiButton-root"
+          data-testid="close-button"
+          tabindex="0"
+          type="button"
+        >
+          Close
+          <span
+            class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    data-testid="sentinelEnd"
+    tabindex="0"
+  />
+</div>
+`;

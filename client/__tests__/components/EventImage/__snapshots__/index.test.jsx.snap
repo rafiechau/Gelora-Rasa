@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventImage Should match snapshot 1`] = `
+<div
+  class="eventImage"
+  data-testid="event-image"
+>
+  <img
+    alt="Event Image"
+    src="/path/to/image.jpg"
+  />
+</div>
+`;

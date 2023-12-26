@@ -18,7 +18,7 @@ import { actionDeleteMyEventById } from '@pages/Dashboard/MyEvents/actions';
 import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
 import EventDialog from '@components/EventDialog';
 
-const CardMyEvent = ({ myEvent, token, user }) => {
+const CardMyEvent = ({ myEvent, token }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
@@ -99,10 +99,12 @@ const CardMyEvent = ({ myEvent, token, user }) => {
           boxShadow: 6,
         },
       }}
+      data-testid="card-my-event"
     >
       <Box
         sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px' }}
         onClick={navigateDetails}
+        data-testid="card-action-area"
       >
         <CardContent
           sx={{
@@ -143,6 +145,7 @@ const CardMyEvent = ({ myEvent, token, user }) => {
             aria-label="share"
             sx={{ color: 'yellow', opacity: 0.7, '&:hover': { opacity: 1 } }}
             onClick={handleShareClick}
+            data-testid="share-button"
           >
             <ShareIcon />
           </IconButton>
@@ -183,12 +186,10 @@ const CardMyEvent = ({ myEvent, token, user }) => {
 CardMyEvent.propTypes = {
   myEvent: PropTypes.object.isRequired,
   token: PropTypes.string,
-  user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   token: selectToken,
-  user: selectUser,
 });
 
 export default connect(mapStateToProps)(CardMyEvent);

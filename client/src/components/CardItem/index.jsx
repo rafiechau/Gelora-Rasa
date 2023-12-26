@@ -68,12 +68,17 @@ const CardItem = ({ event }) => {
         borderRadius: '8px',
         overflow: 'hidden',
         '@media (max-width: 600px)': {
-          // Adjusting for smaller mobile devices
-          maxWidth: '300px', // Reducing the max width
+          maxWidth: '100%', // Reducing the max width
           margin: '8px', // Adjust margin as needed
           fontSize: '0.9rem', // Optionally adjust font size for content
         },
         '@media (max-width: 1059px)': {
+          justifyContent: 'center',
+          alignItems: 'center',
+        },
+        '@media (max-width: 1070px) and (max-width: 900px)': {
+          maxWidth: '100%',
+          margin: '8px 0',
           justifyContent: 'center',
           alignItems: 'center',
         },

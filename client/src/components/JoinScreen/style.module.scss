@@ -21,6 +21,42 @@ $hover-color: darken($button-color, 10%);
       flex-direction: column;
       margin-top: 0;
     }
+    label {
+      color: $text-color;
+      font-size: 16px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 90%;
+  
+      @media (max-width: 480px) {
+        width: 100%;
+      }
+    }
+  
+    select {
+      width: 100%;
+      padding: 12px 15px;
+      margin-top: 5px;
+      border: 1px solid $button-color;
+      border-radius: 8px;
+      background-color: $navy;
+      color: lighten($text-color, 40%);
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+  
+      option {
+        background-color: lighten($navy, 10%);
+        color: $text-color;
+      }
+  
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px lighten($button-color, 20%);
+      }
+    }
     .imageLiveStreaming {
       width: 80%; 
       border-radius: 8px; 

@@ -100,7 +100,7 @@ describe('Create Event', () => {
   test('Should create a new event with image upload', async () => {
     eventPayload.userId = userId;
 
-    const imagePath = path.join(__dirname, '..', '..', 'uploads', '1702228214323.jpeg');
+    const imagePath = path.join(__dirname, '..', '..', 'uploads', 'default1.jpg');
 
     const response = await request(app)
       .post('/api/events/create')
@@ -184,7 +184,7 @@ describe('Update Event', () => {
         userId: userId
       };
   
-      const imagePath = path.join(__dirname, '..', '..', 'uploads', '1702228215944.jpeg'); 
+      const imagePath = path.join(__dirname, '..', '..', 'uploads', 'default1.jpg'); 
   
       const response = await request(app)
         .put(`/api/events/update/${existingEventId}`)
@@ -243,7 +243,7 @@ describe('Update Event Status', () => {
 
 describe('Delete Event', () => {
     let eventToDeleteId;
-    const imagePath = path.join(__dirname, '..', '..', 'uploads', '1702228215944.jpeg'); 
+    const imagePath = path.join(__dirname, '..', '..', 'uploads', 'default1.jpg'); 
     beforeAll(async () => {
       const createResponse = await request(app)
         .post('/api/events/create')

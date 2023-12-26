@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EventDescription Should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="eventDescription"
+    data-testid="event-description"
+  >
+    <div
+      class="description"
+    >
+      <h2>
+        <span>
+          app_detail_event_description_txt
+        </span>
+      </h2>
+      <div>
+        <p>
+          This is a test description.
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

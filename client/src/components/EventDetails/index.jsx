@@ -39,9 +39,18 @@ const EventDetail = ({
   const isStandardUser = user?.role === 1;
   const orderButtonDisabled = !canOrder || hasOrdered || !isStandardUser;
 
+  let buttonText;
+  if (!isStandardUser) {
+    buttonText = 'Anda tidak bisa membeli event ini';
+  } else if (hasOrdered) {
+    buttonText = 'Anda sudah membeli event ini';
+  } else {
+    buttonText = 'Beli Sekarang';
+  }
+
   return (
-    <div className={classes.eventDetail}>
-      <div className={classes.containerLocation}>
+    <div className={classes.eventDetail} data-testid="event-detail">
+      <div className={classes.containerLocation} data-testid="location-container">
         <div className={classes.containerPlace}>
           <PlaceIcon />
           <span className={classes.location}>{event?.Location?.namaProvinsi}</span>
@@ -51,7 +60,7 @@ const EventDetail = ({
           <span className={classes.venueName}>{event?.address}</span>
         </div>
       </div>
-      <div className={classes.dateTime}>
+      <div className={classes.dateTime} data-testid="date-time-container">
         <div className={classes.containerDateTime}>
           <span className={classes.date}>{formattedDate}</span>
         </div>
@@ -62,7 +71,7 @@ const EventDetail = ({
           <span className={classes.eventType}>{event?.type}</span>
         </div>
       </div>
-      <div className={classes.ticketInfo}>
+      <div className={classes.ticketInfo} data-testid="ticket-info-container">
         <div className={classes.containerTicketInfo}>
           <span className={classes.ticketPrice}>{totalPrice}</span>
           <span className={classes.ticketQuantity}>
@@ -109,13 +118,8 @@ const EventDetail = ({
             {countdown}{' '}
           </span>
           <button type="button" onClick={handleOrder} className={classes.buyNow} disabled={orderButtonDisabled}>
-            {hasOrdered ? 'Anda sudah membeli event ini' : 'Beli Sekarang'}
+            {buttonText}
           </button>
-          {!isStandardUser && (
-            <span className={classes.nonStandardUserMessage}>
-              Silakan buat akun dengan role standard untuk melakukan pemesanan.
-            </span>
-          )}
         </div>
       </div>
     </div>

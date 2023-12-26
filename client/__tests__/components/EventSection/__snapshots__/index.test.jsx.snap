@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TopEventsSection Should match snapshot 1`] = `
+<div
+  class="topEventsSection"
+  data-testid="top-events-section"
+>
+  <div
+    class="topEventsHeader"
+  >
+    <div
+      class="topEventsTitle"
+      data-testid="top-events-title"
+    >
+      app_top_events_title
+    </div>
+    <button
+      class="browseAllButton"
+      data-testid="browse-all-button"
+      type="button"
+    >
+      app_home_before_login_browse_button
+    </button>
+  </div>
+  <div
+    class="cardsContainer"
+    data-testid="cards-container"
+  >
+    <div
+      class="eventCard"
+      data-testid="event-card-0"
+    >
+      <img
+        alt="Event 1"
+        class="cardImage"
+        src="/img/event1.jpg"
+      />
+      <div
+        class="eventTitle"
+      >
+        Event 1
+      </div>
+      <div
+        class="eventCategory"
+      >
+        Category 1
+      </div>
+      <div
+        class="eventDate"
+      >
+        2023-01-01
+      </div>
+    </div>
+    <div
+      class="eventCard"
+      data-testid="event-card-1"
+    >
+      <img
+        alt="Event 2"
+        class="cardImage"
+        src="/img/event2.jpg"
+      />
+      <div
+        class="eventTitle"
+      >
+        Event 2
+      </div>
+      <div
+        class="eventCategory"
+      >
+        Category 2
+      </div>
+      <div
+        class="eventDate"
+      >
+        2023-02-02
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -13,11 +13,16 @@ const EventImage = ({ imageUrl, altText }) => {
 
   return (
     <>
-      <div className={classes.eventImage} onClick={handleOpenDialog}>
+      <div className={classes.eventImage} onClick={handleOpenDialog} data-testid="event-image">
         <img src={imageUrl} alt={altText} />
       </div>
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <IconButton onClick={handleCloseDialog} className={classes.closeButton} sx={{ display: 'none' }}>
+      <Dialog open={openDialog} onClose={handleCloseDialog} data-testid="image-dialog">
+        <IconButton
+          onClick={handleCloseDialog}
+          className={classes.closeButton}
+          sx={{ display: 'none' }}
+          data-testid="close-button"
+        >
           <CloseIcon />
         </IconButton>
         <img src={imageUrl} alt={altText} className={classes.dialogImage} />
