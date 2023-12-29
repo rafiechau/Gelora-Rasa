@@ -9,7 +9,12 @@ For more up-to-date information on what's being implemented, take a look at our 
 >
 > This project is still in development and will always be updated whenever the author gains new insights.
 
-![Previe Gelorasa](./client/src/static/images/preview-web.png)
+### Preview Mobile Version
+![Previe Gelorasa](./client/src/static/images/preview-mobile.png)
+### Preview Website Version
+![Previe Gelorasa](./client/src/static/images/preview-website.png)
+
+For the detail preview, you can see through this links: https://drive.google.com/file/d/1PsOWtvs8Hb7UkmISWOAcQyC867KZQz33/view?usp=sharing
 
 
 ## Deployment
@@ -112,7 +117,7 @@ The backend API of Gelorasa is implemented with the following technologies:
 
 ### External Services
 
-- **Food Data:** [Location API](https://wilayah.id/api/provinces.json)
+- **Location Data:** [Location API](https://wilayah.id/api/provinces.json)
 
 ## API Endpoints
 
