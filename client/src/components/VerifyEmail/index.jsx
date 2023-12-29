@@ -1,6 +1,6 @@
 import { selectEmail, selectIsVerify, selectStep } from '@containers/Client/selectors';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -47,7 +47,7 @@ const VerifyEmail = ({ email, step, isVerify, intl: { formatMessage } }) => {
         errors={errors}
       />
       <button type="submit" className={classes.registerBtn}>
-        Lanjut
+        <FormattedMessage id="app_btn_next_pagination" />
       </button>
     </form>
   );

@@ -162,7 +162,9 @@ exports[`EventDetail Should match snapshot 1`] = `
         class="buyNow"
         type="button"
       >
-        Beli Sekarang
+        <span>
+          event_detail_button_buy_now
+        </span>
       </button>
     </div>
   </div>

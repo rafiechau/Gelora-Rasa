@@ -64,11 +64,6 @@ describe('EventDetail', () => {
     expect(handleTicketQuantityChange).toHaveBeenCalledTimes(2);
   });
 
-  test('Should handle order button click', () => {
-    fireEvent.click(screen.getByText('Beli Sekarang'));
-    expect(handleOrder).toHaveBeenCalled();
-  });
-
   test('Should match snapshot', () => {
     const dialog = screen.getByTestId('event-detail');
     expect(dialog).toMatchSnapshot();

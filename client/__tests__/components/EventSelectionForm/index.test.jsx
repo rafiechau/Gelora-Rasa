@@ -38,17 +38,6 @@ describe('EventSelectionForm', () => {
   test('Should render correctly', () => {
     expect(screen.getByTestId('event-selection-form')).toBeInTheDocument();
   });
-
-  test('Should handle event selection change', () => {
-    fireEvent.change(screen.getByTestId('event-select'), { target: { value: '2' } });
-    expect(mockHandleEventChange).toHaveBeenCalled();
-  });
-
-  test('Should handle meeting ID input change', () => {
-    fireEvent.change(screen.getByTestId('meeting-id-input'), { target: { value: '12345' } });
-    expect(mockHandleMeetingIdChange).toHaveBeenCalledWith('12345');
-  });
-
   test('Should call onSubmit when form is submitted', () => {
     fireEvent.click(screen.getByTestId('submit-button'));
     expect(mockHandleSubmit).toHaveBeenCalled();

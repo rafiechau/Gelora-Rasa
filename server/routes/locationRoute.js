@@ -5,7 +5,7 @@ const { getAllLocation, createLocation, updateLocation, deleteLocation } = requi
 
 const router = express.Router()
 
-router.get('/', authenticationMiddleware, getAllLocation)
+router.get('/', getAllLocation)
 router.post('/create', authenticationMiddleware, authorizationRoleAdmin, createLocation)
 router.put('/update/:locationId', authenticationMiddleware, authorizationRoleAdmin, updateLocation)
 router.delete('/delete/:locationId', authenticationMiddleware, authorizationRoleAdmin, deleteLocation)

@@ -10,6 +10,7 @@ import SpeakerView from '@components/SpeakerView';
 import toast from 'react-hot-toast';
 import ViewerView from '@components/ViewerView';
 import { actionCreateMeeting } from '@pages/Streaming/actions';
+import { FormattedMessage } from 'react-intl';
 import classes from './style.module.scss';
 
 const Container = ({ meetingId, onMeetingLeave, user, allMyEvents, token }) => {
@@ -85,7 +86,11 @@ const Container = ({ meetingId, onMeetingLeave, user, allMyEvents, token }) => {
   return (
     <div className={classes.containerMeetingId}>
       {/* <FlyingEmojisOverlay /> */}
-      {user?.role !== 1 && <h3 className={classes.meetingId}>Meeting Id: {meetingId}</h3>}
+      {user?.role !== 1 && (
+        <h3 className={classes.meetingId}>
+          <FormattedMessage id="app_streaming_meeting_id" />: {meetingId}
+        </h3>
+      )}
       {user?.role !== 1 && !joined && (
         <EventSelectionForm
           selectedEventId={selectedEventId}
@@ -103,7 +108,7 @@ const Container = ({ meetingId, onMeetingLeave, user, allMyEvents, token }) => {
           <>
             {joinLivestreamRequest && (
               <div className={classes.requestToJoin}>
-                {joinLivestreamRequest.senderName} requested you to join Livestream
+                {joinLivestreamRequest.senderName} <FormattedMessage id="app_streaming_request" />
                 <button
                   type="button"
                   className={`${classes.btn} ${classes.accept}`}
@@ -112,7 +117,7 @@ const Container = ({ meetingId, onMeetingLeave, user, allMyEvents, token }) => {
                     setJoinLivestreamRequest(null);
                   }}
                 >
-                  Accept
+                  <FormattedMessage id="app_btn_accept" />
                 </button>
                 <button
                   type="button"
@@ -121,7 +126,7 @@ const Container = ({ meetingId, onMeetingLeave, user, allMyEvents, token }) => {
                     setJoinLivestreamRequest(null);
                   }}
                 >
-                  Reject
+                  <FormattedMessage id="app_btn_reject" />
                 </button>
               </div>
             )}
@@ -129,10 +134,12 @@ const Container = ({ meetingId, onMeetingLeave, user, allMyEvents, token }) => {
           </>
         ) : null
       ) : joined && joined === 'JOINING' ? (
-        <p>Joining the meeting...</p>
+        <p>
+          <FormattedMessage id="app_streaming_joining_streaming" />
+        </p>
       ) : (
         <button type="button" className={classes.btnJoin} onClick={joinMeeting}>
-          Join
+          <FormattedMessage id="app_streaming_btn_join" />
         </button>
       )}
     </div>

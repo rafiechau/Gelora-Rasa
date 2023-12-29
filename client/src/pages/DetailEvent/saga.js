@@ -92,6 +92,7 @@ function* doCheckUserOrder(action) {
 
 function* doUpdateEventStatusSaga({ eventId, status, token }) {
   yield put(setLoading(true));
+  console.log(eventId)
   try {
     const response = yield call(updateStatusEventByIdApi, eventId, status, token);
     yield put(setEventById(response.data, eventId));

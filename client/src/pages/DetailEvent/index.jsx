@@ -25,10 +25,13 @@ const DetailEventPage = ({ event, hasOrdered, token, user }) => {
   const [selectedTicketType, setSelectedTicketType] = useState(event?.type === 'hybrid' ? 'offline' : event?.type);
   const [canOrder, setCanOrder] = useState(true);
 
-  console.log(user?.role, 'test');
-
   const handleTicketQuantityChange = (quantity) => {
-    setTicketQuantity(quantity);
+    const numQuantity = Number(quantity);
+    if (numQuantity < 1) {
+      toast.error('Kuantitas tiket tidak bisa kurang dari 1.');
+      return;
+    }
+    setTicketQuantity(numQuantity);
   };
 
   const handleTicketTypeChange = (e) => {
@@ -55,18 +58,17 @@ const DetailEventPage = ({ event, hasOrdered, token, user }) => {
       const deadline = new Date(event?.registrationDealine);
       const timeLeft = deadline - now;
 
-      if (timeLeft > 0) {
-        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-
-        setCountdown(`${days} hari ${hours} jam ${minutes} menit`);
-      } else {
-        if (event?.stok === 0 && event.status === 'active') {
+      if (timeLeft <= 0 || event?.stok === 0) {
+        if (event?.status === 'active') {
           dispatch(actionUpdateEventStatus(eventId, { status: 'non-active' }, token));
           setCanOrder(false);
         }
-        setCountdown('Waktu pendaftaran telah berakhir');
+        setCountdown(timeLeft <= 0 ? 'Waktu pendaftaran telah berakhir' : countdown);
+      } else {
+        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        setCountdown(`${days} hari ${hours} jam ${minutes} menit`);
       }
     };
 

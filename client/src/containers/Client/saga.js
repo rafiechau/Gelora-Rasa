@@ -46,7 +46,7 @@ function* sagaHandleSendOTP({ data }) {
     yield put(actionSetStep(2));
     yield put(actionSetVerify(true));
   } catch (error) {
-    if (error?.response?.status === 400 || error?.response?.status === 404) {
+    if (error?.response?.status === 400 || error?.response?.status === 404 || error?.response.status === 401) {
       toast.error(error.response.data.message);
     } else {
       yield put(showPopup());

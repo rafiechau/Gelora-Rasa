@@ -123,7 +123,7 @@ describe('Create Order', () => {
         const orderData = {
             eventId: eventId,
             totalTickets: 3,
-            ticketsTypes: 'Online' // Adjust as per your requirement
+            ticketsTypes: 'Online'
         };
 
         const response = await request(app)
@@ -150,64 +150,4 @@ describe('Get My Orders', () => {
         });
     });
 });
-
-// describe('Delete My Order', () => {
-//     let orderToDeleteId;
-//     let eventId;
-
-//     const imagePath = path.join(__dirname, '..', '..', 'uploads', '1702228215944.jpeg'); 
-//     beforeAll(async () => {
-//       const createResponse = await request(app)
-//         .post('/api/events/create')
-//         .set('Authorization', `Bearer ${token}`)
-//         .field('eventName', 'Event to Delete')
-//         .field('date', '2023-01-01')
-//         .field('time', '14:30')
-//         .field('registrationDealine', '2023-01-01')
-//         .field('type', 'Type')
-//         .field('address', 'Address')
-//         .field('venueName', 'Venue')
-//         .field('status', 'active')
-//         .field('price', '100')
-//         .field('stok', '50')
-//         .field('description', 'Description')
-//         .field('locationId', 1)
-//         .field('categoryId', 1)
-//         .field('userId', userId)
-//         .attach('image', imagePath)
-  
-//       if (!createResponse.body || !createResponse.body.data || !createResponse.body.data.id) {
-//         throw new Error('Failed to create event for deletion');
-//       }
-  
-//       eventId = createResponse.body.data.id;
-//     });
-//     const orderData = {
-//         eventId: eventId,
-//         totalTickets: 3,
-//         ticketsTypes: 'Online' 
-//     };
-
-//     beforeAll(async () => {
-//       const createResponse = await request(app)
-//         .post('/api/orders/create')
-//         .set('Authorization', `Bearer ${token}`)
-//         .send(orderData)
-  
-
-//     console.log(createResponse, "ini untuk delete")
-//       if (!createResponse.body || !createResponse.body.data || !createResponse.body.data.id) {
-//         throw new Error('Failed to create event for deletion');
-//       }
-  
-//       orderToDeleteId = createResponse.body.data.id;
-//     });
-//     test('Should delete the specified order for the user', async () => {
-//         const response = await request(app)
-//             .delete(`/api/orders/delete/${orderToDeleteId}`)
-//             .set('Authorization', `Bearer ${token}`); 
-//         expect(response.statusCode).toBe(200);
-//         expect(response.body).toHaveProperty('message', 'Order successfully deleted.');
-//     });
-// });
 

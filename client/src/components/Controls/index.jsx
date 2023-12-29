@@ -1,4 +1,5 @@
 import { useMeeting } from '@videosdk.live/react-sdk';
+import { FormattedMessage } from 'react-intl';
 import classes from './style.module.scss';
 
 const Controls = () => {
@@ -6,14 +7,14 @@ const Controls = () => {
   return (
     <div className={classes.controlsContainer}>
       <button type="button" onClick={() => leave()}>
-        Leave
+        <FormattedMessage id="app_btn_leave" />
       </button>
       <span className={classes.divider} />
       <button type="button" onClick={() => toggleMic()}>
-        toggleMic
+        <FormattedMessage id="app_btn_toggleMic" />
       </button>
       <button type="button" onClick={() => toggleWebcam()}>
-        toggleWebcam
+        <FormattedMessage id="app_btn_toggleWebcam" />
       </button>
       <span className={classes.divider} />
       <button
@@ -32,10 +33,10 @@ const Controls = () => {
           });
         }}
       >
-        Start Live Streaming
+        <FormattedMessage id="app_btn_start_livestreaming" />
       </button>
       <button type="button" onClick={() => stopHls()}>
-        Stop Live Streaming
+        <FormattedMessage id="app_btn_stop_livestreaming" />
       </button>
     </div>
   );

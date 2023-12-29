@@ -27,6 +27,7 @@ const FilterAccordion = ({ title, options, selectedOption, onChange }) => (
             value={option.value}
             control={<Radio />}
             label={option.label}
+            style={{ marginRight: '12px' }}
             data-testid={`radio-option-${option.id}`}
           />
         ))}

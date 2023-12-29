@@ -39,13 +39,13 @@ const EventDetail = ({
   const isStandardUser = user?.role === 1;
   const orderButtonDisabled = !canOrder || hasOrdered || !isStandardUser;
 
-  let buttonText;
+  let buttonTextId;
   if (!isStandardUser) {
-    buttonText = 'Anda tidak bisa membeli event ini';
+    buttonTextId = 'event_detail_button_cannot_buy';
   } else if (hasOrdered) {
-    buttonText = 'Anda sudah membeli event ini';
+    buttonTextId = 'event_detail_button_already_bought';
   } else {
-    buttonText = 'Beli Sekarang';
+    buttonTextId = 'event_detail_button_buy_now';
   }
 
   return (
@@ -118,7 +118,7 @@ const EventDetail = ({
             {countdown}{' '}
           </span>
           <button type="button" onClick={handleOrder} className={classes.buyNow} disabled={orderButtonDisabled}>
-            {buttonText}
+            <FormattedMessage id={buttonTextId} />
           </button>
         </div>
       </div>

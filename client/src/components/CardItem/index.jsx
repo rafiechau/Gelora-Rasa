@@ -4,6 +4,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import toast from 'react-hot-toast';
 import config from '@config/index';
 import { useNavigate } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 const CardItem = ({ event }) => {
   const navigate = useNavigate();
@@ -139,7 +140,7 @@ const CardItem = ({ event }) => {
         }}
       >
         <Button size="small" sx={{ color: 'white' }} startIcon={<ShareIcon />} onClick={handleShareClick}>
-          Share
+          <FormattedMessage id="app_btn_share" />
         </Button>
       </CardActions>
     </Card>

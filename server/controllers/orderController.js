@@ -63,6 +63,10 @@ exports.createOrder = async (req, res) => {
             return res.status(404).json({ message: 'Event not found' });
         }
 
+        if (event.stock < totalTickets) {
+            return res.status(400).json({ message: 'Not enough stock' });
+        }
+
         const user = await User.findByPk(userId);
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -81,6 +85,8 @@ exports.createOrder = async (req, res) => {
             status: 'lunas',
             ticketsTypes
         });
+
+        await Event.update({ stok: event.stok - totalTickets }, { where: { id: eventId } });
 
         await handleSendOrderConfirmation({
             name: `${user.firstName} ${user.lastName}`,

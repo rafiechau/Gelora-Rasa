@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { setLoading } from '@containers/App/actions';
+import { setLoading, showPopup } from '@containers/App/actions';
 import { deleteUserByAdminApi, getAllUsersApi } from '@domain/api';
 import { DELETE_USER_BY_ADMIN, GET_ALL_USERS } from './constants';
 import { actionDeleteUserSuccess, actionGetAllUsers, actionSetAllUsers } from './actions';
@@ -10,7 +10,6 @@ export function* doGetUsers(action) {
   try {
     const { token, page, pageSize } = action.payload;
     const response = yield call(getAllUsersApi, token, page, pageSize);
-    console.log(response);
     yield put(
       actionSetAllUsers({
         users: response.data,
@@ -19,8 +18,13 @@ export function* doGetUsers(action) {
       })
     );
   } catch (error) {
-    console.log(error);
-    toast.error('Error fetching users');
+    if (error?.response?.status === 400 || error?.response?.status === 404 || error?.response?.status === 403) {
+      toast.error(error.response.data.message);
+    } else if (error?.response?.status === 401) {
+      toast.error('logout');
+    } else {
+      yield put(showPopup());
+    }
   } finally {
     yield put(setLoading(false));
   }

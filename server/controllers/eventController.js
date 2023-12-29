@@ -230,8 +230,12 @@ exports.updateEventStatus = async(req, res) => {
 
 exports.deleteMyEvent = async(req, res) => {
     try{
+
         const { eventId } = req.params
         const userId = req.id;
+        console.log(req.params, "ini params")
+        console.log(eventId, "event id")
+        console.log(userId, "<<user id")
 
         const eventToDelete = await Event.findOne({ where: { id: eventId, userId: userId } });
         console.log(eventToDelete)

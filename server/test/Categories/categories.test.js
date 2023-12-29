@@ -74,7 +74,6 @@ describe('Get All Categories', () => {
 
     request(app)
       .get('/api/categories/')
-      .set('authorization', `Bearer ${token}`)
       .then((response) => {
         expect(response.status).toBe(200);
         expect(response.body).toHaveProperty('data');

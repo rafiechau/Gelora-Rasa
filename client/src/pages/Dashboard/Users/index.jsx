@@ -10,6 +10,7 @@ import { selectToken, selectUser } from '@containers/Client/selectors';
 import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
 import UserDetailsDialog from '@components/UserDetailsDialog';
 import AdminTable from '@components/AdminTable';
+import { useNavigate } from 'react-router-dom';
 import { selectAllUsers } from './selectors';
 import { actionDeleteUserById, actionGetAllUsers } from './actions';
 
@@ -17,6 +18,7 @@ import classes from '../style.module.scss';
 
 const UsersAdminPage = ({ user, allUsers, token, intl: { formatMessage } }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [currentUserId, setCurrentUserId] = useState(null);
   const [openEventOrganizerDialog, setOpenEventOrganizerDialog] = useState(false);
@@ -38,6 +40,12 @@ const UsersAdminPage = ({ user, allUsers, token, intl: { formatMessage } }) => {
         return 'Unknown Role';
     }
   };
+
+  useEffect(() => {
+    if (user?.role !== 3) {
+      navigate('/home');
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     dispatch(actionGetAllUsers(token, currentPage, itemsPerPage));

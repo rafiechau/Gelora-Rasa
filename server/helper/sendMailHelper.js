@@ -158,7 +158,7 @@ exports.handlesendMeetingIdEmail = async (meetingId, email, eventName) => {
     html: `<body>
       <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;">
         <div style="background-color: #f4f4f4; padding: 20px; text-align: center; border-bottom: 2px solid #00a2ff;">
-          <h1 style="margin: 0; color: #00a2ff;">YourEventPlatform</h1>
+          <h1 style="margin: 0; color: #00a2ff;">GELORASA</h1>
         </div>
         <div style="padding: 20px;">
           <p style="font-size: 1.1em">Hello,</p>
@@ -167,7 +167,7 @@ exports.handlesendMeetingIdEmail = async (meetingId, email, eventName) => {
           <h2 style="background: #00a2ff; margin: 0 auto; width: max-content; padding: 0 10px; color: #fff; border-radius: 4px;">
             <span>${meetingId}</span>
           </h2>
-          <p style="font-size: 0.9em">Regards,<br />YourEventPlatform Team</p>
+          <p style="font-size: 0.9em">Regards,<br />GELORASA Team</p>
           <hr style="border: none; border-top: 1px solid #eee" />
         </div>
       </div>

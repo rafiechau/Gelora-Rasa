@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
 import { useParticipant } from '@videosdk.live/react-sdk';
 import classes from './style.module.scss';
+import { FormattedMessage } from 'react-intl';
 
 const ParticipantView = ({ participantId }) => {
   const micRef = useRef(null);
@@ -33,7 +34,8 @@ const ParticipantView = ({ participantId }) => {
   return (
     <div className={classes.participantView}>
       <p>
-        Participant: {displayName} | Webcam: {webcamOn ? 'ON' : 'OFF'} | Mic: {micOn ? 'ON' : 'OFF'}
+        <FormattedMessage id="app_text_participant" />: {displayName} | <FormattedMessage id="app_text_webcam" />:{' '}
+        {webcamOn ? 'ON' : 'OFF'} | <FormattedMessage id="app_text_mic" />: {micOn ? 'ON' : 'OFF'}
       </p>
       <audio ref={micRef} autoPlay muted={isLocal}>
         <track kind="captions" />

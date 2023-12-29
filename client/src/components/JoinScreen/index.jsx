@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { actionVerifyUserForMeeting } from '@pages/Streaming/actions';
 import classes from './style.module.scss';
+import { FormattedMessage } from 'react-intl';
 
 const JoinScreen = ({ getMeetingAndToken, setMode, user, token, allMyOrders }) => {
   const dispatch = useDispatch();
@@ -33,19 +34,25 @@ const JoinScreen = ({ getMeetingAndToken, setMode, user, token, allMyOrders }) =
   return (
     <div className={classes.containerJoinStreaming}>
       <img src="assets/images/streaming.jpg" alt="live streaming" className={classes.imageLiveStreaming} />
-      <div className={classes.message}>Enjoy Yourself and don&apos;t recorder it. we watch you</div>
+      <div className={classes.message}>
+        <FormattedMessage id="app_desc_streaming" />
+      </div>
       {isHost && (
         <>
           <button type="button" className={classes.buttonCreateMeeting} onClick={() => onClick('CONFERENCE')}>
-            Create Meeting
+            <FormattedMessage id="app_btn_create_meeting" />
           </button>
           {' or '}
         </>
       )}
-      {!isHost && allMyOrders.length === 0 && <p>You haven't purchased any event tickets yet.</p>}
+      {!isHost && allMyOrders.length === 0 && (
+        <p>
+          <FormattedMessage id="app_text_havent_purchased" />
+        </p>
+      )}
       {!isHost && allMyOrders.length > 0 && (
         <label htmlFor="eventSelect">
-          Select Event:
+          <FormattedMessage id="app_select_event" />:
           <select id="eventSelect" value={selectedEventId} onChange={(e) => setSelectedEventId(e.target.value)}>
             <option value="">Select an Event</option>
             {allMyOrders.map((order) => (
@@ -66,11 +73,11 @@ const JoinScreen = ({ getMeetingAndToken, setMode, user, token, allMyOrders }) =
       />
       {isHost ? (
         <button type="button" className={classes.buttonJoinStreaming} onClick={() => onClick('CONFERENCE')}>
-          Join as Host
+          <FormattedMessage id="app_btn_join_as_host" />
         </button>
       ) : (
         <button type="button" className={classes.buttonJoinStreaming} onClick={verifyAndJoinAsViewer}>
-          Join as Viewer
+          <FormattedMessage id="app_btn_join_as_viewer" />
         </button>
       )}
     </div>

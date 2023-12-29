@@ -32,7 +32,7 @@ exports[`EditProfileDialog Should match snapshot 1`] = `
         id=":r3:"
       >
         <span>
-          app_header_add_event
+          app_header_update_profile
         </span>
         <button
           class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
@@ -62,7 +62,7 @@ exports[`EditProfileDialog Should match snapshot 1`] = `
         data-testid="dialog-content"
       >
         <form
-          class="MuiBox-root css-1yuhvjn"
+          class="MuiBox-root css-h4tqr2"
           novalidate=""
         >
           <div
@@ -135,7 +135,9 @@ exports[`EditProfileDialog Should match snapshot 1`] = `
             tabindex="0"
             type="submit"
           >
-            Update Data
+            <span>
+              app_btn_update_profile
+            </span>
             <span
               class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
             />

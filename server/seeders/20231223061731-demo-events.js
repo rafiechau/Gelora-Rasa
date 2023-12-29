@@ -9,9 +9,6 @@ module.exports = {
     const getRandomCategoriesId = () => {
       return Math.floor(Math.random() * 3) + 1;
     }
-    const getRandomUserId = () => {
-      return Math.floor(Math.random() * 3) + 1;
-    }
     return queryInterface.bulkInsert("Events", [
       {
         eventName: "( PINJAM RIPSTIX ) POUND CLASS TECHNOMART",
@@ -28,7 +25,7 @@ module.exports = {
         description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of 'de Finibus Bonorum et Malorum' (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, 'Lorem ipsum dolor sit amet..', comes from a line in section 1.10.32.",
         locationId: getRandomLocationId(),
         categoryId: getRandomCategoriesId(),
-        userId: getRandomUserId(),
+        userId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -47,7 +44,7 @@ module.exports = {
         description: "Following their successes in music like Epic Rap Battle Prabowo vs. Jokowi 2019, DPR Musical, and PENSI (Pentas Swara Indonesia), Andovi da Lopez and Jovial da Lopez are back with the musical theater Polarisasi LIVE at GBB from February 2-4, 2024. Polarisasi Musical tells the story of five students navigating the challenges of the 2024 elections. All characters in this tale are purely fictional.",
         locationId: getRandomLocationId(),
         categoryId: getRandomCategoriesId(),
-        userId: getRandomUserId(),
+        userId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -66,7 +63,7 @@ module.exports = {
         description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of 'de Finibus Bonorum et Malorum' (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, 'Lorem ipsum dolor sit amet..', comes from a line in section 1.10.32.",
         locationId: getRandomLocationId(),
         categoryId: getRandomCategoriesId(),
-        userId: getRandomUserId(),
+        userId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -85,7 +82,7 @@ module.exports = {
         description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of 'de Finibus Bonorum et Malorum' (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, 'Lorem ipsum dolor sit amet..', comes from a line in section 1.10.32.",
         locationId: getRandomLocationId(),
         categoryId: getRandomCategoriesId(),
-        userId: getRandomUserId(),
+        userId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -104,7 +101,7 @@ module.exports = {
         description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of 'de Finibus Bonorum et Malorum' (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, 'Lorem ipsum dolor sit amet..', comes from a line in section 1.10.32.",
         locationId: getRandomLocationId(),
         categoryId: getRandomCategoriesId(),
-        userId: getRandomUserId(),
+        userId: 3,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

@@ -56,10 +56,10 @@ const VerifyOTP = ({ tokenVerify, isExpire, email, step, intl: { formatMessage }
       </div>
       <div className={classes.btnWrap}>
         <button type="button" className={classes.otpBtn} onClick={() => dispatch(actionSetStep(step - 1))}>
-          Kembali
+          <FormattedMessage id="app_btn_previous_pagination" />
         </button>
         <button type="submit" className={classes.otpBtn}>
-          Lanjut
+          <FormattedMessage id="app_btn_next_pagination" />
         </button>
       </div>
     </form>

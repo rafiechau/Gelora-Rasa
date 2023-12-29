@@ -1,5 +1,6 @@
 import { render, fireEvent, screen } from '@testing-library/react';
 import CardItem from '@components/CardItem';
+import { IntlProvider } from 'react-intl';
 
 const mockNavigate = jest.fn();
 
@@ -21,7 +22,11 @@ const mockEvent = {
 let wrapper;
 
 beforeEach(() => {
-  wrapper = render(<CardItem event={mockEvent} />);
+  wrapper = render(
+    <IntlProvider locale="en">
+      <CardItem event={mockEvent} />
+    </IntlProvider>
+  );
 });
 
 describe('CardItem', () => {

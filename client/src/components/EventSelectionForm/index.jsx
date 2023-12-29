@@ -16,7 +16,9 @@ const EventSelectionForm = ({
 }) => (
   <form onSubmit={handleSubmit} className={classes.form} data-testid="event-selection-form">
     <FormControl fullWidth>
-      <InputLabel id="demo-simple-select-label">Your Active Event</InputLabel>
+      <InputLabel id="demo-simple-select-label">
+        <FormattedMessage id="app_event_active" />
+      </InputLabel>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"

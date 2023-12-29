@@ -1,20 +1,20 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Tesseract from 'tesseract.js';
 import InputTextField from '@components/InputTextField';
 import { useForm } from 'react-hook-form';
-import { selectToken } from '@containers/Client/selectors';
+import { selectToken, selectUser } from '@containers/Client/selectors';
 import { Box, CircularProgress } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useNavigate } from 'react-router-dom';
 import { createEventOrganizer } from './actions';
 import classes from './style.module.scss';
 
-const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token }) => {
+const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token, user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
@@ -27,6 +27,12 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token }) => {
     setValue,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    if (user?.role !== 1) {
+      navigate('/home');
+    }
+  }, [user, navigate]);
 
   const handleImageChange = (e) => {
     if (e.target.files[0]) {
@@ -339,10 +345,12 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token }) => {
 BecomeEventOrganizerPage.propTypes = {
   intl: PropTypes.object,
   token: PropTypes.string,
+  user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   token: selectToken,
+  user: selectUser,
 });
 
 export default injectIntl(connect(mapStateToProps)(BecomeEventOrganizerPage));

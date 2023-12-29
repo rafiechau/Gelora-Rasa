@@ -85,7 +85,7 @@ exports[`CardItem Should match with snapshot 1`] = `
                 />
               </svg>
             </span>
-            Share
+            app_btn_share
             <span
               class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
             />
@@ -175,7 +175,7 @@ exports[`CardItem Should match with snapshot 1`] = `
               />
             </svg>
           </span>
-          Share
+          app_btn_share
           <span
             class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
           />

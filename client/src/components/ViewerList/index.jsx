@@ -2,6 +2,7 @@ import { Constants, useMeeting } from '@videosdk.live/react-sdk';
 
 import ViewerListItem from '@components/ViewerListItem';
 import classes from './style.module.scss';
+import { FormattedMessage } from 'react-intl';
 
 const ViewerList = () => {
   const { participants } = useMeeting();
@@ -10,7 +11,9 @@ const ViewerList = () => {
 
   return (
     <div className={classes.viewerList}>
-      <p>Viewer list:</p>
+      <p>
+        <FormattedMessage id="app_viewer_list" />:
+      </p>
       {viewers.map((participant) => (
         <ViewerListItem key={participant.id} participantId={participant.id} />
       ))}

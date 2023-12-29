@@ -18,7 +18,6 @@ export function* doGetAllEvent(action) {
       })
     );
   } catch (error) {
-    console.log(error);
     if (error?.response?.status === 400 || error?.response?.status === 404) {
       toast.error(error.response.data.message);
     } else {
@@ -35,7 +34,6 @@ export function* doGetAllCategories() {
     const response = yield call(getCategoriesApi);
     yield put(actionSetAllCategories(response.data));
   } catch (error) {
-    console.log(error);
     if (error?.response?.status === 400 || error?.response?.status === 404) {
       toast.error(error.response.data.message);
     } else {
@@ -52,7 +50,6 @@ export function* doGetAllLocation() {
     const response = yield call(getLocationApi);
     yield put(actionSetAllLocation(response.data));
   } catch (error) {
-    console.log(error);
     if (error?.response?.status === 400 || error?.response?.status === 404) {
       toast.error(error.response.data.message);
     } else {

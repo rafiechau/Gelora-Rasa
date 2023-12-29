@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.66% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/12</span>
+                <span class='fraction'>6/12</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.66% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/12</span>
+                <span class='fraction'>6/12</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -81,41 +81,41 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">exports.handleServerError = <span class="fstat-no" title="function not covered" >(r</span>es) =&gt; {
 <span class="cstat-no" title="statement not covered" >    return res.status(500).json({ message: " Internal Server Error" });</span>
 };
-exports.handleClientError = (res, status, message) =&gt; {
-    return res.status(status).json({ message });
+exports.handleClientError = <span class="fstat-no" title="function not covered" >(r</span>es, status, message) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return res.status(status).json({ message });</span>
 };
-exports.handleNotFound = (res) =&gt; {
-    return res.status(404).json({ message: "Data Not Found" });
+exports.handleNotFound = <span class="fstat-no" title="function not covered" >(r</span>es) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return res.status(404).json({ message: "Data Not Found" });</span>
 };
-exports.handleSuccess = (res, json) =&gt; {
-    return res.status(200).json(json);
+exports.handleSuccess = <span class="fstat-no" title="function not covered" >(r</span>es, json) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return res.status(200).json(json);</span>
 };
-exports.handleCreated = (res, json) =&gt; {
-    return res.status(201).json(json);
+exports.handleCreated = <span class="fstat-no" title="function not covered" >(r</span>es, json) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return res.status(201).json(json);</span>
 };
-exports.handleResponse = (res, status, json) =&gt; {
-    return res.status(status).json(json);
+exports.handleResponse = <span class="fstat-no" title="function not covered" >(r</span>es, status, json) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return res.status(status).json(json);</span>
 };
   </pre></td></tr></table></pre>
 
@@ -124,7 +124,7 @@ exports.handleResponse = (res, status, json) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-12-26T13:11:08.873Z
+                at 2023-12-29T06:01:24.266Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

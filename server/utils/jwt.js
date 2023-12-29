@@ -36,5 +36,12 @@ exports.verifyTokenForForgetPassword = (token) => {
 };
 
 exports.verifyTokenVerifyEmail = (token) => {
-  return jwt.verify(token, process.env.SECRET_KEY_VERIFY_EMAIL);
+  try {
+    return jwt.verify(token, process.env.SECRET_KEY_VERIFY_EMAIL);
+  } catch (error) {
+      if (error.name === 'TokenExpiredError') {
+          return { expired: true };
+      }
+      return { error: error.message };
+  }
 };

@@ -24,8 +24,8 @@ export function* doGetMyEvents(action) {
     const response = yield call(getMyEventApi, token);
     yield put(actionSetAllMyEvent(response.data));
   } catch (error) {
-    if (error?.response?.status === 400 || error?.response?.status === 404) {
-      // toast.error(error.response.data.message);
+    if (error?.response?.status === 400 || error?.response?.status === 404 || error?.response?.status === 403) {
+      toast.error(error.response.data.message);
     } else {
       yield put(showPopup());
     }
@@ -39,7 +39,6 @@ function* doUpdateEvent(action) {
   try {
     const { eventId, data, token } = action.payload;
     const response = yield call(updateStatusEventByIdApi, eventId, data, token);
-    console.log(response);
     yield put(actionGetAllMyEvent(getMyEventApi));
     toast.success(response.message);
   } catch (error) {

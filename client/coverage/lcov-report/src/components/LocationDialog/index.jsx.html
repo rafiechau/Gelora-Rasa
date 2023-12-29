@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.5% </span>
+                <span class="strong">11.76% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/16</span>
+                <span class='fraction'>2/17</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">12.5% </span>
+                <span class="strong">11.76% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/16</span>
+                <span class='fraction'>2/17</span>
             </div>
         
             
@@ -145,7 +145,14 @@
 <a name='L80'></a><a href='#L80'>80</a>
 <a name='L81'></a><a href='#L81'>81</a>
 <a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -168,13 +175,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -182,10 +184,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,14 +263,17 @@ export const LocationDialog = <span class="fstat-no" title="function not covered
     handleSubmit,
     register,
     setValue,
+    reset,
     formState: { errors },
   } = <span class="cstat-no" title="statement not covered" >useForm();</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (currentLocation) {</span>
-<span class="cstat-no" title="statement not covered" >      setValue('namaProvinsi', currentLocation.namaProvinsi);</span>
+<span class="cstat-no" title="statement not covered" >      setValue('namaProvinsi', currentLocation.name);</span>
+    } else {
+<span class="cstat-no" title="statement not covered" >      reset();</span>
     }
-  }, [currentLocation, setValue]);
+  }, [currentLocation, setValue, reset]);
 &nbsp;
   const onSubmit = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(d</span>ata) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (isEditMode) {</span>
@@ -270,7 +287,7 @@ export const LocationDialog = <span class="fstat-no" title="function not covered
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Dialog open={open} onClose={onClose} fullWidth maxWidth="sm" fullScreen={fullScreen} data-testid="location-dialog"&gt;
       &lt;DialogTitle&gt;
-        {isEditMode ? 'app_header_edit_location' : 'app_header_create_location'}
+        &lt;FormattedMessage id={isEditMode ? 'app_header_edit_location' : 'app_header_create_location'} /&gt;
         &lt;IconButton onClick={onClose} style={{ position: 'absolute', right: 8, top: 8 }} data-testid="close-button"&gt;
           &lt;CloseSharpIcon /&gt;
         &lt;/IconButton&gt;
@@ -293,7 +310,11 @@ export const LocationDialog = <span class="fstat-no" title="function not covered
             errors={errors}
           /&gt;
           &lt;Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} data-testid="submit-button"&gt;
-            {isEditMode ? &lt;FormattedMessage id="app_submit_edit" /&gt; : &lt;FormattedMessage id="app_submit_create" /&gt;}
+            {isEditMode ? (
+              &lt;FormattedMessage id="app_header_edit_location" /&gt;
+            ) : (
+              &lt;FormattedMessage id="app_header_create_location" /&gt;
+            )}
           &lt;/Button&gt;
         &lt;/Box&gt;
       &lt;/DialogContent&gt;
@@ -316,7 +337,7 @@ export default injectIntl(LocationDialog);
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-12-20T04:44:52.158Z
+                at 2023-12-28T02:44:22.484Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

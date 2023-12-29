@@ -13,7 +13,7 @@ exports[`EventSelectionForm Should match snapshot 1`] = `
       data-shrink="true"
       id="demo-simple-select-label"
     >
-      Your Active Event
+      app_event_active
     </label>
     <div
       class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl  css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root"

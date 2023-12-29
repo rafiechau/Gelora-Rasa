@@ -4,7 +4,6 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { useEffect, useState } from 'react';
 import { SideBar } from '@components/sidebar';
-import toast from 'react-hot-toast';
 import { Box, Fab, Typography, useMediaQuery } from '@mui/material';
 import BottomBar from '@components/BottomNavigation';
 import AddIcon from '@mui/icons-material/Add';
@@ -36,7 +35,7 @@ const MyEventsPage = ({ allMyEvents, token, user, login, intl: { formatMessage }
     if (user?.role !== 2) {
       setTimeout(() => {
         navigate('/home');
-      }, 1500);
+      }, 1000);
     }
   }, [formatMessage, user, navigate]);
 

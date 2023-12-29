@@ -13,12 +13,14 @@ import { actionGetAllLocation } from '@pages/Home/actions';
 import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
 import LocationDialog from '@components/LocationDialog';
 import AdminTable from '@components/AdminTable';
+import { useNavigate } from 'react-router-dom';
 import { actionDeleteLocationById } from './actions';
 
 import classes from '../style.module.scss';
 
 const LocationAdminPage = ({ locations, user, token, intl: { formatMessage } }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [currentLocationId, setCurrentLocationId] = useState(null);
   const [currentEditingLocation, setCurrentEditingLocation] = useState(null);
@@ -28,6 +30,12 @@ const LocationAdminPage = ({ locations, user, token, intl: { formatMessage } }) 
   const itemsPerPage = 10;
 
   const isMobile = useMediaQuery('(max-width:600px)');
+
+  useEffect(() => {
+    if (user?.role !== 3) {
+      navigate('/home');
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     dispatch(actionGetAllLocation());

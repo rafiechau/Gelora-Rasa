@@ -68,7 +68,7 @@ export const LocationDialog = ({ open, onClose, intl: { formatMessage }, current
           />
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} data-testid="submit-button">
             {isEditMode ? (
-              <FormattedMessage id="app_header_edit_locationt" />
+              <FormattedMessage id="app_header_edit_location" />
             ) : (
               <FormattedMessage id="app_header_create_location" />
             )}

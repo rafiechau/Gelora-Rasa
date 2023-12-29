@@ -81,9 +81,6 @@ exports.verifyEmail = async (req, res) => {
                 message: "OTP sent to email",
             })
         }
-        // return handleSuccess(res, {
-        //     message: "Email for OTP verify failed to sent",
-        // });
     }catch(error){
         console.log(error)
         return handleServerError(res, error)
@@ -128,7 +125,6 @@ exports.login = async (req, res) => {
             where: { email: email }
         })
 
-        console.log(dataUser)
 
         if (!dataUser || !(await comparePassword(plainPassword, dataUser.password))) {
           return handleResponse(res, 400, { message: "invalid email or password" });

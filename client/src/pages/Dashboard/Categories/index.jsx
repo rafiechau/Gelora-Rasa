@@ -15,11 +15,13 @@ import { actionGetAllCategories } from '@pages/Home/actions';
 import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
 import CategoryDialog from '@components/CategoryDialog';
 import AdminTable from '@components/AdminTable';
+import { useNavigate } from 'react-router-dom';
 import classes from '../style.module.scss';
 import { actionDeleteCategoryById } from './actions';
 
 const CategoriesAdminPage = ({ user, categories, token, intl: { formatMessage } }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const [currentCategoryId, setCurrentCategoryId] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -32,6 +34,12 @@ const CategoriesAdminPage = ({ user, categories, token, intl: { formatMessage } 
   const isMobile = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
+    if (user?.role !== 3) {
+      navigate('/home');
+    }
+  }, [user, navigate]);
+
+  useEffect(() => {
     dispatch(actionGetAllCategories());
   }, [dispatch]);
 
@@ -41,7 +49,7 @@ const CategoriesAdminPage = ({ user, categories, token, intl: { formatMessage } 
   };
 
   const handleOpenEditDialog = (category) => {
-    setCurrentCategory(category); // Untuk mode edit, set kategori saat ini
+    setCurrentCategory(category);
     setIsDialogOpen(true);
   };
 

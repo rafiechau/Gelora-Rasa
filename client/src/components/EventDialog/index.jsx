@@ -38,8 +38,6 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
   const [selectedCategory, setSelectedCategory] = useState('');
   const [isImageChanged, setIsImageChanged] = useState(false);
 
-  console.log(myEvent?.image, '<<image');
-
   const {
     handleSubmit,
     register,
@@ -242,7 +240,7 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
             register={register}
             errors={errors}
           />
-          <FormControl fullWidth>
+          <FormControl fullWidth sx={{ marginBottom: '1rem' }}>
             <InputLabel id="demo-simple-select-label">
               <FormattedMessage id="app_event_type_name" />
             </InputLabel>
@@ -287,7 +285,7 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
             register={register}
             errors={errors}
           />
-          <FormControl fullWidth>
+          <FormControl fullWidth sx={{ marginBottom: '1rem' }}>
             <InputLabel id="demo-simple-select-label">
               <FormattedMessage id="app_event_status_name" />
             </InputLabel>
@@ -353,7 +351,7 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
             register={register}
             errors={errors}
           />
-          <FormControl fullWidth>
+          <FormControl fullWidth sx={{ marginBottom: '1rem' }}>
             <InputLabel id="location-select-label">
               <FormattedMessage id="app_event_location" />
             </InputLabel>
@@ -374,7 +372,7 @@ const EventDialog = ({ open, onClose, mode, myEvent, locations, categories, toke
             </Select>
             {errors.locationId && <span className={classes.error}>{errors.locationId.message}</span>}
           </FormControl>
-          <FormControl fullWidth>
+          <FormControl fullWidth sx={{ marginBottom: '1rem' }}>
             <InputLabel id="category-select-label">
               <FormattedMessage id="app_event_category" />
             </InputLabel>

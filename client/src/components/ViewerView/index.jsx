@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Hls from 'hls.js';
 import { useMeeting } from '@videosdk.live/react-sdk';
+import { FormattedMessage } from 'react-intl';
 
 const ViewerView = () => {
   const playerRef = useRef(null);
@@ -54,7 +55,9 @@ const ViewerView = () => {
           }}
         />
       ) : (
-        <p>Live streaming belum dimulai, silahkan menunggu.</p>
+        <p>
+          <FormattedMessage id="app_livestreaming_not_starting_yet" />
+        </p>
       )}
     </div>
   );

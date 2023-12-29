@@ -4,7 +4,7 @@ const { authenticationMiddleware } = require('../middlewares/AuthenticationMiddl
 const { authorizationRoleAdmin } = require('../middlewares/AuthorizationRole');
 const router = express.Router()
 
-router.get('/', authenticationMiddleware, getAllCategories)
+router.get('/', getAllCategories)
 router.post('/create', authenticationMiddleware, authorizationRoleAdmin, createCategory)
 router.put('/update/:categoryId', authenticationMiddleware, authorizationRoleAdmin, updateCategory)
 router.delete('/delete/:categoryId', authenticationMiddleware, authorizationRoleAdmin, deleteCategory)
