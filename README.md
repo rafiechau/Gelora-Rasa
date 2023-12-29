@@ -14,7 +14,57 @@ For more up-to-date information on what's being implemented, take a look at our 
 
 ## Deployment
 
-To get started with the Serverless Airline application, you can deploy into your AWS Account by following our [Get Started instructions](./docs/getting_started.md)
+## Deployment
+
+To get started with this system, you can deploy follow this steps:
+## Frontend Setup
+
+1. Install dependencies:
+
+```
+npm install
+```
+
+2. Start the application:
+
+```
+npm run start
+```
+
+## Backend Setup
+
+1. Install dependencies:
+
+```
+npm install
+```
+
+2. Create the database:
+
+```
+npx sequelize-cli db:create
+```
+
+3. Migrate the database:
+
+```
+npx sequelize-cli db:migrate
+```
+
+4. Seed the database:
+
+```
+npx sequelize-cli db:seed:all
+```
+
+5. Start the development server:
+
+```
+npm run start
+```
+
+---
+
 
 ## Stack
 
