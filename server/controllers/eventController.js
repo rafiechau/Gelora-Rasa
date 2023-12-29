@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { Event, User, Category, Location } = require("../models");
+const { Event, User, Order, Category, Location } = require("../models");
 const { handleResponse, handleServerError, handleSuccess, handleCreated } = require("../helper/handleResponseHelper");
 const { validateJoi, schemaEvent } = require("../helper/joiHelper");
 
@@ -233,12 +233,12 @@ exports.deleteMyEvent = async(req, res) => {
 
         const { eventId } = req.params
         const userId = req.id;
-        console.log(req.params, "ini params")
-        console.log(eventId, "event id")
-        console.log(userId, "<<user id")
 
+        const order = await Order.findOne({where: {eventId: eventId}})
+        if(order){
+            return res.status(404).json({ message: "Cannot delete this event" });
+        }
         const eventToDelete = await Event.findOne({ where: { id: eventId, userId: userId } });
-        console.log(eventToDelete)
         if (!eventToDelete) {
             return res.status(404).json({ message: "Event not found or you're not authorized to delete this event" });
         }

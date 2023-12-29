@@ -3,8 +3,10 @@ import {
   DELETE_EVENT,
   DELETE_EVENT_SUCCESS,
   GET_ALL_MY_EVENT,
+  GET_ALL_MY_ORDER_USER,
   RESET_DELETE_SUCCESS,
   SET_ALL_MY_EVENT,
+  SET_ALL_MY_ORDER_USER,
   UPDATE_EVENT_BY_ID,
   UPDATE_EVENT_EVENT_ORGANIZER,
 } from './constants';
@@ -17,6 +19,16 @@ export const actionGetAllMyEvent = (token) => ({
 export const actionSetAllMyEvent = (allMyEvent) => ({
   type: SET_ALL_MY_EVENT,
   allMyEvent,
+});
+
+export const actionGetAllEventOrder = (eventId, token) => ({
+  type: GET_ALL_MY_ORDER_USER,
+  payload: { eventId, token },
+});
+
+export const actionSetAllEventOrder = (allMyEventOrderUser) => ({
+  type: SET_ALL_MY_ORDER_USER,
+  allMyEventOrderUser,
 });
 
 export const actionCreateEvent = (data, token) => ({

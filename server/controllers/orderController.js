@@ -56,7 +56,6 @@ exports.createOrder = async (req, res) => {
         const userId = req.id;
         
         const { eventId, totalTickets, ticketsTypes } = req.body;
-        console.log(req.body, "ini body loh")
 
         const event = await Event.findByPk(eventId);
         if (!event) {
@@ -75,6 +74,8 @@ exports.createOrder = async (req, res) => {
         const totalPay = totalTickets * event.price;
         const purchaseDate = new Date();
         const randomString = Math.random().toString(36).substring(2, 15);
+
+        // nambahin nomor urut
 
         const newOrder = await Order.create({
             tanggalPembelian: purchaseDate,
@@ -118,7 +119,7 @@ exports.getMyOrders = async(req, res) => {
                 {
                     model: Event,
                     as: 'event', 
-                    attributes: ['id', 'eventName', 'date', 'price'], 
+                    attributes: ['id', 'eventName', 'date', 'price', 'stok'], 
                 }
             ]
         })
@@ -136,8 +137,6 @@ exports.hasUserOrderedEvent = async(req, res) => {
     try{
         const userId = req.id;
         const { eventId } = req.params;
-        console.log(userId, "ini user id")
-        console.log(eventId, "ini event id")
 
         const order = await Order.findOne({
             where: { 
@@ -181,3 +180,32 @@ exports.deleteMyOrder = async(req, res) => {
         return handleServerError(res, error)
     }
 }
+
+exports.getOrderEvents = async(req, res) => {
+    try{
+        const userId = req.id;
+        const { eventId } = req.params;
+
+        const order = await Order.findAll({
+            where: {eventId: eventId},
+            include: [
+                {
+                    model: User,
+                    as: 'user',
+                    attributes: ['id', 'firstName', 'lastName', 'email'],
+                },
+                {
+                    model: Event,
+                    as: 'event', 
+                    attributes: ['id', 'eventName', 'date', 'price', 'stok'], 
+                }
+            ]
+        })
+
+        return handleResponse(res, 200, order)
+    }catch(error){
+        console.log(error)
+        return handleServerError(res, error)
+    }
+}
+//// https://www.epochconverter.com/

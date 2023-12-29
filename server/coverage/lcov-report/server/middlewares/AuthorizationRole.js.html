@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/16</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/16</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -95,70 +95,70 @@
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">22x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const { handleResponse } = require("../helper/handleResponseHelper");
 &nbsp;
-exports.authorizationRoleEventOrganizer = <span class="fstat-no" title="function not covered" >as</span>ync (req, res, next) =&gt; {
-    const { role } = <span class="cstat-no" title="statement not covered" >req;</span>
-<span class="cstat-no" title="statement not covered" >    if (role != 2) {</span>
-<span class="cstat-no" title="statement not covered" >      return handleResponse(res, 403, {</span>
+exports.authorizationRoleEventOrganizer = async (req, res, next) =&gt; {
+    const { role } = req;
+    if (role != 2) {
+      return handleResponse(res, 403, {
         message:
           "unauthorize, forbidden access this endpoint login with event organizer account",
       });
     }
-<span class="cstat-no" title="statement not covered" >    next();</span>
+    next();
 };
   
-exports.authorizationRoleStandardUser = <span class="fstat-no" title="function not covered" >as</span>ync (req, res, next) =&gt; {
-    const { role } = <span class="cstat-no" title="statement not covered" >req;</span>
-<span class="cstat-no" title="statement not covered" >    if (role != 1) {</span>
-<span class="cstat-no" title="statement not covered" >      return handleResponse(res, 403, {</span>
+exports.authorizationRoleStandardUser = async (req, res, next) =&gt; {
+    const { role } = req;
+    if (role != 1) {
+      return handleResponse(res, 403, {
         message:
           "unauthorize, forbidden access this endpoint login with standard account",
       });
     }
-<span class="cstat-no" title="statement not covered" >    next();</span>
+    next();
 };
 &nbsp;
-exports.authorizationRoleAdmin = <span class="fstat-no" title="function not covered" >as</span>ync (req, res, next) =&gt; {
-    const { role } = <span class="cstat-no" title="statement not covered" >req</span>
-<span class="cstat-no" title="statement not covered" >    if(role != 3 ){</span>
-<span class="cstat-no" title="statement not covered" >        return handleResponse(res, 403, {</span>
+exports.authorizationRoleAdmin = async (req, res, next) =&gt; {
+    const { role } = req
+    if(role != 3 ){
+        return handleResponse(res, 403, {
             message: "unauthorize, forbidden access this endpoint login with admin account"
         })
     } 
-<span class="cstat-no" title="statement not covered" >    next();</span>
+    next();
 }</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -166,7 +166,7 @@ exports.authorizationRoleAdmin = <span class="fstat-no" title="function not cove
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-12-29T06:01:24.266Z
+                at 2023-12-29T09:28:49.385Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

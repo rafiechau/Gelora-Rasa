@@ -1,6 +1,7 @@
 import {
   createEventApi,
   deleteEventByIdApi,
+  getAllUserOrderEvent,
   getMyEventApi,
   updateEventByIdApi,
   updateStatusEventByIdApi,
@@ -12,10 +13,11 @@ import {
   CREATE_EVENT,
   DELETE_EVENT,
   GET_ALL_MY_EVENT,
+  GET_ALL_MY_ORDER_USER,
   UPDATE_EVENT_BY_ID,
   UPDATE_EVENT_EVENT_ORGANIZER,
 } from './constants';
-import { actionDeleteMyEventSuccess, actionGetAllMyEvent, actionSetAllMyEvent } from './actions';
+import { actionDeleteMyEventSuccess, actionGetAllMyEvent, actionSetAllEventOrder, actionSetAllMyEvent } from './actions';
 
 export function* doGetMyEvents(action) {
   yield put(setLoading(true));
@@ -24,6 +26,25 @@ export function* doGetMyEvents(action) {
     const response = yield call(getMyEventApi, token);
     yield put(actionSetAllMyEvent(response.data));
   } catch (error) {
+    if (error?.response?.status === 400 || error?.response?.status === 404 || error?.response?.status === 403) {
+      toast.error(error.response.data.message);
+    } else {
+      yield put(showPopup());
+    }
+  } finally {
+    yield put(setLoading(false));
+  }
+}
+
+export function* doGetMyEventOrderUser(action) {
+  yield put(setLoading(true));
+  try {
+    const { eventId, token } = action.payload;
+    const response = yield call(getAllUserOrderEvent, eventId, token);
+    console.log(response, "<<test")
+    yield put(actionSetAllEventOrder(response));
+  } catch (error) {
+    console.log(error, "<<error")
     if (error?.response?.status === 400 || error?.response?.status === 404 || error?.response?.status === 403) {
       toast.error(error.response.data.message);
     } else {
@@ -93,9 +114,10 @@ function* doCreateEvent(action) {
   }
 }
 
-// mungkin bakal diganti nanti
+
 export function* myEventSaga() {
   yield takeLatest(GET_ALL_MY_EVENT, doGetMyEvents);
+  yield takeLatest(GET_ALL_MY_ORDER_USER, doGetMyEventOrderUser);
   yield takeLatest(UPDATE_EVENT_BY_ID, doUpdateEvent);
   yield takeLatest(DELETE_EVENT, doDeleteEvent);
   yield takeLatest(CREATE_EVENT, doCreateEvent);

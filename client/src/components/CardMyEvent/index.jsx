@@ -8,20 +8,32 @@ import AccessTimeFilledTwoToneIcon from '@mui/icons-material/AccessTimeFilledTwo
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
 import ShareIcon from '@mui/icons-material/Share';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
 import toast from 'react-hot-toast';
-import { actionDeleteMyEventById } from '@pages/Dashboard/MyEvents/actions';
+import { actionDeleteMyEventById, actionGetAllEventOrder } from '@pages/Dashboard/MyEvents/actions';
 import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
 import EventDialog from '@components/EventDialog';
+import UserDetailsDialog from '@components/UserDetailsDialog';
+import { selectAllMyOrderEvents } from '@pages/Dashboard/MyEvents/selectors';
+import DetailUserOrder from '@components/DetailUserOrder';
 
-const CardMyEvent = ({ myEvent, token }) => {
+const CardMyEvent = ({ myEvent, token, orderUser }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [openEventOrganizerDialog, setOpenEventOrganizerDialog] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+
+  console.log(orderUser, "<<aaa")
+
+  const handleCloseEventOrganizerDialog = () => {
+    setOpenEventOrganizerDialog(false);
+    setSelectedOrder(null);
+  };
 
   const navigateDetails = () => {
     navigate(`/detail/${myEvent?.id}`);
@@ -47,6 +59,16 @@ const CardMyEvent = ({ myEvent, token }) => {
 
   const handleDelete = () => {
     handleOpenConfirmDialog();
+  };
+
+  const handleOpenEventOrganizerDialog = () => {
+    setSelectedOrder(orderUser);
+    setOpenEventOrganizerDialog(true);
+  };
+
+  const handleViewDetails = (eventId) => {
+    dispatch(actionGetAllEventOrder(eventId, token));
+    handleOpenEventOrganizerDialog();
   };
 
   const handleConfirmDelete = () => {
@@ -163,6 +185,13 @@ const CardMyEvent = ({ myEvent, token }) => {
           >
             <DeleteIcon />
           </IconButton>
+          <IconButton
+            aria-label="delete"
+            sx={{ color: 'red', opacity: 0.7, '&:hover': { opacity: 1 } }}
+            onClick={(eventId) => handleViewDetails(myEvent?.id)}
+          >
+            Lihat Detail
+          </IconButton>
         </Box>
         <Typography
           variant="body2"
@@ -171,6 +200,7 @@ const CardMyEvent = ({ myEvent, token }) => {
           <FormattedMessage id="app_status_events" />: {myEvent?.status.toUpperCase()}
         </Typography>
       </CardActions>
+      <DetailUserOrder open={openEventOrganizerDialog} onClose={handleCloseEventOrganizerDialog} user={orderUser} />
       <DeleteConfirmationDialog
         open={openConfirmDialog}
         onConfirm={handleConfirmDelete}
@@ -186,10 +216,12 @@ const CardMyEvent = ({ myEvent, token }) => {
 CardMyEvent.propTypes = {
   myEvent: PropTypes.object.isRequired,
   token: PropTypes.string,
+  orderUser: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   token: selectToken,
+  orderUser: selectAllMyOrderEvents,
 });
 
 export default connect(mapStateToProps)(CardMyEvent);

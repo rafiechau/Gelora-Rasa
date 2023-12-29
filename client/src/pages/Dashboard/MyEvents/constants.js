@@ -1,6 +1,9 @@
 export const GET_ALL_MY_EVENT = 'MyEvents/GET_ALL_MY_EVENT';
 export const SET_ALL_MY_EVENT = 'MyEvents/SET_ALL_MY_EVENT';
 
+export const GET_ALL_MY_ORDER_USER = 'MyEvents/GET_ALL_MY_ORDER_USER';
+export const SET_ALL_MY_ORDER_USER = 'MyEvents/SET_ALL_MY_ORDER_USER';
+
 export const CREATE_EVENT = 'MyEvents/CREATE_EVENT';
 
 export const UPDATE_EVENT_BY_ID = 'MyEvents/UPDATE_EVENT_BY_ID';

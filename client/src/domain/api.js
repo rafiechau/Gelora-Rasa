@@ -88,6 +88,9 @@ export const createOrderEvent = (token, data) =>
 export const hasUserOrderedEventApi = (eventId, token) =>
   callAPI(`${urls.orders}/check-order/${eventId}`, 'GET', { Authorization: `Bearer ${token}` });
 
+export const getAllUserOrderEvent = (eventId, token) =>
+  callAPI(`${urls.orders}/get-order-user/${eventId}`, 'GET', { Authorization: `Bearer ${token}` });
+
 export const getMyOrdersApi = (token) =>
   callAPI(`${urls.orders}/getMyOrder`, 'GET', { Authorization: `Bearer ${token}` });
 
