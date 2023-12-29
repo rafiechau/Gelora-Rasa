@@ -121,3 +121,10 @@ For detailed information about the API endpoints, setup and environment variable
 ## Client Routes
 
 For detailed information about the client routes and setup in Gelorasa, please refer to the [Client Routes README](./client/README.md).
+
+## System Flow
+
+
+![System Flow User](./client/src/static/images/user-flow.png)
+![System Flow Event Organizer](./client/src/static/images/eo-flow.png)
+![System Flow Admin](./client/src/static/images/admin-flow.png)
