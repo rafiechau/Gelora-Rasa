@@ -112,7 +112,7 @@ The backend API of Gelorasa is implemented with the following technologies:
 
 ### External Services
 
-- **Food Data:** [Location API](https://wilayah.id/api/provinces.json)
+- **Location Data:** [Location API](https://wilayah.id/api/provinces.json)
 
 ## API Endpoints
 
