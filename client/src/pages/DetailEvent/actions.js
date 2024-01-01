@@ -8,10 +8,9 @@ import {
   UPDATE_EVENT_STATUS,
 } from './constants';
 
-export const getEventById = (eventId, token) => ({
+export const getEventById = (eventId) => ({
   type: GET_EVENT_BY_ID,
   eventId,
-  token,
 });
 
 export const setEventById = (event, eventId) => ({
@@ -20,32 +19,28 @@ export const setEventById = (event, eventId) => ({
   eventId,
 });
 
-export const initialPayment = (data, eventId, token, cbSuccess) => ({
+export const initialPayment = (data, eventId, cbSuccess) => ({
   type: INITIAL_PAYMENT,
   data,
   eventId,
-  token,
   cbSuccess,
 });
 
-export const createOrder = (data, token, cbSuccess) => ({
+export const createOrder = (data, cbSuccess) => ({
   type: CREATE_ORDER_EVENT,
   data,
-  token,
   cbSuccess,
 });
 
-export const actionUpdateEventStatus = (eventId, status, token) => ({
+export const actionUpdateEventStatus = (eventId, status) => ({
   type: UPDATE_EVENT_STATUS,
   eventId,
   status,
-  token,
 });
 
-export const checkUserOrder = (eventId, token) => ({
+export const checkUserOrder = (eventId) => ({
   type: CHECK_USER_ORDER,
   eventId,
-  token,
 });
 
 export const setUserOrderStatus = (hasOrdered) => ({

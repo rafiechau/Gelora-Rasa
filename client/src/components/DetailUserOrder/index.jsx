@@ -21,10 +21,6 @@ import { useDispatch } from 'react-redux';
 import classes from './style.module.scss';
 
 const DetailUserOrder = ({ open, onClose, user }) => {
-  const [loading, setLoading] = useState(true);
-
-  console.log(user, 'ini dialog');
-
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -38,7 +34,14 @@ const DetailUserOrder = ({ open, onClose, user }) => {
         {user.length > 0 ? (
           user.map((data, index) => (
             <DialogContentText className={classes.dialogText}>
-              nama-{index + 1} {data?.user?.firstName}
+              <FormattedMessage
+                id="app_user_ticket_info"
+                values={{
+                  number: index + 1,
+                  name: data?.user?.firstName,
+                  ticketCount: data?.totalTickets,
+                }}
+              />
             </DialogContentText>
           ))
         ) : (

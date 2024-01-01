@@ -12,7 +12,6 @@ import classes from './style.module.scss';
 
 const VerifyEmail = ({ email, step, isVerify, intl: { formatMessage } }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const {
     handleSubmit,

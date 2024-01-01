@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import VerifyEmail from '@components/VerifyEmail';
 import VerifyOTP from '@components/VerifyOTP';
 import RegisterForm from '@components/RegisterForm';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import classes from './style.module.scss';
 

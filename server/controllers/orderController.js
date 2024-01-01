@@ -8,7 +8,11 @@ exports.initialPayment = async (req, res) => {
     try{
         const userId = req.id;
         const { eventId } = req.params;
+        console.log(eventId)
+        console.log(req.body, "test")
         const { totalTickets } = req.body;
+
+        
 
         const event = await Event.findByPk(eventId);
         const userOrder = await User.findByPk(userId);
@@ -18,6 +22,11 @@ exports.initialPayment = async (req, res) => {
         }
 
         const totalPay = totalTickets * event.price;
+        console.log(totalTickets)
+        console.log(event.price)
+        if (isNaN(totalPay) || totalPay <= 0) {
+            return handleResponse(res, 400, { message: 'Invalid total payment amount' });
+        }
 
         let snap = new midtransClient.Snap({
             isProduction: false,
@@ -73,9 +82,8 @@ exports.createOrder = async (req, res) => {
 
         const totalPay = totalTickets * event.price;
         const purchaseDate = new Date();
-        const randomString = Math.random().toString(36).substring(2, 15);
+        const datePart = purchaseDate.toISOString().split('T')[0].replace(/-/g, '');
 
-        // nambahin nomor urut
 
         const newOrder = await Order.create({
             tanggalPembelian: purchaseDate,
@@ -84,7 +92,14 @@ exports.createOrder = async (req, res) => {
             totalTickets,
             totalPay,
             status: 'lunas',
-            ticketsTypes
+            ticketsTypes,
+            uniqueCode: `${datePart}${userId}${eventId}`
+        });
+
+        const orderSequence = newOrder.id.toString().padStart(6, '0');
+        const uniqueCode = `${datePart}${userId}${eventId}${orderSequence}`
+        await newOrder.update({
+            uniqueCode: uniqueCode
         });
 
         await Event.update({ stok: event.stok - totalTickets }, { where: { id: eventId } });
@@ -94,7 +109,7 @@ exports.createOrder = async (req, res) => {
             eventName: event.eventName,
             ticketsTypes,
             totalTickets,
-            orderId: `${newOrder.id}-${randomString}`,
+            uniqueCode: uniqueCode,
             purchaseDate: purchaseDate.toISOString().split('T')[0]
         }, user);
 

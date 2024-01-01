@@ -8,8 +8,8 @@ import { actionDeleteUserSuccess, actionGetAllUsers, actionSetAllUsers } from '.
 export function* doGetUsers(action) {
   yield put(setLoading(true));
   try {
-    const { token, page, pageSize } = action.payload;
-    const response = yield call(getAllUsersApi, token, page, pageSize);
+    const { page, pageSize } = action.payload;
+    const response = yield call(getAllUsersApi, page, pageSize);
     yield put(
       actionSetAllUsers({
         users: response.data,
@@ -33,8 +33,8 @@ export function* doGetUsers(action) {
 export function* doDeleteUserByAdmin(action) {
   yield put(setLoading(true));
   try {
-    const { userId, token } = action.payload;
-    const response = yield call(deleteUserByAdminApi, userId, token);
+    const { userId } = action.payload;
+    const response = yield call(deleteUserByAdminApi, userId);
     yield put(actionDeleteUserSuccess(userId));
     yield put(actionGetAllUsers(getAllUsersApi));
     toast.success(response.message);

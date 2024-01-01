@@ -19,6 +19,9 @@ const OrderDetailsDialog = ({ open, onClose, order }) => {
         <FormattedMessage id="app_title_order_details" />
       </DialogTitle>
       <DialogContent className={classes.dialogContent} data-testid="order-details-content">
+      <DialogContentText className={classes.dialogText}>
+          <FormattedMessage id="app_column_event_unique_code" />: {order?.uniqueCode}
+        </DialogContentText>
         <DialogContentText className={classes.dialogText}>
           <FormattedMessage id="app_order_name_events" />: {order?.eventName}
         </DialogContentText>

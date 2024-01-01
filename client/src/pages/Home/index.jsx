@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import { Dialog, DialogContent, Drawer, Fab, IconButton, Pagination, TextField, useMediaQuery } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@emotion/react';
 import { createStructuredSelector } from 'reselect';
-import { selectToken } from '@containers/Client/selectors';
 import FilterTooltip from '@components/FilterTooltip';
 import FilterAccordion from '@components/FilterAccordion';
 import CardItem from '@components/CardItem';
@@ -21,7 +20,7 @@ import {
 } from './selectors';
 import { actionGetAllCategories, actionGetAllLocation, getPaginatedPosts } from './actions';
 
-const Home = ({ allEvent, token, allLocation, allCategories, totalPages, currentPage, intl: { formatMessage } }) => {
+const Home = ({ allEvent, allLocation, allCategories, totalPages, currentPage, intl: { formatMessage } }) => {
   const dispatch = useDispatch();
   const [filterOpen, setFilterOpen] = useState(false);
   const theme = useTheme();
@@ -34,10 +33,8 @@ const Home = ({ allEvent, token, allLocation, allCategories, totalPages, current
   const [searchDialogOpen, setSearchDialogOpen] = useState(false);
 
   useEffect(() => {
-    if (token) {
-      dispatch(getPaginatedPosts(1, pageSize));
-    }
-  }, [dispatch, token]);
+    dispatch(getPaginatedPosts(1, pageSize));
+  }, [dispatch]);
 
   const handleSearchDialogOpen = () => {
     setSearchDialogOpen(true);
@@ -216,7 +213,6 @@ const Home = ({ allEvent, token, allLocation, allCategories, totalPages, current
 
 Home.propTypes = {
   allEvent: PropTypes.array,
-  token: PropTypes.string,
   allLocation: PropTypes.array,
   allCategories: PropTypes.array,
   totalPages: PropTypes.number,
@@ -226,7 +222,6 @@ Home.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   allEvent: selectAllEvent,
-  token: selectToken,
   allLocation: selectAllLocation,
   allCategories: selectAllCategories,
   totalPages: selectTotalPages,

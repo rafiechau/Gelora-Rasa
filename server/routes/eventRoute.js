@@ -7,7 +7,7 @@ const { authorizationRoleEventOrganizer } = require('../middlewares/Authorizatio
 
 const router = express.Router()
 
-router.get('/', authenticationMiddleware, getAllEvent)
+router.get('/', getAllEvent)
 router.get('/myEvent', authenticationMiddleware, authorizationRoleEventOrganizer, getMyEvent)
 router.get('/event-organizer/:userId', authenticationMiddleware, getUserProfileById)
 router.get('/detail/:eventId', authenticationMiddleware, getDetailEvent)

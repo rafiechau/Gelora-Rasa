@@ -6,9 +6,8 @@ import {
   SET_ALL_MY_ORDER,
 } from './constants';
 
-export const actionGetAllMyOrders = (token) => ({
+export const actionGetAllMyOrders = () => ({
   type: GET_ALL_MY_ORDER,
-  payload: { token },
 });
 
 export const actionSetAllMyOrders = (allMyOrders) => ({
@@ -16,9 +15,9 @@ export const actionSetAllMyOrders = (allMyOrders) => ({
   allMyOrders,
 });
 
-export const actionDeleteOrderById = (orderId, token) => ({
+export const actionDeleteOrderById = (orderId) => ({
   type: DELETE_ORDER,
-  payload: { orderId, token },
+  payload: { orderId },
 });
 
 export const actionDeleteOrderSuccess = (orderId) => ({

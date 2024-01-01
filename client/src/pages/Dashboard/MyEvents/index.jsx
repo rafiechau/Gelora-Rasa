@@ -7,7 +7,7 @@ import { SideBar } from '@components/sidebar';
 import { Box, Fab, Typography, useMediaQuery } from '@mui/material';
 import BottomBar from '@components/BottomNavigation';
 import AddIcon from '@mui/icons-material/Add';
-import { selectLogin, selectToken, selectUser } from '@containers/Client/selectors';
+import { selectUser } from '@containers/Client/selectors';
 import CardMyEvent from '@components/CardMyEvent';
 import EventDialog from '@components/EventDialog';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ import classes from '../style.module.scss';
 import { selectAllMyEvents } from './selectors';
 import { actionGetAllMyEvent } from './actions';
 
-const MyEventsPage = ({ allMyEvents, token, user, login, intl: { formatMessage } }) => {
+const MyEventsPage = ({ allMyEvents, user, intl: { formatMessage } }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -40,10 +40,8 @@ const MyEventsPage = ({ allMyEvents, token, user, login, intl: { formatMessage }
   }, [formatMessage, user, navigate]);
 
   useEffect(() => {
-    if (token) {
-      dispatch(actionGetAllMyEvent({ token }));
-    }
-  }, [dispatch, token]);
+    dispatch(actionGetAllMyEvent());
+  }, [dispatch]);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -112,17 +110,13 @@ const MyEventsPage = ({ allMyEvents, token, user, login, intl: { formatMessage }
 
 MyEventsPage.propTypes = {
   allMyEvents: PropTypes.array,
-  token: PropTypes.string,
   user: PropTypes.object,
-  login: PropTypes.bool,
   intl: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   allMyEvents: selectAllMyEvents,
-  token: selectToken,
   user: selectUser,
-  login: selectLogin,
 });
 
 export default injectIntl(connect(mapStateToProps)(MyEventsPage));

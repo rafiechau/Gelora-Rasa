@@ -6,7 +6,7 @@ import { apiHandleEditPhotoProfile, apiHandleEditProfile, apiHandleGetProfile, d
 import config from '@config/index';
 import { actionLogoutUser } from '@containers/Client/actions';
 import { DELETE_ACCOUNT, EDIT_PHOTO_PROFILE, EDIT_PROFILE, GET_PROFILE } from './constants';
-import { actionGetProfile, actionSetProfile } from './actions';
+import { actionSetProfile } from './actions';
 
 function* sagaHandleGetUser() {
   yield put(setLoading(true));
@@ -61,9 +61,8 @@ function* sagaHandleEditProfile({ data, callback }) {
 function* doDeleteAccount(action) {
   yield put(setLoading(true));
   try {
-    console.log(action);
-    const { token, callback } = action;
-    const response = yield call(deleteAccountApi, token);
+    const { callback } = action;
+    const response = yield call(deleteAccountApi);
     yield put(actionLogoutUser(callback));
     toast.success(response.message);
   } catch (error) {

@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import config from '@config/index';
-import { selectToken, selectUser } from '@containers/Client/selectors';
+import { selectUser } from '@containers/Client/selectors';
 import EventImage from '@components/EventImage';
 import EventDetail from '@components/EventDetails';
 import EventDescription from '@components/EventDescription';
@@ -16,7 +16,7 @@ import classes from './style.module.scss';
 import { selectEvent, selectHasOrdered } from './selector';
 import { actionUpdateEventStatus, checkUserOrder, createOrder, getEventById, initialPayment } from './actions';
 
-const DetailEventPage = ({ event, hasOrdered, token, user }) => {
+const DetailEventPage = ({ event, hasOrdered, user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { eventId } = useParams();
@@ -39,9 +39,9 @@ const DetailEventPage = ({ event, hasOrdered, token, user }) => {
   };
 
   useEffect(() => {
-    dispatch(getEventById(eventId, token));
-    dispatch(checkUserOrder(eventId, token));
-  }, [dispatch, eventId, token]);
+    dispatch(getEventById(eventId));
+    dispatch(checkUserOrder(eventId));
+  }, [dispatch, eventId]);
 
   useEffect(() => {
     if (event?.type) {
@@ -60,7 +60,7 @@ const DetailEventPage = ({ event, hasOrdered, token, user }) => {
 
       if (timeLeft <= 0 || event?.stok === 0) {
         if (event?.status === 'active') {
-          dispatch(actionUpdateEventStatus(eventId, { status: 'non-active' }, token));
+          dispatch(actionUpdateEventStatus(eventId, { status: 'non-active' }));
           setCanOrder(false);
         }
         setCountdown(timeLeft <= 0 ? 'Waktu pendaftaran telah berakhir' : countdown);
@@ -76,7 +76,7 @@ const DetailEventPage = ({ event, hasOrdered, token, user }) => {
 
     const countdownInterval = setInterval(calculateCountdown, 1000);
     return () => clearInterval(countdownInterval);
-  }, [event, dispatch, eventId, token]);
+  }, [event, dispatch, eventId]);
 
   const handleOrder = () => {
     if (!selectedTicketType || selectedTicketType === '') {
@@ -89,9 +89,9 @@ const DetailEventPage = ({ event, hasOrdered, token, user }) => {
     }
 
     dispatch(
-      initialPayment({ totalTickets: ticketQuantity, ticketsTypes: ticketTypes }, eventId, token, (data) => {
+      initialPayment({ totalTickets: ticketQuantity, ticketsTypes: ticketTypes }, eventId, (data) => {
         dispatch(
-          createOrder(data, token, async () => {
+          createOrder(data, async () => {
             await Swal.fire({
               title: 'Success!',
               text: 'Your order has been placed successfully.',
@@ -150,14 +150,12 @@ const DetailEventPage = ({ event, hasOrdered, token, user }) => {
 DetailEventPage.propTypes = {
   event: PropTypes.object,
   hasOrdered: PropTypes.bool,
-  token: PropTypes.string,
   user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   event: selectEvent,
   hasOrdered: selectHasOrdered,
-  token: selectToken,
   user: selectUser,
 });
 

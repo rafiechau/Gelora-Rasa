@@ -17,15 +17,20 @@ import {
   UPDATE_EVENT_BY_ID,
   UPDATE_EVENT_EVENT_ORGANIZER,
 } from './constants';
-import { actionDeleteMyEventSuccess, actionGetAllMyEvent, actionSetAllEventOrder, actionSetAllMyEvent } from './actions';
+import {
+  actionDeleteMyEventSuccess,
+  actionGetAllMyEvent,
+  actionSetAllEventOrder,
+  actionSetAllMyEvent,
+} from './actions';
 
-export function* doGetMyEvents(action) {
+export function* doGetMyEvents() {
   yield put(setLoading(true));
   try {
-    const { token } = action.payload;
-    const response = yield call(getMyEventApi, token);
+    const response = yield call(getMyEventApi);
     yield put(actionSetAllMyEvent(response.data));
   } catch (error) {
+    console.log(error)
     if (error?.response?.status === 400 || error?.response?.status === 404 || error?.response?.status === 403) {
       toast.error(error.response.data.message);
     } else {
@@ -39,12 +44,10 @@ export function* doGetMyEvents(action) {
 export function* doGetMyEventOrderUser(action) {
   yield put(setLoading(true));
   try {
-    const { eventId, token } = action.payload;
-    const response = yield call(getAllUserOrderEvent, eventId, token);
-    console.log(response, "<<test")
+    const { eventId } = action.payload;
+    const response = yield call(getAllUserOrderEvent, eventId);
     yield put(actionSetAllEventOrder(response));
   } catch (error) {
-    console.log(error, "<<error")
     if (error?.response?.status === 400 || error?.response?.status === 404 || error?.response?.status === 403) {
       toast.error(error.response.data.message);
     } else {
@@ -58,12 +61,11 @@ export function* doGetMyEventOrderUser(action) {
 function* doUpdateEvent(action) {
   yield put(setLoading(true));
   try {
-    const { eventId, data, token } = action.payload;
-    const response = yield call(updateStatusEventByIdApi, eventId, data, token);
+    const { eventId, data } = action.payload;
+    const response = yield call(updateStatusEventByIdApi, eventId, data);
     yield put(actionGetAllMyEvent(getMyEventApi));
     toast.success(response.message);
   } catch (error) {
-    console.log(error);
     toast.error(error.response.data.message);
   } finally {
     yield put(setLoading(false));
@@ -73,14 +75,11 @@ function* doUpdateEvent(action) {
 function* doUpdateEventEO(action) {
   yield put(setLoading(true));
   try {
-    console.log(action, "test")
-    const { eventId, data, token } = action.payload;
-    const response = yield call(updateEventByIdApi, eventId, data, token);
-    console.log(response)
+    const { eventId, data } = action.payload;
+    const response = yield call(updateEventByIdApi, eventId, data);
     yield put(actionGetAllMyEvent(getMyEventApi));
     toast.success(response.message);
   } catch (error) {
-    console.log(error)
     toast.error(error.response.data.message);
   } finally {
     yield put(setLoading(false));
@@ -89,13 +88,12 @@ function* doUpdateEventEO(action) {
 
 export function* doDeleteEvent(action) {
   try {
-    const { eventId, token } = action.payload;
-    const response = yield call(deleteEventByIdApi, eventId, token);
+    const { eventId } = action.payload;
+    const response = yield call(deleteEventByIdApi, eventId);
     yield put(actionDeleteMyEventSuccess(eventId));
     yield put(actionGetAllMyEvent(getMyEventApi));
     toast.success(response.message);
   } catch (error) {
-    console.log(error);
     toast.error(error.response.data.message);
   }
 }
@@ -103,8 +101,7 @@ export function* doDeleteEvent(action) {
 function* doCreateEvent(action) {
   yield put(setLoading(true));
   try {
-    console.log(action);
-    const response = yield call(createEventApi, action.payload.data, action.payload.token);
+    const response = yield call(createEventApi, action.payload.data);
     yield put(actionGetAllMyEvent(getMyEventApi));
     toast.success(response.message);
   } catch (error) {
@@ -113,7 +110,6 @@ function* doCreateEvent(action) {
     yield put(setLoading(false));
   }
 }
-
 
 export function* myEventSaga() {
   yield takeLatest(GET_ALL_MY_EVENT, doGetMyEvents);

@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     totalPay: DataTypes.STRING,
     status: DataTypes.STRING,
     ticketsTypes: DataTypes.STRING,
+    uniqueCode: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Order',

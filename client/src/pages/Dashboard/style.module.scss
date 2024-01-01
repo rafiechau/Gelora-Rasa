@@ -5,7 +5,7 @@
     height: 100vh;
     flex-direction: row;
     align-items: stretch;
-    // overflow: hidden;
+    overflow: hidden;
     .ProfilePage{
         display: flex;
         flex: 1;
@@ -55,6 +55,12 @@
                 &::placeholder {
                     color: darken($color-white, 20%);
                 }
+                @media screen and (max-width: 600px) {
+                    width: 90%;
+                    padding: 8px; 
+                    font-size: 0.8rem; 
+                    margin-bottom: 10px; 
+                  }
             }
             input, select{
                 padding: 10px;

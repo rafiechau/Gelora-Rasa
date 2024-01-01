@@ -1,11 +1,11 @@
 import { CREATE_MEETING_ID, VERIFY_USER_FOR_MEETING } from './constants';
 
-export const actionCreateMeeting = (data, token) => ({
+export const actionCreateMeeting = (data) => ({
   type: CREATE_MEETING_ID,
-  payload: { data, token },
+  payload: { data },
 });
 
-export const actionVerifyUserForMeeting = (eventId, token, callback) =>({
+export const actionVerifyUserForMeeting = (eventId, callback) => ({
   type: VERIFY_USER_FOR_MEETING,
-  payload: { eventId, token, callback },
+  payload: { eventId, callback },
 });

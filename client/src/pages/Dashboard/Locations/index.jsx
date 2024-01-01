@@ -7,7 +7,7 @@ import { SideBar } from '@components/sidebar';
 import { Box, Fab, useMediaQuery } from '@mui/material';
 import BottomBar from '@components/BottomNavigation';
 import AddIcon from '@mui/icons-material/Add';
-import { selectToken, selectUser } from '@containers/Client/selectors';
+import { selectUser } from '@containers/Client/selectors';
 import { selectAllLocation } from '@pages/Home/selectors';
 import { actionGetAllLocation } from '@pages/Home/actions';
 import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
@@ -18,7 +18,7 @@ import { actionDeleteLocationById } from './actions';
 
 import classes from '../style.module.scss';
 
-const LocationAdminPage = ({ locations, user, token, intl: { formatMessage } }) => {
+const LocationAdminPage = ({ locations, user, intl: { formatMessage } }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
@@ -66,7 +66,7 @@ const LocationAdminPage = ({ locations, user, token, intl: { formatMessage } }) 
   };
 
   const handleConfirmDelete = () => {
-    dispatch(actionDeleteLocationById(currentLocationId, token));
+    dispatch(actionDeleteLocationById(currentLocationId));
     handleCloseConfirmDialog();
   };
 
@@ -181,14 +181,12 @@ const LocationAdminPage = ({ locations, user, token, intl: { formatMessage } }) 
 
 LocationAdminPage.propTypes = {
   locations: PropTypes.array.isRequired,
-  token: PropTypes.string,
   user: PropTypes.object.isRequired,
   intl: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   locations: selectAllLocation,
-  token: selectToken,
   user: selectUser,
 });
 

@@ -22,16 +22,7 @@ export const actionEditProfile = (data, callback) => ({
   callback,
 });
 
-export const actionDeleteAccount = (token, callback) => ({
+export const actionDeleteAccount = (callback) => ({
   type: DELETE_ACCOUNT,
-  token,
   callback,
 });
-
-// export const actionDeleteAccountsSuccess = () => ({
-//   type: DELETE_ACCOUNT_SUCCESS,
-// });
-
-// export const resetDeleteAccountSuccess = () => ({
-//   type: RESET_DELETE_ACCOUNT_SUCCESS,
-// });

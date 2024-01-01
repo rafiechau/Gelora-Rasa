@@ -45,6 +45,7 @@ const OrdersPage = ({ user, allMyOrders, intl: { formatMessage } }) => {
   };
 
   const orderColumns = [
+    { id: 'uniqueCode', messageId: 'app_column_event_unique_code', label: 'Kode Unik' },
     { id: 'eventName', messageId: 'app_column_event_name', label: 'Nama Event' },
     { id: 'totalTickets', messageId: 'app_column_total_tickets', label: 'Total Tickets' },
     { id: 'totalPay', messageId: 'app_column_total_pay', label: 'Total Pay' },
@@ -74,6 +75,7 @@ const OrdersPage = ({ user, allMyOrders, intl: { formatMessage } }) => {
             columns={orderColumns}
             data={allMyOrders.map((order) => ({
               id: order.id,
+              uniqueCode: order.uniqueCode,
               tanggalPembelian: order.tanggalPembelian,
               eventName: order.event.eventName,
               totalTickets: order.totalTickets,

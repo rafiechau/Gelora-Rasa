@@ -16,9 +16,7 @@ const myEventReducer = (state = initialState, action) =>
         draft.allMyEvent = action.allMyEvent;
         break;
       case SET_ALL_MY_ORDER_USER:
-        console.log(action.allMyEventOrderUser, "test")
         draft.allMyEventOrderUser = action.allMyEventOrderUser;
-        console.log(action.allMyEventOrderUser, "aaa")
         break;
       case DELETE_EVENT_SUCCESS:
         draft.deleteSuccess = true;
@@ -29,5 +27,4 @@ const myEventReducer = (state = initialState, action) =>
     }
   });
 
-// ini mungkin bakal diganti jadi yang lain atau dipindahin
 export default myEventReducer;

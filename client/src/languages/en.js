@@ -301,4 +301,7 @@ export default {
   app_livestreaming_not_starting_yet: 'Live streaming has not started yet, please wait.',
 
   app_btn_share: 'Share',
+
+  app_column_event_unique_code: 'Unique Code',
+  app_user_ticket_info: 'Buyer {number}: {name}, Tickets: {ticketCount} Pcs',
 };

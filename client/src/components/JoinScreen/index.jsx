@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { actionVerifyUserForMeeting } from '@pages/Streaming/actions';
-import classes from './style.module.scss';
 import { FormattedMessage } from 'react-intl';
+import classes from './style.module.scss';
 
-const JoinScreen = ({ getMeetingAndToken, setMode, user, token, allMyOrders }) => {
+const JoinScreen = ({ getMeetingAndToken, setMode, user, allMyOrders }) => {
   const dispatch = useDispatch();
   const [meetingId, setMeetingId] = useState(null);
   const isHost = user?.role === 2;
@@ -24,7 +24,7 @@ const JoinScreen = ({ getMeetingAndToken, setMode, user, token, allMyOrders }) =
     }
 
     dispatch(
-      actionVerifyUserForMeeting(selectedEventId, token, () => {
+      actionVerifyUserForMeeting(selectedEventId, () => {
         setMode('VIEWER');
         getMeetingAndToken(meetingId);
       })
@@ -88,7 +88,6 @@ JoinScreen.propTypes = {
   getMeetingAndToken: PropTypes.func.isRequired,
   setMode: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  token: PropTypes.string.isRequired,
   allMyOrders: PropTypes.array,
 };
 

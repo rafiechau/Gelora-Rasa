@@ -208,7 +208,7 @@ exports.handleSendOrderConfirmation = async (orderDetails, user) => {
                   <p><strong>Nama Event:</strong> ${orderDetails.eventName}</p>
                   <p><strong>Jenis Tiket:</strong> ${orderDetails.ticketsTypes}</p>
                   <p><strong>Total Tiket:</strong> ${orderDetails.totalTickets}</p>
-                  <p><strong>Order ID:</strong> ${orderDetails.orderId}</p>
+                  <p><strong>Order ID:</strong> ${orderDetails.uniqueCode}</p>
                   <p><strong>Tanggal Pembelian:</strong> ${orderDetails.purchaseDate}</p>
               </div>
               <p style="font-size: 0.9em; text-align: center;">Regards,<br />Tim Gelorasat</p>

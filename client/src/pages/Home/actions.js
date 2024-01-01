@@ -9,9 +9,9 @@ import {
   SET_PAGINATED_EVENT,
 } from './constants';
 
-export const getAllEvent = (token, page = 1, pageSize = 10) => ({
+export const getAllEvent = (page = 1, pageSize = 10) => ({
   type: GET_ALL_EVENT,
-  payload: { token, page, pageSize },
+  payload: { page, pageSize },
 });
 
 export const setAllEvent = (data) => ({

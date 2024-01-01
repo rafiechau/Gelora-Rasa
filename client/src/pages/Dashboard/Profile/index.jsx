@@ -6,11 +6,11 @@ import { useEffect, useRef, useState } from 'react';
 import { Edit } from '@mui/icons-material';
 import { SideBar } from '@components/sidebar';
 import { Avatar, Box, Skeleton } from '@mui/material';
-import { selectToken, selectUser } from '@containers/Client/selectors';
+import { selectUser } from '@containers/Client/selectors';
 import config from '@config/index';
 import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
 import EditProfileDialog from '@components/EditDialogProfile';
-import { Form, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import BottomBar from '@components/BottomNavigation';
 import { actionDeleteAccount, actionEditPhotoProfile, actionGetProfile, actionResetProfile } from './actions';
 import { selectProfile } from './selectors';
@@ -18,7 +18,7 @@ import { selectProfile } from './selectors';
 import styles from './style.module.scss';
 import classes from '../style.module.scss';
 
-const ProfilePage = ({ user, profile, token }) => {
+const ProfilePage = ({ user, profile }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const fileInput = useRef(null);
@@ -59,7 +59,7 @@ const ProfilePage = ({ user, profile, token }) => {
 
   const handleConfirmDelete = () => {
     dispatch(
-      actionDeleteAccount(token, () => {
+      actionDeleteAccount(() => {
         setTimeout(() => {
           navigate('/login');
         }, 1500);
@@ -168,13 +168,11 @@ const ProfilePage = ({ user, profile, token }) => {
 ProfilePage.propTypes = {
   user: PropTypes.object,
   profile: PropTypes.object,
-  token: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   user: selectUser,
   profile: selectProfile,
-  token: selectToken,
 });
 
 export default connect(mapStateToProps)(ProfilePage);

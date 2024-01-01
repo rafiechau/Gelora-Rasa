@@ -61,15 +61,13 @@ const Navbar = ({ locale }) => {
   const handleLogout = () => {
     dispatch(
       actionLogoutUser(() => {
-        setTimeout(() => {
-          navigate('/login');
-        }, 1500);
+        navigate('/login');
       })
     );
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#151422' }}>
+    <AppBar position="static" sx={{ backgroundColor: '#151422', overflow: 'hidden' }}>
       <Container maxWidth="xl" sx={{ py: 1 }}>
         <Toolbar disableGutters>
           {/* Logo and Text for Desktop View */}
@@ -187,7 +185,7 @@ const Navbar = ({ locale }) => {
             }}
           >
             <IconButton size="large" edge="start" color="inherit" aria-label="logo" onClick={() => navigate('/home')}>
-              <Avatar src={logo} sx={{ width: 40, height: 40 }} />
+              <Avatar src={logo} sx={{ width: 30, height: 30 }} />
             </IconButton>
             <Typography
               variant="h6"
@@ -291,7 +289,7 @@ const Navbar = ({ locale }) => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar src="" alt="Avatar" />
+                <Avatar src="" alt="Avatar" sx={{ width: 40, height: 40 }} />
               </IconButton>
             </Tooltip>
             <Menu

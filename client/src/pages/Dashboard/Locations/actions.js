@@ -6,9 +6,9 @@ import {
   UPDATE_LOCATION_BY_ID,
 } from './constants';
 
-export const actionDeleteLocationById = (locationId, token) => ({
+export const actionDeleteLocationById = (locationId) => ({
   type: DELETE_LOCATION,
-  payload: { locationId, token },
+  payload: { locationId },
 });
 
 export const actionDeleteLocationSuccess = (locationId) => ({
@@ -20,12 +20,12 @@ export const resetDeleteSuccess = () => ({
   type: RESET_DELETE_SUCCESS,
 });
 
-export const actionUpdateLocationById = (LocationId, data, token) => ({
+export const actionUpdateLocationById = (LocationId, data) => ({
   type: UPDATE_LOCATION_BY_ID,
-  payload: { LocationId, data, token },
+  payload: { LocationId, data },
 });
 
-export const actionCreateLocation = (data, token) => ({
+export const actionCreateLocation = (data) => ({
   type: CREATE_LOCATION,
-  payload: { data, token },
+  payload: { data },
 });

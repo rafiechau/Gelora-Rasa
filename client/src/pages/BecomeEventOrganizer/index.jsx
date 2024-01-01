@@ -7,14 +7,14 @@ import { createStructuredSelector } from 'reselect';
 import Tesseract from 'tesseract.js';
 import InputTextField from '@components/InputTextField';
 import { useForm } from 'react-hook-form';
-import { selectToken, selectUser } from '@containers/Client/selectors';
+import { selectUser } from '@containers/Client/selectors';
 import { Box, CircularProgress } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useNavigate } from 'react-router-dom';
 import { createEventOrganizer } from './actions';
 import classes from './style.module.scss';
 
-const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token, user }) => {
+const BecomeEventOrganizerPage = ({ intl: { formatMessage }, user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [image, setImage] = useState(null);
@@ -113,7 +113,7 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token, user }) => {
 
   const onSubmit = (data) => {
     dispatch(
-      createEventOrganizer(data, token, () => {
+      createEventOrganizer(data, () => {
         setTimeout(() => {
           navigate('/login');
         }, 1500);
@@ -344,12 +344,10 @@ const BecomeEventOrganizerPage = ({ intl: { formatMessage }, token, user }) => {
 
 BecomeEventOrganizerPage.propTypes = {
   intl: PropTypes.object,
-  token: PropTypes.string,
   user: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  token: selectToken,
   user: selectUser,
 });
 

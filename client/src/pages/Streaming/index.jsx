@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { MeetingProvider, MeetingConsumer } from '@videosdk.live/react-sdk';
 import { createStructuredSelector } from 'reselect';
-import { selectToken, selectUser } from '@containers/Client/selectors';
+import { selectUser } from '@containers/Client/selectors';
 import { selectAllMyEvents } from '@pages/Dashboard/MyEvents/selectors';
 import { connect, useDispatch } from 'react-redux';
 import { injectIntl } from 'react-intl';
@@ -16,7 +16,7 @@ import { authToken, createMeeting } from './api';
 
 import classes from './style.module.scss';
 
-const LiveStreamingPage = ({ user, allMyEvents, token, allMyOrders }) => {
+const LiveStreamingPage = ({ user, allMyEvents, allMyOrders }) => {
   const dispatch = useDispatch();
   const [meetingId, setMeetingId] = useState(null);
   const [mode, setMode] = useState('CONFERENCE');
@@ -27,15 +27,14 @@ const LiveStreamingPage = ({ user, allMyEvents, token, allMyOrders }) => {
 
   const userName = user?.firstName || 'Guest';
 
-
   useEffect(() => {
-    if (token && user?.role === 2) {
-      dispatch(actionGetAllMyEvent({ token }));
+    if (user?.role === 2) {
+      dispatch(actionGetAllMyEvent());
     }
-    if (token && user?.role === 1) {
-      dispatch(actionGetAllMyOrders({ token }));
+    if (user?.role === 1) {
+      dispatch(actionGetAllMyOrders());
     }
-  }, [dispatch, token]);
+  }, [dispatch, user]);
 
   const onMeetingLeave = () => {
     setMeetingId(null);
@@ -55,26 +54,14 @@ const LiveStreamingPage = ({ user, allMyEvents, token, allMyOrders }) => {
       >
         <MeetingConsumer>
           {() => (
-            <Container
-              meetingId={meetingId}
-              onMeetingLeave={onMeetingLeave}
-              user={user}
-              allMyEvents={allMyEvents}
-              token={token}
-            />
+            <Container meetingId={meetingId} onMeetingLeave={onMeetingLeave} user={user} allMyEvents={allMyEvents} />
           )}
         </MeetingConsumer>
       </MeetingProvider>
     </div>
   ) : (
     <div className={classes.streamingPage}>
-      <JoinScreen
-        getMeetingAndToken={getMeetingAndToken}
-        setMode={setMode}
-        user={user}
-        token={token}
-        allMyOrders={allMyOrders}
-      />
+      <JoinScreen getMeetingAndToken={getMeetingAndToken} setMode={setMode} user={user} allMyOrders={allMyOrders} />
     </div>
   );
 };
@@ -82,14 +69,12 @@ const LiveStreamingPage = ({ user, allMyEvents, token, allMyOrders }) => {
 LiveStreamingPage.propTypes = {
   user: PropTypes.object.isRequired,
   allMyEvents: PropTypes.array,
-  token: PropTypes.string,
   allMyOrders: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
   user: selectUser,
   allMyEvents: selectAllMyEvents,
-  token: selectToken,
   allMyOrders: selectAllMyOrders,
 });
 

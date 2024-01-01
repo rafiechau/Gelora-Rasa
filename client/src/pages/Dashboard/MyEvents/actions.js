@@ -11,9 +11,8 @@ import {
   UPDATE_EVENT_EVENT_ORGANIZER,
 } from './constants';
 
-export const actionGetAllMyEvent = (token) => ({
+export const actionGetAllMyEvent = () => ({
   type: GET_ALL_MY_EVENT,
-  payload: { token },
 });
 
 export const actionSetAllMyEvent = (allMyEvent) => ({
@@ -21,9 +20,9 @@ export const actionSetAllMyEvent = (allMyEvent) => ({
   allMyEvent,
 });
 
-export const actionGetAllEventOrder = (eventId, token) => ({
+export const actionGetAllEventOrder = (eventId) => ({
   type: GET_ALL_MY_ORDER_USER,
-  payload: { eventId, token },
+  payload: { eventId },
 });
 
 export const actionSetAllEventOrder = (allMyEventOrderUser) => ({
@@ -31,24 +30,24 @@ export const actionSetAllEventOrder = (allMyEventOrderUser) => ({
   allMyEventOrderUser,
 });
 
-export const actionCreateEvent = (data, token) => ({
+export const actionCreateEvent = (data) => ({
   type: CREATE_EVENT,
-  payload: { data, token },
+  payload: { data },
 });
 
-export const actionUpdateEventById = (eventId, data, token) => ({
+export const actionUpdateEventById = (eventId, data) => ({
   type: UPDATE_EVENT_BY_ID,
-  payload: { eventId, data, token },
+  payload: { eventId, data },
 });
 
-export const actionUpdateEventEventOrganizer = (eventId, data, token) => ({
+export const actionUpdateEventEventOrganizer = (eventId, data) => ({
   type: UPDATE_EVENT_EVENT_ORGANIZER,
-  payload: { eventId, data, token },
+  payload: { eventId, data },
 });
 
-export const actionDeleteMyEventById = (eventId, token) => ({
+export const actionDeleteMyEventById = (eventId) => ({
   type: DELETE_EVENT,
-  payload: { eventId, token },
+  payload: { eventId },
 });
 
 export const actionDeleteMyEventSuccess = (eventId) => ({

@@ -7,8 +7,7 @@ import { CREATE_MEETING_ID, VERIFY_USER_FOR_MEETING } from './constants';
 function* doCreateMeeting(action) {
   yield put(setLoading(true));
   try {
-    console.log(action);
-    const response = yield call(createMeetingIdAPI, action.payload.data, action.payload.token);
+    const response = yield call(createMeetingIdAPI, action.payload.data);
     toast.success(response.message);
   } catch (error) {
     toast.error(error.response.data.message);
@@ -20,13 +19,14 @@ function* doCreateMeeting(action) {
 function* doVerifyUserForMeeting(action) {
   yield put(setLoading(true));
   try {
-    const response = yield call(verifyUserForMeetingApi, action.payload.eventId, action.payload.token);
+    const response = yield call(verifyUserForMeetingApi, action.payload.eventId);
     if (response.isValid) {
       action.payload.callback();
     } else {
       toast.error('You do not have access to this meeting.');
     }
   } catch (error) {
+    console.log(error)
     toast.error('Failed to verify the user.');
   } finally {
     yield put(setLoading(false));

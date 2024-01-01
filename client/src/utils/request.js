@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import store from '@store';
+import { actionLogoutUser } from '@containers/Client/actions';
 
 axios.interceptors.request.use((reqConfig) => {
   const state = store.getState();
@@ -13,7 +14,13 @@ axios.interceptors.request.use((reqConfig) => {
 
 axios.interceptors.response.use(
   (response) => response,
-  (error) => Promise.reject(error)
+  (error) => {
+    const { dispatch } = store;
+    if (error.response?.status === 401) {
+      dispatch(actionLogoutUser(() => window.location.href('/login')));
+    }
+    return Promise.reject(error);
+  }
 );
 
 const request = (options) => axios(options);

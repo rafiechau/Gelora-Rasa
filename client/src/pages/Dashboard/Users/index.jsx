@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { SideBar } from '@components/sidebar';
 import { Box } from '@mui/material';
 import BottomBar from '@components/BottomNavigation';
-import { selectToken, selectUser } from '@containers/Client/selectors';
+import { selectUser } from '@containers/Client/selectors';
 import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
 import UserDetailsDialog from '@components/UserDetailsDialog';
 import AdminTable from '@components/AdminTable';
@@ -16,7 +16,7 @@ import { actionDeleteUserById, actionGetAllUsers } from './actions';
 
 import classes from '../style.module.scss';
 
-const UsersAdminPage = ({ user, allUsers, token, intl: { formatMessage } }) => {
+const UsersAdminPage = ({ user, allUsers, intl: { formatMessage } }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
@@ -48,8 +48,8 @@ const UsersAdminPage = ({ user, allUsers, token, intl: { formatMessage } }) => {
   }, [user, navigate]);
 
   useEffect(() => {
-    dispatch(actionGetAllUsers(token, currentPage, itemsPerPage));
-  }, [dispatch, token, currentPage, itemsPerPage]);
+    dispatch(actionGetAllUsers(currentPage, itemsPerPage));
+  }, [dispatch, currentPage, itemsPerPage]);
 
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
@@ -74,7 +74,7 @@ const UsersAdminPage = ({ user, allUsers, token, intl: { formatMessage } }) => {
   };
 
   const handleConfirmDelete = () => {
-    dispatch(actionDeleteUserById(currentUserId, token));
+    dispatch(actionDeleteUserById(currentUserId));
     handleCloseConfirmDialog();
   };
 
@@ -187,14 +187,12 @@ const UsersAdminPage = ({ user, allUsers, token, intl: { formatMessage } }) => {
 UsersAdminPage.propTypes = {
   user: PropTypes.object,
   allUsers: PropTypes.array,
-  token: PropTypes.string,
   intl: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   user: selectUser,
   allUsers: selectAllUsers,
-  token: selectToken,
 });
 
 export default injectIntl(connect(mapStateToProps)(UsersAdminPage));

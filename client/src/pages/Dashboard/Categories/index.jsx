@@ -7,7 +7,7 @@ import { SideBar } from '@components/sidebar';
 import { Box, Fab, useMediaQuery } from '@mui/material';
 import BottomBar from '@components/BottomNavigation';
 import AddIcon from '@mui/icons-material/Add';
-import { selectToken, selectUser } from '@containers/Client/selectors';
+import { selectUser } from '@containers/Client/selectors';
 
 import { selectAllCategories } from '@pages/Home/selectors';
 import { actionGetAllCategories } from '@pages/Home/actions';
@@ -19,7 +19,7 @@ import { useNavigate } from 'react-router-dom';
 import classes from '../style.module.scss';
 import { actionDeleteCategoryById } from './actions';
 
-const CategoriesAdminPage = ({ user, categories, token, intl: { formatMessage } }) => {
+const CategoriesAdminPage = ({ user, categories, intl: { formatMessage } }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
@@ -72,7 +72,7 @@ const CategoriesAdminPage = ({ user, categories, token, intl: { formatMessage } 
   };
 
   const handleConfirmDelete = () => {
-    dispatch(actionDeleteCategoryById(currentCategoryId, token));
+    dispatch(actionDeleteCategoryById(currentCategoryId));
     handleCloseConfirmDialog();
   };
 
@@ -190,14 +190,12 @@ const CategoriesAdminPage = ({ user, categories, token, intl: { formatMessage } 
 CategoriesAdminPage.propTypes = {
   user: PropTypes.object,
   categories: PropTypes.array.isRequired,
-  token: PropTypes.string,
   intl: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   user: selectUser,
   categories: selectAllCategories,
-  token: selectToken,
 });
 
 export default injectIntl(connect(mapStateToProps)(CategoriesAdminPage));

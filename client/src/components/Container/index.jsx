@@ -13,7 +13,7 @@ import { actionCreateMeeting } from '@pages/Streaming/actions';
 import { FormattedMessage } from 'react-intl';
 import classes from './style.module.scss';
 
-const Container = ({ meetingId, onMeetingLeave, user, allMyEvents, token }) => {
+const Container = ({ meetingId, onMeetingLeave, user, allMyEvents }) => {
   const dispatch = useDispatch();
   const [selectedEventId, setSelectedEventId] = useState('');
   const [inputMeetingId, setInputMeetingId] = useState('');
@@ -35,7 +35,7 @@ const Container = ({ meetingId, onMeetingLeave, user, allMyEvents, token }) => {
       toast.error('Meeting ID is required');
       return;
     }
-    dispatch(actionCreateMeeting({ eventId: selectedEventId, meetingId: inputMeetingId }, token));
+    dispatch(actionCreateMeeting({ eventId: selectedEventId, meetingId: inputMeetingId }));
   };
 
   const mMeeting = useMeeting({
@@ -151,7 +151,6 @@ Container.propTypes = {
   onMeetingLeave: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   allMyEvents: PropTypes.array.isRequired,
-  token: PropTypes.string.isRequired,
 };
 
 export default Container;

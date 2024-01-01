@@ -9,8 +9,8 @@ import { actionDeleteCategorySuccess } from './actions';
 export function* doDeleteCategory(action) {
   yield put(setLoading(true));
   try {
-    const { categoryId, token } = action.payload;
-    const response = yield call(deleteCategoryByIdApi, categoryId, token);
+    const { categoryId } = action.payload;
+    const response = yield call(deleteCategoryByIdApi, categoryId);
     yield put(actionDeleteCategorySuccess(categoryId));
     yield put(actionGetAllCategories(getCategoriesApi));
     toast.success(response.message);
@@ -24,8 +24,7 @@ export function* doDeleteCategory(action) {
 function* doCreateCategory(action) {
   yield put(setLoading(true));
   try {
-    console.log(action, "saga");
-    const response = yield call(createCategoryApi, action.payload.data, action.payload.token);
+    const response = yield call(createCategoryApi, action.payload.data);
     yield put(actionGetAllCategories(getCategoriesApi));
     toast.success(response.message);
   } catch (error) {
@@ -39,9 +38,8 @@ function* doCreateCategory(action) {
 function* doUpdateCategory(action) {
   yield put(setLoading(true));
   try {
-    console.log(action)
-    const { categoryId, data, token } = action.payload;
-    const response = yield call(updateCategoryByIdApi, categoryId, data, token);
+    const { categoryId, data } = action.payload;
+    const response = yield call(updateCategoryByIdApi, categoryId, data);
     yield put(actionGetAllCategories(getCategoriesApi));
     toast.success(response.message);
   } catch (error) {

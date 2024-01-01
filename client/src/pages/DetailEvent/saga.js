@@ -21,7 +21,7 @@ import { setEventById, setUserOrderStatus } from './actions';
 export function* doGetEventById(action) {
   yield put(setLoading(true));
   try {
-    const response = yield call(getEventByIdApi, action.eventId, action.token);
+    const response = yield call(getEventByIdApi, action.eventId);
     yield put(setEventById(response));
   } catch (error) {
     toast.error(error.response.data.message);
@@ -34,7 +34,9 @@ function* doInitialPayment(action) {
   yield put(setLoading(true));
   try {
     const { cbSuccess } = action;
-    const response = yield call(initialPayementApi, action.eventId, action.token, action.data);
+    console.log(action.data)
+    const response = yield call(initialPayementApi, action.eventId, action.data);
+    console.log(response)
     window.snap.pay(response?.token, {
       onSuccess: (result) => {
         if (cbSuccess)
@@ -60,17 +62,15 @@ function* doInitialPayment(action) {
     });
   } catch (error) {
     console.log(error);
-    yield put(showPopup('Sorry :(', 'Please Login or Register for book venue'));
+    yield put(showPopup());
   }
   yield put(setLoading(false));
 }
 
-function* doCreateOrder({ token, data, cbSuccess }) {
+function* doCreateOrder({ data, cbSuccess }) {
   yield put(setLoading(true));
   try {
-    console.log(cbSuccess);
-    const response = yield call(createOrderEvent, token, data);
-    console.log(response?.data?.status);
+    yield call(createOrderEvent, data);
     toast.success('Order status updated successfully!');
     cbSuccess && cbSuccess();
   } catch (error) {
@@ -82,7 +82,7 @@ function* doCreateOrder({ token, data, cbSuccess }) {
 
 function* doCheckUserOrder(action) {
   try {
-    const response = yield call(hasUserOrderedEventApi, action.eventId, action.token);
+    const response = yield call(hasUserOrderedEventApi, action.eventId);
     yield put(setUserOrderStatus(response.hasOrdered));
   } catch (error) {
     console.log(error);
@@ -90,11 +90,10 @@ function* doCheckUserOrder(action) {
   }
 }
 
-function* doUpdateEventStatusSaga({ eventId, status, token }) {
+function* doUpdateEventStatusSaga({ eventId, status }) {
   yield put(setLoading(true));
-  console.log(eventId)
   try {
-    const response = yield call(updateStatusEventByIdApi, eventId, status, token);
+    const response = yield call(updateStatusEventByIdApi, eventId, status);
     yield put(setEventById(response.data, eventId));
     toast.success(response.message);
   } catch (error) {

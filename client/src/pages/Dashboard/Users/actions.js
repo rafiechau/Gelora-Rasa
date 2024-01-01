@@ -6,9 +6,9 @@ import {
   SET_ALL_USERS,
 } from './constants';
 
-export const actionGetAllUsers = (token, page = 1, pageSize = 10) => ({
+export const actionGetAllUsers = (page = 1, pageSize = 10) => ({
   type: GET_ALL_USERS,
-  payload: { token, page, pageSize },
+  payload: { page, pageSize },
 });
 
 export const actionSetAllUsers = (data) => ({
@@ -16,9 +16,9 @@ export const actionSetAllUsers = (data) => ({
   payload: data,
 });
 
-export const actionDeleteUserById = (userId, token) => ({
+export const actionDeleteUserById = (userId) => ({
   type: DELETE_USER_BY_ADMIN,
-  payload: { userId, token },
+  payload: { userId },
 });
 
 export const actionDeleteUserSuccess = (userId) => ({

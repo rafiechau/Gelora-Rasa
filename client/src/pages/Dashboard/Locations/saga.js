@@ -8,8 +8,8 @@ import { actionDeleteLocationSuccess } from './actions';
 
 export function* doDeleteLocation(action) {
   try {
-    const { locationId, token } = action.payload;
-    const response = yield call(deleteLocationByIdApi, locationId, token);
+    const { locationId } = action.payload;
+    const response = yield call(deleteLocationByIdApi, locationId);
     yield put(actionDeleteLocationSuccess(locationId));
     yield put(actionGetAllLocation(getLocationApi));
     toast.success(response.message);
@@ -22,12 +22,7 @@ export function* doDeleteLocation(action) {
 function* doUpdateLocation(action) {
   yield put(setLoading(true));
   try {
-    const response = yield call(
-      updateLocationByIdApi,
-      action.payload.LocationId,
-      action.payload.data,
-      action.payload.token
-    );
+    const response = yield call(updateLocationByIdApi, action.payload.LocationId, action.payload.data);
     yield put(actionGetAllLocation(getLocationApi));
     toast.success(response.message);
   } catch (error) {
@@ -41,7 +36,7 @@ function* doUpdateLocation(action) {
 function* doCreateLocation(action) {
   yield put(setLoading(true));
   try {
-    const response = yield call(createLocationApi, action.payload.data, action.payload.token);
+    const response = yield call(createLocationApi, action.payload.data);
     yield put(actionGetAllLocation(getLocationApi));
     toast.success(response.message);
   } catch (error) {

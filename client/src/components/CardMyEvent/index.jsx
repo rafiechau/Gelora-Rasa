@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { selectToken, selectUser } from '@containers/Client/selectors';
+import { selectToken } from '@containers/Client/selectors';
 import { Box, Card, CardActions, CardContent, IconButton, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -8,7 +8,7 @@ import AccessTimeFilledTwoToneIcon from '@mui/icons-material/AccessTimeFilledTwo
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import CalendarMonthTwoToneIcon from '@mui/icons-material/CalendarMonthTwoTone';
 import ShareIcon from '@mui/icons-material/Share';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
@@ -17,7 +17,7 @@ import toast from 'react-hot-toast';
 import { actionDeleteMyEventById, actionGetAllEventOrder } from '@pages/Dashboard/MyEvents/actions';
 import DeleteConfirmationDialog from '@components/DeleteConfirmationDialog';
 import EventDialog from '@components/EventDialog';
-import UserDetailsDialog from '@components/UserDetailsDialog';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { selectAllMyOrderEvents } from '@pages/Dashboard/MyEvents/selectors';
 import DetailUserOrder from '@components/DetailUserOrder';
 
@@ -27,8 +27,6 @@ const CardMyEvent = ({ myEvent, token, orderUser }) => {
   const [openEventOrganizerDialog, setOpenEventOrganizerDialog] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
-
-  console.log(orderUser, "<<aaa")
 
   const handleCloseEventOrganizerDialog = () => {
     setOpenEventOrganizerDialog(false);
@@ -88,27 +86,6 @@ const CardMyEvent = ({ myEvent, token, orderUser }) => {
     day: 'numeric',
   }).format(new Date(myEvent.date));
 
-  const handleShareClick = async () => {
-    const url = `${window.location.origin}/detail/${myEvent.id}`;
-    const text = `Check out this event: ${myEvent.eventName}`;
-
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title: myEvent.eventName,
-          text,
-          url,
-        });
-        toast.success('Event shared successfully!');
-      } else {
-        await navigator.clipboard.writeText(url);
-        toast.success('Link copied to clipboard!');
-      }
-    } catch (err) {
-      toast.error('Failed to share event.');
-    }
-  };
-
   return (
     <Card
       sx={{
@@ -120,6 +97,8 @@ const CardMyEvent = ({ myEvent, token, orderUser }) => {
         '&:hover': {
           boxShadow: 6,
         },
+        width: '90%',
+        overflow: 'hidden',
       }}
       data-testid="card-my-event"
     >
@@ -164,12 +143,11 @@ const CardMyEvent = ({ myEvent, token, orderUser }) => {
       <CardActions sx={{ display: 'flex', justifyContent: 'space-between', bgcolor: 'rgba(255, 255, 255, 0.08)' }}>
         <Box sx={{ paddingLeft: 3, display: 'flex', gap: 3 }}>
           <IconButton
-            aria-label="share"
-            sx={{ color: 'yellow', opacity: 0.7, '&:hover': { opacity: 1 } }}
-            onClick={handleShareClick}
-            data-testid="share-button"
+            aria-label="delete"
+            sx={{ color: 'black', opacity: 0.7, '&:hover': { opacity: 1 } }}
+            onClick={() => handleViewDetails(myEvent?.id)}
           >
-            <ShareIcon />
+            <VisibilityIcon />
           </IconButton>
           <IconButton
             aria-label="edit"
@@ -184,13 +162,6 @@ const CardMyEvent = ({ myEvent, token, orderUser }) => {
             onClick={handleDelete}
           >
             <DeleteIcon />
-          </IconButton>
-          <IconButton
-            aria-label="delete"
-            sx={{ color: 'red', opacity: 0.7, '&:hover': { opacity: 1 } }}
-            onClick={(eventId) => handleViewDetails(myEvent?.id)}
-          >
-            Lihat Detail
           </IconButton>
         </Box>
         <Typography

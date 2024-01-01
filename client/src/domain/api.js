@@ -16,7 +16,7 @@ const urls = {
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
   const defaultHeader = {
-    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'Content-Type': 'application/json; charset=UTF-8',
   };
 
   const headers = merge(defaultHeader, header);
@@ -43,14 +43,12 @@ export const apiHandleLogin = (data) => callAPI(`${urls.auth}/login`, 'POST', {}
 export const apiHandleSendForgotPassword = (data) => callAPI(`${urls.auth}/forgot-password`, 'POST', {}, {}, data);
 export const apiHandleResetForgotPassword = (data) => callAPI(`${urls.auth}/reset-password`, 'PUT', {}, {}, data);
 
-export const getAllUsersApi = (token, page, pageSize) =>
-  callAPI(`${urls.auth}/all-users?page=${page}&pageSize=${pageSize}`, 'GET', { Authorization: `Bearer ${token}` });
+export const getAllUsersApi = (page, pageSize) =>
+  callAPI(`${urls.auth}/all-users?page=${page}&pageSize=${pageSize}`, 'GET');
 
-export const deleteUserByAdminApi = (userId, token) =>
-  callAPI(`${urls.auth}/delete-user-by-admin/${userId}`, 'DELETE', { Authorization: `Bearer ${token}` });
+export const deleteUserByAdminApi = (userId) => callAPI(`${urls.auth}/delete-user-by-admin/${userId}`, 'DELETE');
 
-export const deleteAccountApi = (token) =>
-  callAPI(`${urls.auth}/delete-account`, 'DELETE', { Authorization: `Bearer ${token}` });
+export const deleteAccountApi = () => callAPI(`${urls.auth}/delete-account`, 'DELETE');
 
 export const apiHandleGetProfile = () => callAPI(`${urls.auth}/profile`, 'GET');
 export const apiHandleEditPhotoProfile = (data) =>
@@ -61,67 +59,54 @@ export const apiHandleEditProfile = (data) => callAPI(`${urls.auth}/edit/profile
 export const getEventApi = (page, pageSize) =>
   callAPI(`${urls.events}/?page=${page}&pageSize=${pageSize}`, 'GET', {}, {});
 
-export const deleteEventByIdApi = (eventId, token) =>
-  callAPI(`${urls.events}/delete/${eventId}`, 'DELETE', { Authorization: `Bearer ${token}` });
+export const deleteEventByIdApi = (eventId) => callAPI(`${urls.events}/delete/${eventId}`, 'DELETE');
 
-export const createEventApi = (data, token) =>
-  callAPI(`${urls.events}/create`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
-export const updateEventByIdApi = (eventId, data, token) =>
-  callAPI(`${urls.events}/update/${eventId}`, 'PUT', { Authorization: `Bearer ${token}` }, {}, data);
+export const createEventApi = (data) =>
+  callAPI(`${urls.events}/create`, 'POST', { 'Content-Type': 'multipart/form-data' }, {}, data);
+export const updateEventByIdApi = (eventId, data) =>
+  callAPI(`${urls.events}/update/${eventId}`, 'PUT', { 'Content-Type': 'multipart/form-data' }, {}, data);
 
-export const updateStatusEventByIdApi = (eventId, data, token) =>
-  callAPI(`${urls.events}/update-status/${eventId}`, 'PUT', { Authorization: `Bearer ${token}` }, {}, data);
+export const updateStatusEventByIdApi = (eventId, data) =>
+  callAPI(`${urls.events}/update-status/${eventId}`, 'PUT', { 'Content-Type': 'multipart/form-data' }, {}, data);
 
-export const getEventByIdApi = (eventId, token) =>
-  callAPI(`${urls.events}/detail/${eventId}`, 'GET', { Authorization: `Bearer ${token}` });
+export const getEventByIdApi = (eventId) => callAPI(`${urls.events}/detail/${eventId}`, 'GET');
 
-export const getMyEventApi = (token) => callAPI(`${urls.events}/myEvent`, 'GET', { Authorization: `Bearer ${token} ` });
+export const getMyEventApi = () => callAPI(`${urls.events}/myEvent`, 'GET', {});
 
 // Order
 
-export const initialPayementApi = (eventId, token, data) =>
-  callAPI(`${urls.orders}/initialPayment/${eventId}`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
+export const initialPayementApi = (eventId, data) =>
+  callAPI(`${urls.orders}/initialPayment/${eventId}`, 'POST', {}, {}, data);
 
-export const createOrderEvent = (token, data) =>
-  callAPI(`${urls.orders}/create`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
+export const createOrderEvent = (data) => callAPI(`${urls.orders}/create`, 'POST', {}, {}, data);
 
-export const hasUserOrderedEventApi = (eventId, token) =>
-  callAPI(`${urls.orders}/check-order/${eventId}`, 'GET', { Authorization: `Bearer ${token}` });
+export const hasUserOrderedEventApi = (eventId) => callAPI(`${urls.orders}/check-order/${eventId}`, 'GET');
 
-export const getAllUserOrderEvent = (eventId, token) =>
-  callAPI(`${urls.orders}/get-order-user/${eventId}`, 'GET', { Authorization: `Bearer ${token}` });
+export const getAllUserOrderEvent = (eventId) => callAPI(`${urls.orders}/get-order-user/${eventId}`, 'GET');
 
-export const getMyOrdersApi = (token) =>
-  callAPI(`${urls.orders}/getMyOrder`, 'GET', { Authorization: `Bearer ${token}` });
+export const getMyOrdersApi = () => callAPI(`${urls.orders}/getMyOrder`, 'GET');
 
-export const deleteMyOrderApi = (orderId, token) =>
-  callAPI(`${urls.orders}/delete/${orderId}`, 'DELETE', { Authorization: `Bearer ${token}` });
+export const deleteMyOrderApi = (orderId) => callAPI(`${urls.orders}/delete/${orderId}`, 'DELETE');
 
 // event organizer
-export const createEventOrganizerApi = (data, token) =>
-  callAPI(`${urls.eventOrganizer}/create`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
+export const createEventOrganizerApi = (data) => callAPI(`${urls.eventOrganizer}/create`, 'POST', {}, {}, data);
 
 // location
-export const getLocationApi = (token) => callAPI(`${urls.location}/`, 'GET', { Authorization: `Bearer ${token}` });
-export const createLocationApi = (data, token) =>
-  callAPI(`${urls.location}/create`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
-export const updateLocationByIdApi = (locationId, data, token) =>
-  callAPI(`${urls.location}/update/${locationId}`, 'PUT', { Authorization: `Bearer ${token}` }, {}, data);
-export const deleteLocationByIdApi = (locationId, token) =>
-  callAPI(`${urls.location}/delete/${locationId}`, 'DELETE', { Authorization: `Bearer ${token}` });
+export const getLocationApi = () => callAPI(`${urls.location}/`, 'GET');
+export const createLocationApi = (data) => callAPI(`${urls.location}/create`, 'POST', {}, {}, data);
+export const updateLocationByIdApi = (locationId, data) =>
+  callAPI(`${urls.location}/update/${locationId}`, 'PUT', {}, {}, data);
+export const deleteLocationByIdApi = (locationId) => callAPI(`${urls.location}/delete/${locationId}`, 'DELETE');
 
 // categories
-export const getCategoriesApi = (token) => callAPI(`${urls.categories}/`, 'GET', { Authorization: `Bearer ${token}` });
-export const createCategoryApi = (data, token) =>
-  callAPI(`${urls.categories}/create`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
-export const updateCategoryByIdApi = (categoryId, data, token) =>
-  callAPI(`${urls.categories}/update/${categoryId}`, 'PUT', { Authorization: `Bearer ${token}` }, {}, data);
-export const deleteCategoryByIdApi = (categoryId, token) =>
-  callAPI(`${urls.categories}/delete/${categoryId}`, 'DELETE', { Authorization: `Bearer ${token}` });
+export const getCategoriesApi = () => callAPI(`${urls.categories}/`, 'GET');
+export const createCategoryApi = (data) => callAPI(`${urls.categories}/create`, 'POST', {}, {}, data);
+export const updateCategoryByIdApi = (categoryId, data) =>
+  callAPI(`${urls.categories}/update/${categoryId}`, 'PUT', {}, {}, data);
+export const deleteCategoryByIdApi = (categoryId) => callAPI(`${urls.categories}/delete/${categoryId}`, 'DELETE');
 
 // streaming
-export const createMeetingIdAPI = (data, token) =>
-  callAPI(`${urls.streaming}/send-meeting`, 'POST', { Authorization: `Bearer ${token}` }, {}, data);
+export const createMeetingIdAPI = (data) => callAPI(`${urls.streaming}/send-meeting`, 'POST', {}, {}, data);
 
-export const verifyUserForMeetingApi = (eventId, token) =>
-  callAPI(`${urls.streaming}/verify-user-for-meeting`, 'POST', { Authorization: `Bearer ${token}` }, {}, { eventId });
+export const verifyUserForMeetingApi = (eventId) =>
+  callAPI(`${urls.streaming}/verify-user-for-meeting`, 'POST', {}, {}, { eventId });

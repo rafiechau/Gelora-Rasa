@@ -300,4 +300,7 @@ export default {
   app_text_mic: 'Mic',
   app_viewer_list: 'Daftar Penonton',
   app_livestreaming_not_starting_yet: 'Live streaming belum dimulai, silahkan menunggu',
+
+  app_column_event_unique_code: 'Kode Unik',
+  app_user_ticket_info: 'Pembeli {number}: {name}, Jumlah Tiket: {ticketCount} Buah',
 };
