@@ -1,5 +1,4 @@
-export const authToken =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI5YzQ2NjllMy04Mzg3LTQwN2YtOGM2NC00YjcyMzIyZTZlMTMiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTcwMzQxNTgyMCwiZXhwIjoxNzA2MDA3ODIwfQ.F32kDYYkT_GW3GEyMV-CR_XeLXd9f6My44bHhTF9vTI';
+export const authToken = 'isi sendiri di library vidio sdk';
 
 // API call to create meeting
 export const createMeeting = async ({ token }) => {
